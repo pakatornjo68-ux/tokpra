@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0E7490">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TokPra">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>บ่อตกปลายิ่งเจริญ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF4F3;--card:#fff;--primary:#0E7490;--primary-dark:#155E75;--text:#0F172A;--muted:#5B6B7C;
+  --border:#D3E2DF;--income:#15803D;--expense:#B91C1C;--fish:#B45309;--maint:#7C3AED;--danger:#B91C1C;--ai:#4F46E5;
+  --field:#F8FBFA;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:"Noto Sans Thai","Sarabun",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5;
+  -webkit-text-size-adjust:100%}
+button,input,textarea,select{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:10;background:var(--primary);color:#fff;display:flex;align-items:center;gap:6px;
+  padding:calc(env(safe-area-inset-top) + 8px) 10px 8px;min-height:56px}
+header h1{font-size:18px;margin:0;flex:1;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header button{background:transparent;border:0;color:#fff;font-size:15px;padding:8px 10px;border-radius:10px;cursor:pointer}
+header #back{font-size:28px;line-height:1;padding:2px 12px 6px}
+header button:active{background:rgba(255,255,255,.15)}
+main{max-width:560px;margin:0 auto;padding:16px 16px calc(env(safe-area-inset-bottom) + 40px)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px}
+.title{font-size:19px;font-weight:700;margin:18px 2px 8px}
+.muted{color:var(--muted)}.small{font-size:13px}.tiny{font-size:12px}
+.bold{font-weight:700}
+.field{display:block;margin-top:10px}
+.field .lbl{display:block;color:var(--muted);font-size:14px;margin-bottom:4px}
+.input,textarea.input,select.input{width:100%;background:var(--field);border:1px solid var(--border);border-radius:10px;padding:11px 12px;
+  font-size:17px;outline:none;-webkit-appearance:none;appearance:none;min-height:46px}
+textarea.input{min-height:70px;resize:vertical}
+.input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(14,116,144,.15)}
+.input.bad{border-color:var(--danger);box-shadow:0 0 0 3px rgba(185,28,28,.12)}
+.input:disabled{opacity:.75}
+.err{color:var(--danger);font-size:13px;min-height:0;margin-top:3px}
+.err:empty{display:none}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;color:#fff;background:var(--primary);
+  min-height:50px;margin-top:16px;cursor:pointer}
+.btn:active{filter:brightness(.92)}
+.btn:disabled{opacity:.55}
+.btn.outline{background:#fff;border:1px solid currentColor;font-weight:600;color:var(--primary)}
+.btn.small{display:inline-block;width:auto;min-height:40px;padding:8px 14px;margin:0;font-size:15px}
+.row{display:flex;gap:10px;align-items:center}
+.row>.grow{flex:1;min-width:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.three .btn{margin-top:0;min-height:44px;font-size:15px}
+.badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 8px;border-radius:8px;margin-right:6px}
+.tile{display:flex;align-items:center;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 14px 14px 12px;
+  margin-bottom:12px;cursor:pointer;text-decoration:none;color:inherit}
+.tile:active{background:#f4f8f7}
+.tile .bar{width:6px;height:44px;border-radius:4px;margin-right:14px;flex:none}
+.tile .t{font-size:17px;font-weight:700}
+.tile .s{font-size:13px;color:var(--muted)}
+.tile .arrow{font-size:26px;color:var(--muted);margin-left:auto;padding-left:8px}
+.check{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:15px}
+.check input{width:22px;height:22px;accent-color:var(--primary);flex:none}
+.line{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.line .l{color:var(--muted)}
+.line .r{text-align:right;white-space:nowrap}
+.two>*,.three>*{min-width:0}
+input[type=date].input{min-width:0;width:100%;display:block;font-size:16px;padding-right:8px}
+.divider{height:1px;background:var(--border);margin:6px 0}
+.total{background:#FFF7ED;border-radius:10px;padding:12px;margin-top:14px}
+.total .v{font-size:22px;font-weight:700;color:var(--fish)}
+.item{cursor:pointer}
+.item:active{background:#f4f8f7}
+.strike{text-decoration:line-through}
+.note{font-size:12px;color:var(--fish);margin-top:8px}
+#busy{position:fixed;inset:0;background:rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;z-index:50}
+#busy .box{background:#fff;border-radius:14px;padding:18px 22px;display:flex;gap:14px;align-items:center;max-width:80%}
+.spin{width:26px;height:26px;border:3px solid #cfe3e6;border-top-color:var(--primary);border-radius:50%;animation:sp 0.9s linear infinite;flex:none}
+@keyframes sp{to{transform:rotate(360deg)}}
+#modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:60;padding:20px}
+#modal .box{background:#fff;border-radius:16px;padding:18px;width:100%;max-width:420px;max-height:85vh;overflow:auto}
+#modal h3{margin:0 0 8px;font-size:18px}
+#modal .msg{white-space:pre-wrap}
+#modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+#modal .actions .btn{width:auto;margin:0;min-height:44px;padding:8px 16px}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 24px);transform:translateX(-50%);background:#0F172A;color:#fff;
+  padding:10px 16px;border-radius:12px;font-size:15px;z-index:70;max-width:88%;text-align:center;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.show{opacity:1}
+.hidden{display:none!important}
+.logo{display:block;margin:28px auto 10px;width:88px;height:88px}
+.center{text-align:center}
+/* chat */
+.chatwrap{display:flex;flex-direction:column}
+.msgs{flex:1;padding-bottom:90px}
+.bubble{max-width:84%;padding:9px 12px;border-radius:16px;margin:10px 0;white-space:pre-wrap;word-wrap:break-word;user-select:text;-webkit-user-select:text}
+.bubble.me{margin-left:auto;background:var(--ai);color:#fff}
+.bubble.bot{background:#fff;border:1px solid var(--border)}
+.bubble.bad{background:#FEF2F2;color:var(--danger);border:1px solid #f5c2c2}
+.chatbar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--border);
+  padding:8px 12px calc(env(safe-area-inset-bottom) + 8px);z-index:20}
+.chatbar .inner{max-width:560px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+.chatbar textarea{flex:1;min-height:46px;max-height:120px;resize:none}
+.chatbar .btn{width:auto;margin:0;background:var(--ai);min-width:70px}
+.sample{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--ai);color:var(--ai);border-radius:12px;
+  padding:10px 14px;margin-top:8px;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+<header id="header">
+  <button id="back" aria-label="ย้อนกลับ" class="hidden">‹</button>
+  <h1 id="title">บ่อตกปลายิ่งเจริญ</h1>
+  <span id="headerAction"></span>
+</header>
+<main id="app"></main>
+<div id="busy" class="hidden"><div class="box"><div class="spin"></div><div id="busyMsg">กำลังโหลด...</div></div></div>
+<div id="modal" class="hidden"></div>
+<div id="toast"></div>
+
+<script>
+'use strict';
+/* =====================================================================
+   บ่อตกปลายิ่งเจริญ: web version of the cost and profit app.
+   Same Firebase project, data model and rules as the Android app.
+   Firebase Auth and Cloud Firestore are used through their REST APIs;
+   every Firestore call carries the user's ID token so Security Rules apply.
+   ===================================================================== */
+
+const CONFIG = {
+  projectId: 'tokpra-d7af6',
+  apiKey: 'AIzaSyDOvLTt5QX-k13XF2OJhSnLZesy3uQ2e8I',
+  geminiModels: ['gemini-3.8-flash', 'gemini-3.5-flash-lite'],
+};
+const URLS = {
+  idt: 'https://identitytoolkit.googleapis.com/v1/accounts:',
+  token: 'https://securetoken.googleapis.com/v1/token?key=',
+  fs: () => 'https://firestore.googleapis.com/v1/projects/' + CONFIG.projectId + '/databases/(default)/documents',
+  gemini: 'https://generativelanguage.googleapis.com/v1beta/models/',
+};
+
+/* ---------- errors (codes from section 3.2.8.1) ---------- */
+const E = {
+  VALIDATION: 'VALIDATION_ERROR', UNAUTH: 'UNAUTHENTICATED', DENIED: 'PERMISSION_DENIED',
+  CONFIG_MISSING: 'CONFIG_MISSING', CONFIG_CONFLICT: 'CONFIG_CONFLICT', SAVE_FAILED: 'SAVE_FAILED',
+  NETWORK: 'NETWORK_ERROR', NOT_FOUND: 'NOT_FOUND', CONFLICT: 'CONFLICT', QUOTA: 'QUOTA_EXCEEDED', AI: 'AI_ERROR',
+};
+class AppError extends Error {
+  constructor(code, message, field) { super(message); this.code = code; this.field = field || null; }
+  display() { return this.message + '\n(' + this.code + ')'; }
+}
+const invalid = (field, msg) => new AppError(E.VALIDATION, msg, field);
+function toAppError(e) {
+  if (e instanceof AppError) return e;
+  return new AppError('ERROR', 'เกิดข้อผิดพลาดที่ไม่คาดคิด: ' + (e && e.message ? e.message : String(e)));
+}
+
+/* ---------- money: whole satang; weight: grams (kg x 1000); rate: hundredths of a percent ---------- */
+const Money = {
+  _parse(raw, field, label, maxDecimals) {
+    const s = String(raw == null ? '' : raw).trim().replace(/,/g, '');
+    if (!s) throw invalid(field, 'กรุณากรอก' + label);
+    if (!/^[+-]?(\d+\.?\d*|\.\d+)$/.test(s)) throw invalid(field, label + 'ต้องเป็นตัวเลข');
+    const neg = s.startsWith('-');
+    const body = s.replace(/^[+-]/, '');
+    const [ip, fp = ''] = body.split('.');
+    if (fp.length > maxDecimals) return { neg, tooMany: true };
+    const units = Number((ip || '0') + fp.padEnd(maxDecimals, '0'));
+    return { neg: neg && units !== 0, units, tooMany: false };
+  },
+  /** baht text to satang, 0 allowed */
+  parseBaht(raw, field, label) {
+    const p = Money._parse(raw, field, label, 2);
+    if (p.neg) throw invalid(field, label + 'ต้องไม่ติดลบ');
+    if (p.tooMany) throw invalid(field, label + 'มีทศนิยมได้ไม่เกิน 2 ตำแหน่ง');
+    if (p.units > 100000000000) throw invalid(field, label + 'เกินจำนวนที่ระบบรองรับ');
+    return p.units;
+  },
+  /** kg text to grams; must be > 0, at most 3 decimals */
+  parseWeight(raw, field) {
+    const p = Money._parse(raw, field, 'น้ำหนัก', 3);
+    if (p.tooMany) throw invalid(field, 'น้ำหนักมีทศนิยมได้ไม่เกิน 3 ตำแหน่ง');
+    if (p.neg || p.units <= 0) throw invalid(field, 'น้ำหนักต้องมากกว่า 0');
+    if (p.units > 1000000000) throw invalid(field, 'น้ำหนักเกินจำนวนที่ระบบรองรับ');
+    return p.units;
+  },
+  /** percent text to hundredths; 0 to 100, at most 2 decimals */
+  parseRate(raw, field) {
+    const p = Money._parse(raw, field, 'อัตราภาษี', 2);
+    if (p.tooMany) throw invalid(field, 'อัตราภาษีมีทศนิยมได้ไม่เกิน 2 ตำแหน่ง');
+    if (p.neg || p.units > 10000) throw invalid(field, 'อัตราภาษีต้องอยู่ระหว่าง 0 ถึง 100');
+    return p.units;
+  },
+  fmt(satang) {
+    const neg = satang < 0; const a = Math.abs(satang);
+    const baht = Math.floor(a / 100), st = a % 100;
+    return (neg ? '-' : '') + baht.toLocaleString('en-US') + '.' + String(st).padStart(2, '0');
+  },
+  baht(satang) { return Money.fmt(satang) + ' บาท'; },
+  toInput(satang) { return (Math.floor(satang / 100)) + '.' + String(satang % 100).padStart(2, '0'); },
+  weight(grams) {
+    const kg = Math.floor(grams / 1000), g = grams % 1000;
+    return g ? kg + '.' + String(g).padStart(3, '0').replace(/0+$/, '') : String(kg);
+  },
+  rate(centi) {
+    const w = Math.floor(centi / 100), f = centi % 100;
+    return f ? w + '.' + String(f).padStart(2, '0').replace(/0+$/, '') : String(w);
+  },
+};
+
+/* ---------- CalculationService (table 3.5), half-up rounding ---------- */
+const Calc = {
+  fishAmount(grams, priceSatang) {
+    return Number((BigInt(grams) * BigInt(priceSatang) + 500n) / 1000n);
+  },
+  estimateTax(profit, rateCenti) {
+    if (profit <= 0) return 0;
+    return Number((BigInt(profit) * BigInt(rateCenti) + 5000n) / 10000n);
+  },
+  calculate(revenues, fishCosts, expenses, rateCenti) {
+    const t = { totalRevenue: 0, totalFishCost: 0, totalEvent: 0, totalMaintenance: 0 };
+    for (const r of revenues) if (r.status === 'ACTIVE') t.totalRevenue += r.amount;
+    for (const c of fishCosts) t.totalFishCost += c.amount;
+    for (const e of expenses) { if (e.type === 'MAINTENANCE') t.totalMaintenance += e.amount; else t.totalEvent += e.amount; }
+    t.totalExpense = t.totalEvent + t.totalMaintenance;
+    t.totalCost = t.totalFishCost + t.totalExpense;
+    t.preliminaryProfit = t.totalRevenue - t.totalCost;
+    t.estimatedTax = Calc.estimateTax(t.preliminaryProfit, rateCenti);
+    return t;
+  },
+};
+
+/* ---------- dates: Asia/Bangkok (UTC+7, no daylight saving) ---------- */
+const TZ = 7 * 3600 * 1000;
+const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const D = {
+  dayStart(y, m0, d) { return Date.UTC(y, m0, d) - TZ; },
+  ymd(ms) { const d = new Date(ms + TZ); return [d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()]; },
+  dayStartOf(ms) { const [y, m, d] = D.ymd(ms); return D.dayStart(y, m, d); },
+  today() { return D.dayStartOf(Date.now()); },
+  addDays(ms, n) { const [y, m, d] = D.ymd(ms); return D.dayStart(y, m, d + n); },
+  monthStart(ms) { const [y, m] = D.ymd(ms); return D.dayStart(y, m, 1); },
+  monthEnd(ms) { const [y, m] = D.ymd(ms); return D.dayStart(y, m + 1, 0); },
+  yearStart(ms) { const [y] = D.ymd(ms); return D.dayStart(y, 0, 1); },
+  yearEnd(ms) { const [y] = D.ymd(ms); return D.dayStart(y, 11, 31); },
+  rangeEnd(endDay) { return D.addDays(endDay, 1); },
+  toInput(ms) { const [y, m, d] = D.ymd(ms); return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0'); },
+  fromInput(s) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? D.dayStart(+m[1], +m[2] - 1, +m[3]) : 0; },
+  fmt(ms) { if (!ms) return '-'; const [y, m, d] = D.ymd(ms); return d + ' ' + MONTHS[m] + ' ' + (y + 543); },
+  fmtTime(ms) {
+    if (!ms) return '-';
+    const t = new Date(ms + TZ);
+    return D.fmt(ms) + ' ' + String(t.getUTCHours()).padStart(2, '0') + ':' + String(t.getUTCMinutes()).padStart(2, '0') + ' น.';
+  },
+  rfc(ms) { return new Date(ms).toISOString(); },
+  parse(s) {
+    if (!s) return 0;
+    const m = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d+))?Z$/.exec(s);
+    if (!m) return Date.parse(s) || 0;
+    return Date.parse(m[1] + '.' + ((m[2] || '') + '000').slice(0, 3) + 'Z');
+  },
+};
+
+/* ---------- Firestore values ---------- */
+const V = {
+  str: s => ({ stringValue: s == null ? '' : String(s) }),
+  int: n => ({ integerValue: String(n) }),
+  dbl: n => ({ doubleValue: n }),
+  bool: b => ({ booleanValue: !!b }),
+  ts: ms => ({ timestampValue: D.rfc(ms) }),
+  tsRaw: s => ({ timestampValue: s }),
+  nul: () => ({ nullValue: null }),
+  map: f => ({ mapValue: { fields: f } }),
+};
+const G = {
+  f: doc => (doc && doc.fields) || {},
+  id: doc => { const n = (doc && doc.name) || ''; return n.slice(n.lastIndexOf('/') + 1); },
+  str(f, k) { const v = f[k]; return v && 'stringValue' in v ? v.stringValue : null; },
+  num(f, k) {
+    const v = f[k]; if (!v) return 0;
+    if ('integerValue' in v) return Number(v.integerValue);
+    if ('doubleValue' in v) return Number(v.doubleValue);
+    return 0;
+  },
+  bool(f, k) { const v = f[k]; return !!(v && v.booleanValue); },
+  tsRaw(f, k) { const v = f[k]; return v && 'timestampValue' in v ? v.timestampValue : null; },
+  ts(f, k) { return D.parse(G.tsRaw(f, k)); },
+  boolMap(f, k) {
+    const out = {}; const v = f[k];
+    const inner = v && v.mapValue && v.mapValue.fields;
+    if (inner) for (const key of Object.keys(inner)) out[key] = !!inner[key].booleanValue;
+    return out;
+  },
+};
+
+/* ---------- session ---------- */
+const SESSION_KEY = 'tokpra.session';
+const Session = {
+  uid: null, email: null, idToken: null, refreshToken: null, expiresAt: 0, profile: null,
+  ok() { return !!(this.uid && this.idToken && this.profile && this.profile.status); },
+  save() { try { localStorage.setItem(SESSION_KEY, JSON.stringify({ uid: this.uid, email: this.email, refresh: this.refreshToken })); } catch (e) { /* private mode */ } },
+  load() {
+    try {
+      const s = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+      if (!s || !s.refresh || !s.uid) return false;
+      this.uid = s.uid; this.email = s.email; this.refreshToken = s.refresh; this.idToken = null; this.expiresAt = 0;
+      return true;
+    } catch (e) { return false; }
+  },
+  clear() {
+    this.uid = this.email = this.idToken = this.refreshToken = null; this.expiresAt = 0; this.profile = null;
+    try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* ignore */ }
+  },
+};
+
+/* ---------- HTTP ---------- */
+async function http(method, url, opts) {
+  opts = opts || {};
+  const init = { method, headers: Object.assign({}, opts.headers || {}) };
+  if (opts.json !== undefined) { init.headers['Content-Type'] = 'application/json'; init.body = JSON.stringify(opts.json); }
+  if (opts.form !== undefined) { init.headers['Content-Type'] = 'application/x-www-form-urlencoded'; init.body = opts.form; }
+  let res;
+  try { res = await fetch(url, init); } catch (e) {
+    throw new AppError(E.NETWORK, opts.netMsg || 'เชื่อมต่อไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
+  }
+  const text = await res.text();
+  let data = null; try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
+  return { status: res.status, ok: res.ok, data, text };
+}
+
+/* ---------- AuthService (Firebase Auth REST) ---------- */
+const Auth = {
+  async _password(op, email, password) {
+    const r = await http('POST', URLS.idt + op + '?key=' + CONFIG.apiKey, {
+      json: { email, password, returnSecureToken: true },
+      netMsg: 'เชื่อมต่อระบบยืนยันตัวตนไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ต',
+    });
+    if (r.ok) return r.data;
+    const raw = (r.data && r.data.error && r.data.error.message) || '';
+    if (raw.includes('API key') || raw.includes('API_KEY')) throw new AppError(E.UNAUTH, 'Web API key ของ Firebase ไม่ถูกต้อง');
+    const code = raw.split(' ')[0];
+    if (code === 'EMAIL_EXISTS') throw new AppError(E.VALIDATION, 'EMAIL_EXISTS', 'email');
+    if (['INVALID_LOGIN_CREDENTIALS', 'INVALID_PASSWORD', 'EMAIL_NOT_FOUND'].includes(code)) throw new AppError(E.UNAUTH, 'อีเมลหรือรหัสผ่านไม่ถูกต้อง', 'password');
+    if (code === 'INVALID_EMAIL') throw invalid('email', 'รูปแบบอีเมลไม่ถูกต้อง');
+    if (code === 'WEAK_PASSWORD') throw invalid('password', 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
+    if (code === 'USER_DISABLED') throw new AppError(E.UNAUTH, 'บัญชีนี้ถูกปิดใน Firebase');
+    if (code === 'TOO_MANY_ATTEMPTS_TRY_LATER') throw new AppError(E.UNAUTH, 'ลองเข้าสู่ระบบผิดหลายครั้งเกินไป กรุณารอสักครู่แล้วลองใหม่');
+    if (code === 'OPERATION_NOT_ALLOWED') throw new AppError(E.UNAUTH, 'ยังไม่ได้เปิดการเข้าสู่ระบบแบบ Email/Password ใน Firebase Authentication');
+    throw new AppError(E.UNAUTH, 'เข้าสู่ระบบไม่สำเร็จ' + (code ? ' (' + code + ')' : ''));
+  },
+  async login(email, password) {
+    email = (email || '').trim();
+    if (!email) throw invalid('email', 'กรุณากรอกอีเมล');
+    if (!password) throw invalid('password', 'กรุณากรอกรหัสผ่าน');
+    const j = await Auth._password('signInWithPassword', email, password);
+    Session.uid = j.localId; Session.email = j.email || email; Session.idToken = j.idToken;
+    Session.refreshToken = j.refreshToken; Session.expiresAt = Date.now() + Number(j.expiresIn || 3600) * 1000;
+    Session.profile = null;
+    return Auth._checkProfile();
+  },
+  async restore() {
+    if (!Session.load()) return null;
+    await Auth.refresh();
+    return Auth._checkProfile();
+  },
+  async _checkProfile() {
+    const p = await Users.getProfile(Session.uid);
+    if (!p) {
+      if (!(await Users.firstAdminExists())) return 'FIRST_ADMIN';
+      Session.clear();
+      throw new AppError(E.DENIED, 'บัญชีนี้ยังไม่มีโปรไฟล์ในระบบ กรุณาติดต่อผู้ดูแลระบบ');
+    }
+    if (!p.status) { Session.clear(); throw new AppError(E.DENIED, 'บัญชีนี้ถูกปิดการใช้งาน กรุณาติดต่อผู้ดูแลระบบ'); }
+    Session.profile = p; Session.save();
+    return 'OK';
+  },
+  logout() {
+    Session.clear(); AiConfig.key = null;
+    // nothing from this user stays in memory for the next person on the same phone
+    chatHistory.length = 0;
+    Object.assign(historyState, { start: null, end: null, keyword: '', deleted: false, searched: false });
+  },
+  async createAccount(email, password) {
+    try { return (await Auth._password('signUp', email, password)).localId; } catch (e) {
+      if (e.message !== 'EMAIL_EXISTS') throw e;
+    }
+    try { return (await Auth._password('signInWithPassword', email, password)).localId; } catch (e) {
+      throw invalid('password', 'อีเมลนี้มีบัญชีอยู่แล้ว กรุณาใส่รหัสผ่านที่ถูกต้องของบัญชีนั้น');
+    }
+  },
+  _refreshing: null,
+  async token() {
+    if (!Session.idToken || Date.now() > Session.expiresAt - 5 * 60 * 1000) await Auth.refresh();
+    return Session.idToken;
+  },
+  refresh() {
+    if (!Auth._refreshing) {
+      Auth._refreshing = (async () => {
+        if (!Session.refreshToken) throw new AppError(E.UNAUTH, 'กรุณาเข้าสู่ระบบ');
+        const r = await http('POST', URLS.token + CONFIG.apiKey, {
+          form: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(Session.refreshToken),
+          netMsg: 'เชื่อมต่อระบบยืนยันตัวตนไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ต',
+        });
+        if (!r.ok || !r.data || !r.data.id_token) { Session.clear(); throw new AppError(E.UNAUTH, 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่'); }
+        Session.idToken = r.data.id_token;
+        Session.refreshToken = r.data.refresh_token || Session.refreshToken;
+        Session.uid = r.data.user_id || Session.uid;
+        Session.expiresAt = Date.now() + Number(r.data.expires_in || 3600) * 1000;
+        Session.save();
+      })().finally(() => { Auth._refreshing = null; });
+    }
+    return Auth._refreshing;
+  },
+};
+
+/* ---------- Firestore REST ---------- */
+const Fs = {
+  docName: path => 'projects/' + CONFIG.projectId + '/databases/(default)/documents/' + path,
+  async _call(method, url, json) {
+    let r = await http(method, url, { headers: { Authorization: 'Bearer ' + (await Auth.token()) }, json,
+      netMsg: 'เชื่อมต่อฐานข้อมูลไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่' });
+    if (r.status === 401) {
+      await Auth.refresh();
+      r = await http(method, url, { headers: { Authorization: 'Bearer ' + (await Auth.token()) }, json });
+    }
+    return r;
+  },
+  async get(path) {
+    const r = await Fs._call('GET', URLS.fs() + '/' + path);
+    if (r.status === 404) return null;
+    if (!r.ok) throw Fs.error(r, false);
+    return r.data;
+  },
+  async query(structuredQuery) {
+    const r = await Fs._call('POST', URLS.fs() + ':runQuery', { structuredQuery });
+    if (!r.ok) throw Fs.error(r, false);
+    const out = [];
+    for (const item of r.data || []) {
+      if (item.error) throw Fs.error({ status: 500, data: item }, false);
+      if (item.document) out.push(item.document);
+    }
+    return out;
+  },
+  async commit(writes) {
+    const r = await Fs._call('POST', URLS.fs() + ':commit', { writes });
+    if (!r.ok) throw Fs.error(r, true);
+    return r.data;
+  },
+  _write(path, fields, serverTime, exists) {
+    const w = { update: { name: Fs.docName(path), fields }, currentDocument: { exists } };
+    if (serverTime && serverTime.length) w.updateTransforms = serverTime.map(f => ({ fieldPath: f, setToServerValue: 'REQUEST_TIME' }));
+    return w;
+  },
+  createWrite(path, fields, serverTime) { return Fs._write(path, fields, serverTime, false); },
+  updateWrite(path, fields, serverTime) { return Fs._write(path, fields, serverTime, true); },
+  filter(field, op, value) { return { fieldFilter: { field: { fieldPath: field }, op, value } }; },
+  q(collection, filters, orderField, desc, limit) {
+    const q = { from: [{ collectionId: collection }] };
+    if (filters && filters.length === 1) q.where = filters[0];
+    else if (filters && filters.length > 1) q.where = { compositeFilter: { op: 'AND', filters } };
+    if (orderField) q.orderBy = [{ field: { fieldPath: orderField }, direction: desc ? 'DESCENDING' : 'ASCENDING' }];
+    if (limit) q.limit = limit;
+    return q;
+  },
+  error(r, write) {
+    let err = r.data;
+    if (Array.isArray(err)) err = err[0];
+    const e = (err && err.error) || {};
+    const status = e.status || '';
+    if (r.status === 401 || status === 'UNAUTHENTICATED') return new AppError(E.UNAUTH, 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่');
+    if (r.status === 403 || status === 'PERMISSION_DENIED') return new AppError(E.DENIED, 'ไม่มีสิทธิ์ทำรายการนี้ หรือบัญชีถูกระงับ');
+    if (status === 'ALREADY_EXISTS' || status === 'FAILED_PRECONDITION' || r.status === 409) return new AppError(E.CONFLICT, 'รายการนี้ถูกบันทึกหรือเปลี่ยนแปลงไปแล้ว');
+    if (r.status === 404 || status === 'NOT_FOUND') return new AppError(E.NOT_FOUND, 'ไม่พบรายการในฐานข้อมูล');
+    if (r.status === 429 || status === 'RESOURCE_EXHAUSTED') return new AppError(E.QUOTA, 'ใช้โควตาฟรีของฐานข้อมูลครบสำหรับวันนี้แล้ว กรุณาลองใหม่ภายหลัง');
+    if (r.status === 400 || status === 'INVALID_ARGUMENT') return new AppError(E.VALIDATION, 'ข้อมูลไม่ถูกต้อง: ' + (e.message || ''));
+    return write ? new AppError(E.SAVE_FAILED, 'บันทึกไม่สำเร็จ (HTTP ' + r.status + ') กรุณาลองใหม่')
+                 : new AppError(E.NETWORK, 'โหลดข้อมูลไม่สำเร็จ (HTTP ' + r.status + ')');
+  },
+};
+
+/* ---------- shared write helpers: request IDs never create duplicates ---------- */
+const Store = {
+  newId() {
+    const b = new Uint8Array(16); crypto.getRandomValues(b);
+    return Array.from(b, x => x.toString(16).padStart(2, '0')).join('');
+  },
+  confirmed(path, fields, resp, serverTime) {
+    const copy = JSON.parse(JSON.stringify(fields));
+    const wr = resp && resp.writeResults && resp.writeResults[0];
+    const tr = (wr && wr.transformResults) || [];
+    (serverTime || []).forEach((f, i) => { copy[f] = tr[i] || V.tsRaw((resp && resp.commitTime) || D.rfc(Date.now())); });
+    return { name: Fs.docName(path), fields: copy, updateTime: wr && wr.updateTime };
+  },
+  async createOnce(path, fields, creatorField, serverTime) {
+    let resp;
+    try { resp = await Fs.commit([Fs.createWrite(path, fields, serverTime)]); } catch (e) {
+      if (e.code === E.CONFLICT || e.code === E.DENIED) {
+        let existing = null;
+        try { existing = await Fs.get(path); } catch (ignored) { /* no read permission */ }
+        if (existing && G.str(G.f(existing), creatorField) === Session.uid) return { doc: existing, duplicate: true };
+        if (!existing && e.code === E.CONFLICT) return { doc: null, duplicate: true };
+      }
+      throw e;
+    }
+    return { doc: Store.confirmed(path, fields, resp, serverTime), duplicate: false };
+  },
+  async replace(path, fields, serverTime) {
+    const resp = await Fs.commit([Fs.updateWrite(path, fields, serverTime)]);
+    return Store.confirmed(path, fields, resp, serverTime);
+  },
+  /** record_scope: OWN reads rows created by the caller, ALL reads by date range */
+  async listRecords(collection, start, end) {
+    const me = Session.profile;
+    const own = me && me.role !== 'ADMIN' && me.recordScope !== 'ALL';
+    const q = own
+      ? Fs.q(collection, [Fs.filter('created_by', 'EQUAL', V.str(Session.uid))])
+      : Fs.q(collection, [Fs.filter('date', 'GREATER_THAN_OR_EQUAL', V.ts(start)), Fs.filter('date', 'LESS_THAN', V.ts(end))], 'date', true);
+    const docs = await Fs.query(q);
+    return docs.filter(d => { const t = G.ts(G.f(d), 'date'); return t >= start && t < end; });
+  },
+  matches(keyword, ...texts) {
+    const k = (keyword || '').trim().toLowerCase();
+    if (!k) return true;
+    return texts.some(t => t != null && String(t).toLowerCase().includes(k));
+  },
+  validateRange(start, end) {
+    if (!start || !end) throw invalid('range', 'กรุณาเลือกช่วงวันที่');
+    if (start >= end) throw invalid('range', 'วันเริ่มต้นต้องไม่อยู่หลังวันสิ้นสุด');
+  },
+  require(ok) { if (!ok) throw new AppError(E.DENIED, 'คุณไม่มีสิทธิ์ทำรายการนี้'); },
+};
+
+/* ---------- models (D1 to D6) ---------- */
+const PERMS = [
+  ['revenue.read', 'รายรับ: อ่าน'], ['revenue.create', 'รายรับ: เพิ่ม'], ['revenue.update', 'รายรับ: แก้ไข'], ['revenue.delete', 'รายรับ: ลบ (เชิงตรรกะ)'],
+  ['fish_cost.read', 'ต้นทุนปลา: อ่าน'], ['fish_cost.create', 'ต้นทุนปลา: เพิ่ม'], ['fish_cost.update', 'ต้นทุนปลา: แก้ไข'],
+  ['expense.read', 'ค่าใช้จ่าย: อ่าน'], ['expense.create', 'ค่าใช้จ่าย: เพิ่ม'], ['expense.update', 'ค่าใช้จ่าย: แก้ไข'],
+];
+function userFrom(doc) {
+  const f = G.f(doc);
+  const u = {
+    uid: G.id(doc), email: G.str(f, 'email'), fullName: G.str(f, 'full_name'), role: G.str(f, 'role') || 'STAFF',
+    permissions: G.boolMap(f, 'permissions'), recordScope: G.str(f, 'record_scope') || 'OWN', status: G.bool(f, 'status'),
+    createdAtRaw: G.tsRaw(f, 'created_at'), updatedBy: G.str(f, 'updated_by'), updatedAt: G.ts(f, 'updated_at'),
+  };
+  u.isAdmin = () => u.role === 'ADMIN';
+  u.can = key => u.status && (u.role === 'ADMIN' || u.permissions[key] === true);
+  u.allows = createdBy => u.role === 'ADMIN' || u.recordScope === 'ALL' || createdBy === u.uid;
+  return u;
+}
+function stamps(doc) {
+  const f = G.f(doc);
+  return {
+    id: G.id(doc), date: G.ts(f, 'date'), dateRaw: G.tsRaw(f, 'date'), amount: G.num(f, 'amount'),
+    createdBy: G.str(f, 'created_by'), createdAtRaw: G.tsRaw(f, 'created_at'), createdAt: G.ts(f, 'created_at'),
+    updatedBy: G.str(f, 'updated_by'), updatedAt: G.ts(f, 'updated_at'),
+  };
+}
+function revenueFrom(doc) {
+  const f = G.f(doc);
+  return Object.assign(stamps(doc), { description: G.str(f, 'description') || '', status: G.str(f, 'status') || 'ACTIVE',
+    deletedBy: G.str(f, 'deleted_by'), deletedAt: G.ts(f, 'deleted_at') });
+}
+function fishFrom(doc) {
+  const f = G.f(doc);
+  return Object.assign(stamps(doc), { grams: Math.round(G.num(f, 'weight_kg') * 1000), pricePerKg: G.num(f, 'price_per_kg') });
+}
+function expenseFrom(doc) {
+  const f = G.f(doc);
+  return Object.assign(stamps(doc), { type: G.str(f, 'expense_type') || 'EVENT', description: G.str(f, 'description') || '' });
+}
+function taxFrom(doc) {
+  const f = G.f(doc);
+  return { id: G.id(doc), rateValue: f.tax_rate, rateCenti: Math.round(G.num(f, 'tax_rate') * 100),
+    effectiveDate: G.ts(f, 'effective_date'), effectiveRaw: G.tsRaw(f, 'effective_date'), active: G.bool(f, 'active'),
+    updatedBy: G.str(f, 'updated_by'), updatedAt: G.ts(f, 'updated_at') };
+}
+function summaryFrom(doc) {
+  const f = G.f(doc);
+  return { id: G.id(doc), periodStart: G.ts(f, 'period_start'), periodEnd: G.ts(f, 'period_end'),
+    totalRevenue: G.num(f, 'total_revenue'), totalFishCost: G.num(f, 'total_fish_cost'), totalExpense: G.num(f, 'total_expense'),
+    totalCost: G.num(f, 'total_cost'), preliminaryProfit: G.num(f, 'preliminary_profit'), estimatedTax: G.num(f, 'estimated_tax'),
+    taxConfigId: G.str(f, 'tax_config_id'), rateCenti: Math.round(G.num(f, 'applied_tax_rate') * 100),
+    generatedBy: G.str(f, 'generated_by'), generatedAt: G.ts(f, 'generated_at') };
+}
+const expenseLabel = t => t === 'MAINTENANCE' ? 'ค่าบำรุงรักษา' : 'ค่าจัดสถานที่/จัดงาน';
+
+/* ---------- UserService ---------- */
+const Users = {
+  async getProfile(uid) { const d = await Fs.get('users/' + uid); return d ? userFrom(d) : null; },
+  async firstAdminExists() { return (await Fs.get('meta/bootstrap')) !== null; },
+  fields(p, createdAtRaw) {
+    const perms = {};
+    for (const [k] of PERMS) perms[k] = V.bool(p.role === 'ADMIN' || p.permissions[k] === true);
+    const f = { email: V.str(p.email), full_name: V.str(p.fullName), role: V.str(p.role), permissions: V.map(perms),
+      record_scope: V.str(p.recordScope), status: V.bool(p.status), updated_by: V.str(Session.uid) };
+    if (createdAtRaw) f.created_at = V.tsRaw(createdAtRaw);
+    return f;
+  },
+  async bootstrap(fullName) {
+    const name = (fullName || '').trim();
+    if (!name) throw invalid('full_name', 'กรุณากรอกชื่อผู้ใช้งาน');
+    const p = { email: Session.email, fullName: name, role: 'ADMIN', recordScope: 'ALL', status: true, permissions: {} };
+    await Fs.commit([
+      Fs.createWrite('users/' + Session.uid, Users.fields(p), ['created_at', 'updated_at']),
+      Fs.createWrite('meta/bootstrap', { admin_uid: V.str(Session.uid) }, ['created_at']),
+    ]);
+    Session.profile = await Users.getProfile(Session.uid);
+    Session.save();
+  },
+  async list() {
+    Store.require(Session.profile.isAdmin());
+    const out = (await Fs.query(Fs.q('users'))).map(userFrom);
+    out.sort((a, b) => (a.role === b.role ? String(a.fullName).localeCompare(String(b.fullName), 'th') : (a.role === 'ADMIN' ? -1 : 1)));
+    return out;
+  },
+  async names() {
+    const m = {}; m[Session.uid] = Session.profile.fullName;
+    if (Session.profile.isAdmin()) { try { for (const u of await Users.list()) m[u.uid] = u.fullName; } catch (e) { /* display only */ } }
+    return m;
+  },
+  nameOf(names, uid) { if (!uid) return '-'; return names[uid] || ('ผู้ใช้ ' + uid.slice(0, 6)); },
+  async upsert(p, isNew, password) {
+    Store.require(Session.profile.isAdmin());
+    p.fullName = (p.fullName || '').trim();
+    if (!p.fullName) throw invalid('full_name', 'กรุณากรอกชื่อผู้ใช้งาน');
+    if (p.role === 'ADMIN') p.recordScope = 'ALL';
+    if (isNew) {
+      p.email = (p.email || '').trim().toLowerCase();
+      if (!p.email || !p.email.includes('@')) throw invalid('email', 'กรุณากรอกอีเมลให้ถูกต้อง');
+      if (!password || password.length < 6) throw invalid('password', 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร');
+      p.uid = await Auth.createAccount(p.email, password);
+      if (await Users.getProfile(p.uid)) throw invalid('email', 'อีเมลนี้มีโปรไฟล์ในระบบแล้ว กรุณาแก้ไขจากรายชื่อผู้ใช้');
+      await Store.createOnce('users/' + p.uid, Users.fields(p), 'updated_by', ['created_at', 'updated_at']);
+    } else {
+      await Store.replace('users/' + p.uid, Users.fields(p, p.createdAtRaw), ['updated_at']);
+    }
+  },
+};
+
+/* ---------- RevenueService (FR-03) ---------- */
+const Revenues = {
+  async list(start, end, keyword, includeDeleted) {
+    Store.require(Session.profile.can('revenue.read'));
+    return (await Store.listRecords('revenues', start, end)).map(revenueFrom)
+      .filter(r => (includeDeleted || r.status === 'ACTIVE') && Store.matches(keyword, r.description, Money.fmt(r.amount), Money.toInput(r.amount)));
+  },
+  async get(id) { const d = await Fs.get('revenues/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการรายรับ'); return revenueFrom(d); },
+  _check(date, amount, description) {
+    if (!date) throw invalid('date', 'กรุณาเลือกวันที่');
+    if (amount < 0) throw invalid('amount', 'จำนวนเงินต้องไม่ติดลบ');
+    if ((description || '').length > 500) throw invalid('description', 'รายละเอียดยาวได้ไม่เกิน 500 ตัวอักษร');
+  },
+  async create(requestId, date, amount, description) {
+    Store.require(Session.profile.can('revenue.create'));
+    Revenues._check(date, amount, description);
+    const f = { date: V.ts(date), amount: V.int(amount), description: V.str((description || '').trim()), status: V.str('ACTIVE'),
+      created_by: V.str(Session.uid), updated_by: V.str(Session.uid), deleted_by: V.nul(), deleted_at: V.nul() };
+    return Store.createOnce('revenues/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
+  },
+  async update(orig, date, amount, description) {
+    Store.require(Session.profile.can('revenue.update') && Session.profile.allows(orig.createdBy));
+    if (orig.status !== 'ACTIVE') throw new AppError(E.VALIDATION, 'รายการที่ลบแล้วแก้ไขไม่ได้');
+    Revenues._check(date, amount, description);
+    const f = { date: V.ts(date), amount: V.int(amount), description: V.str((description || '').trim()), status: V.str('ACTIVE'),
+      created_by: V.str(orig.createdBy), created_at: V.tsRaw(orig.createdAtRaw), updated_by: V.str(Session.uid),
+      deleted_by: V.nul(), deleted_at: V.nul() };
+    await Store.replace('revenues/' + orig.id, f, ['updated_at']);
+  },
+  async softDelete(orig) {
+    Store.require(Session.profile.can('revenue.delete') && Session.profile.allows(orig.createdBy));
+    if (orig.status !== 'ACTIVE') throw new AppError(E.VALIDATION, 'รายการนี้ถูกลบไปแล้ว');
+    const f = { date: V.tsRaw(orig.dateRaw), amount: V.int(orig.amount), description: V.str(orig.description), status: V.str('DELETED'),
+      created_by: V.str(orig.createdBy), created_at: V.tsRaw(orig.createdAtRaw), updated_by: V.str(Session.uid), deleted_by: V.str(Session.uid) };
+    await Store.replace('revenues/' + orig.id, f, ['updated_at', 'deleted_at']);
+  },
+};
+
+/* ---------- FishCostService (FR-04) ---------- */
+const FishCosts = {
+  async list(start, end, keyword) {
+    Store.require(Session.profile.can('fish_cost.read'));
+    return (await Store.listRecords('fish_costs', start, end)).map(fishFrom)
+      .filter(c => Store.matches(keyword, 'ต้นทุนปลา ปลา', Money.weight(c.grams), Money.fmt(c.amount), Money.toInput(c.amount), Money.fmt(c.pricePerKg)));
+  },
+  async get(id) { const d = await Fs.get('fish_costs/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการต้นทุนปลา'); return fishFrom(d); },
+  _fields(date, grams, price) {
+    if (!date) throw invalid('date', 'กรุณาเลือกวันที่');
+    if (!(grams > 0)) throw invalid('weight', 'น้ำหนักต้องมากกว่า 0');
+    if (price < 0) throw invalid('price', 'ราคาต่อกิโลกรัมต้องไม่ติดลบ');
+    return { date: V.ts(date), weight_kg: V.dbl(grams / 1000), price_per_kg: V.int(price),
+      amount: V.int(Calc.fishAmount(grams, price)), updated_by: V.str(Session.uid) };
+  },
+  async create(requestId, date, grams, price) {
+    Store.require(Session.profile.can('fish_cost.create'));
+    const f = FishCosts._fields(date, grams, price); f.created_by = V.str(Session.uid);
+    return Store.createOnce('fish_costs/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
+  },
+  async update(orig, date, grams, price) {
+    Store.require(Session.profile.can('fish_cost.update') && Session.profile.allows(orig.createdBy));
+    const f = FishCosts._fields(date, grams, price);
+    f.created_by = V.str(orig.createdBy); f.created_at = V.tsRaw(orig.createdAtRaw);
+    await Store.replace('fish_costs/' + orig.id, f, ['updated_at']);
+  },
+};
+
+/* ---------- ExpenseService (FR-05, FR-06) ---------- */
+const Expenses = {
+  async list(start, end, keyword, type) {
+    Store.require(Session.profile.can('expense.read'));
+    return (await Store.listRecords('expenses', start, end)).map(expenseFrom)
+      .filter(e => (!type || e.type === type) && Store.matches(keyword, e.description, e.type, expenseLabel(e.type), Money.fmt(e.amount), Money.toInput(e.amount)));
+  },
+  async get(id) { const d = await Fs.get('expenses/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการค่าใช้จ่าย'); return expenseFrom(d); },
+  _fields(date, type, description, amount) {
+    if (!date) throw invalid('date', 'กรุณาเลือกวันที่');
+    if (type !== 'EVENT' && type !== 'MAINTENANCE') throw invalid('type', 'ประเภทต้องเป็น EVENT หรือ MAINTENANCE');
+    const d = (description || '').trim();
+    if (!d) throw invalid('description', 'กรุณากรอกรายละเอียดค่าใช้จ่าย');
+    if (d.length > 500) throw invalid('description', 'รายละเอียดยาวได้ไม่เกิน 500 ตัวอักษร');
+    if (amount < 0) throw invalid('amount', 'จำนวนเงินต้องไม่ติดลบ');
+    return { date: V.ts(date), expense_type: V.str(type), description: V.str(d), amount: V.int(amount), updated_by: V.str(Session.uid) };
+  },
+  async create(requestId, date, type, description, amount) {
+    Store.require(Session.profile.can('expense.create'));
+    const f = Expenses._fields(date, type, description, amount); f.created_by = V.str(Session.uid);
+    return Store.createOnce('expenses/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
+  },
+  async update(orig, date, type, description, amount) {
+    Store.require(Session.profile.can('expense.update') && Session.profile.allows(orig.createdBy));
+    const f = Expenses._fields(date, type, description, amount);
+    f.created_by = V.str(orig.createdBy); f.created_at = V.tsRaw(orig.createdAtRaw);
+    await Store.replace('expenses/' + orig.id, f, ['updated_at']);
+  },
+};
+
+/* ---------- TaxConfigService (FR-08) ---------- */
+const Tax = {
+  async actives() { return (await Fs.query(Fs.q('tax_configs', [Fs.filter('active', 'EQUAL', V.bool(true))]))).map(taxFrom); },
+  async getActive(at) {
+    Store.require(Session.profile.isAdmin());
+    const usable = (await Tax.actives()).filter(t => t.effectiveDate <= at);
+    if (!usable.length) throw new AppError(E.CONFIG_MISSING, 'ยังไม่มีอัตราภาษีที่ใช้งานได้ กรุณาตั้งค่าอัตราภาษีในเมนูตั้งค่าก่อน');
+    if (usable.length > 1) throw new AppError(E.CONFIG_CONFLICT, 'พบอัตราภาษีที่ใช้งานอยู่มากกว่าหนึ่งชุด กรุณาบันทึกอัตราใหม่ในเมนูตั้งค่าเพื่อแก้ไข');
+    return usable[0];
+  },
+  async history() {
+    Store.require(Session.profile.isAdmin());
+    return (await Fs.query(Fs.q('tax_configs'))).map(taxFrom).sort((a, b) => b.effectiveDate - a.effectiveDate);
+  },
+  async update(rateCenti, requestId) {
+    Store.require(Session.profile.isAdmin());
+    if (rateCenti < 0 || rateCenti > 10000) throw invalid('rate', 'อัตราภาษีต้องอยู่ระหว่าง 0 ถึง 100');
+    if (await Fs.get('tax_configs/' + requestId)) return;
+    const writes = (await Tax.actives()).map(old => Fs.updateWrite('tax_configs/' + old.id, {
+      tax_rate: old.rateValue, effective_date: V.tsRaw(old.effectiveRaw), active: V.bool(false), updated_by: V.str(Session.uid),
+    }, ['updated_at']));
+    writes.push(Fs.createWrite('tax_configs/' + requestId, { tax_rate: V.dbl(rateCenti / 100), active: V.bool(true), updated_by: V.str(Session.uid) },
+      ['effective_date', 'updated_at']));
+    await Fs.commit(writes);
+  },
+};
+
+/* ---------- ReportService (FR-07 to FR-10) ---------- */
+const Reports = {
+  async getSummary(start, end, requestId) {
+    Store.require(Session.profile.isAdmin());
+    Store.validateRange(start, end);
+    const existing = await Fs.get('report_summaries/' + requestId);
+    if (existing) return summaryFrom(existing);
+    const tax = await Tax.getActive(Date.now());
+    const [rev, fish, exp] = await Promise.all([
+      Store.listRecords('revenues', start, end), Store.listRecords('fish_costs', start, end), Store.listRecords('expenses', start, end)]);
+    const t = Calc.calculate(rev.map(revenueFrom), fish.map(fishFrom), exp.map(expenseFrom), tax.rateCenti);
+    const f = {
+      period_start: V.ts(start), period_end: V.ts(end), total_revenue: V.int(t.totalRevenue), total_fish_cost: V.int(t.totalFishCost),
+      total_expense: V.int(t.totalExpense), total_cost: V.int(t.totalCost), preliminary_profit: V.int(t.preliminaryProfit),
+      estimated_tax: V.int(t.estimatedTax), tax_config_id: V.str(tax.id), applied_tax_rate: tax.rateValue, generated_by: V.str(Session.uid),
+    };
+    const saved = await Store.createOnce('report_summaries/' + requestId, f, 'generated_by', ['generated_at']);
+    if (saved.doc) return summaryFrom(saved.doc);
+    const again = await Fs.get('report_summaries/' + requestId);
+    if (!again) throw new AppError(E.SAVE_FAILED, 'บันทึกผลสรุปไม่สำเร็จ กรุณาลองใหม่');
+    return summaryFrom(again);
+  },
+  async list(limit) {
+    Store.require(Session.profile.isAdmin());
+    return (await Fs.query(Fs.q('report_summaries', null, 'generated_at', true, limit))).map(summaryFrom);
+  },
+  async get(id) {
+    Store.require(Session.profile.isAdmin());
+    const d = await Fs.get('report_summaries/' + id);
+    if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบผลสรุปนี้');
+    return summaryFrom(d);
+  },
+};
+
+/* ---------- HistoryService (FR-11) ---------- */
+const History = {
+  async list(start, end, keyword, kinds, includeDeleted) {
+    Store.validateRange(start, end);
+    const me = Session.profile; const out = []; const jobs = [];
+    if (kinds.includes('REVENUE') && me.can('revenue.read')) jobs.push(Revenues.list(start, end, keyword, includeDeleted).then(list =>
+      list.forEach(r => out.push({ kind: 'REVENUE', rec: r, title: 'รายรับ', detail: r.description, deleted: r.status !== 'ACTIVE' }))));
+    if (kinds.includes('FISH') && me.can('fish_cost.read')) jobs.push(FishCosts.list(start, end, keyword).then(list =>
+      list.forEach(c => out.push({ kind: 'FISH', rec: c, title: 'ต้นทุนปลา', detail: Money.weight(c.grams) + ' กก. × ' + Money.fmt(c.pricePerKg) + ' บาท/กก.' }))));
+    const ev = kinds.includes('EVENT'), mt = kinds.includes('MAINTENANCE');
+    if ((ev || mt) && me.can('expense.read')) jobs.push(Expenses.list(start, end, keyword, ev && mt ? null : (ev ? 'EVENT' : 'MAINTENANCE')).then(list =>
+      list.forEach(e => out.push({ kind: e.type, rec: e, title: expenseLabel(e.type), detail: e.description }))));
+    await Promise.all(jobs);
+    out.sort((a, b) => (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt));
+    return out;
+  },
+};
+
+/* ---------- Gemini key in Firestore (app_config/ai) and chat ---------- */
+const AiConfig = {
+  key: null,
+  async get(force) {
+    if (AiConfig.key && !force) return AiConfig.key;
+    const d = await Fs.get('app_config/ai');
+    AiConfig.key = d ? G.str(G.f(d), 'gemini_api_key') : null;
+    return AiConfig.key;
+  },
+  async set(key) {
+    Store.require(Session.profile.isAdmin());
+    const k = (key || '').trim();
+    if (k.length < 20 || /\s/.test(k)) throw invalid('gemini', 'กรุณาวาง Gemini API key ให้ครบ');
+    const exists = await Fs.get('app_config/ai');
+    const fields = { gemini_api_key: V.str(k), updated_by: V.str(Session.uid) };
+    await Fs.commit([exists ? Fs.updateWrite('app_config/ai', fields, ['updated_at']) : Fs.createWrite('app_config/ai', fields, ['updated_at'])]);
+    AiConfig.key = k;
+  },
+};
+
+const SYSTEM_PROMPT =
+  'คุณคือ "ผู้ช่วย AI" ในแอปพลิเคชันบริหารจัดการต้นทุนและผลกำไรของบ่อตกปลายิ่งเจริญ ' +
+  'ผู้ใช้คือเจ้าของธุรกิจและผู้ที่ได้รับมอบหมายให้บันทึกข้อมูลของบ่อตกปลา ' +
+  'ตอบเป็นภาษาไทยที่สุภาพ เข้าใจง่ายและกระชับ เว้นแต่ผู้ใช้ถามเป็นภาษาอื่นให้ตอบเป็นภาษานั้น ตอบเป็นข้อความธรรมดา ไม่ใช้ตาราง\n' +
+  'คุณตอบคำถามทั่วไปได้ทุกเรื่อง และช่วยได้ดีเป็นพิเศษเรื่องการดำเนินธุรกิจบ่อตกปลา การดูแลบ่อและปลา ' +
+  'การจัดกิจกรรมแข่งขันตกปลา การตลาด การควบคุมต้นทุน รายรับรายจ่าย และการคำนวณกำไร\n' +
+  'หลักการคำนวณในแอปนี้: ต้นทุนปลา = น้ำหนัก (กก.) × ราคาต่อกิโลกรัม ปัดครึ่งขึ้นเป็นสตางค์; ' +
+  'ค่าใช้จ่ายแบ่งเป็น EVENT (ค่าจัดเตรียมสถานที่และจัดงาน) และ MAINTENANCE (ค่าบำรุงรักษาสิ่งของและอุปกรณ์); ' +
+  'ต้นทุนรวม = ต้นทุนปลารวม + ค่าใช้จ่ายรวม; กำไรเบื้องต้น = รายรับรวม (เฉพาะรายการที่ไม่ถูกลบ) - ต้นทุนรวม; ' +
+  'ภาษีประมาณการ = max(กำไรเบื้องต้น, 0) × อัตราภาษีที่ผู้ดูแลกำหนด ÷ 100\n' +
+  'คุณมองไม่เห็นข้อมูลที่บันทึกในแอป ห้ามเดาตัวเลขของธุรกิจ ถ้าผู้ใช้ถามยอดของบ่อ ' +
+  'ให้แนะนำเมนู "รายงานสรุป" หรือ "ค้นหา / ประวัติรายการ" หรือให้ผู้ใช้พิมพ์ตัวเลขมาเพื่อช่วยคำนวณ ' +
+  'ภาษีในแอปเป็นเพียงการประมาณการภายใน ไม่ใช่การยื่นภาษีจริง สำหรับการยื่นภาษีจริงให้แนะนำปรึกษากรมสรรพากรหรือนักบัญชี';
+
+const Gemini = {
+  async chat(history) {
+    const key = await AiConfig.get();
+    if (!key) throw new AppError(E.AI, 'ผู้ดูแลระบบยังไม่ได้ใส่ Gemini API key (เมนูตั้งค่า)');
+    const body = {
+      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+      contents: history.slice(-20).map(m => ({ role: m.me ? 'user' : 'model', parts: [{ text: m.text }] })),
+    };
+    let last = null;
+    for (const model of CONFIG.geminiModels) {
+      const r = await http('POST', URLS.gemini + model + ':generateContent', { headers: { 'x-goog-api-key': key }, json: body,
+        netMsg: 'เชื่อมต่อ Gemini ไม่ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่' });
+      if (r.ok) return Gemini.parse(r.data);
+      last = Gemini.error(r);
+      if (!(r.status === 429 || r.status === 404 || r.status >= 500)) throw last;
+    }
+    throw last;
+  },
+  parse(j) {
+    const c = j && j.candidates && j.candidates[0];
+    if (!c) {
+      if (j && j.promptFeedback && j.promptFeedback.blockReason) throw new AppError(E.AI, 'Gemini ไม่ตอบคำถามนี้ (ถูกบล็อกโดยตัวกรองความปลอดภัย)');
+      throw new AppError(E.AI, 'Gemini ไม่ได้ส่งคำตอบกลับมา กรุณาลองใหม่');
+    }
+    const text = ((c.content && c.content.parts) || []).filter(p => p.text && !p.thought).map(p => p.text).join('').trim();
+    if (!text) throw new AppError(E.AI, c.finishReason === 'SAFETY' ? 'Gemini ไม่ตอบคำถามนี้ (ตัวกรองความปลอดภัย)' : 'Gemini ไม่ได้ส่งคำตอบกลับมา กรุณาลองใหม่');
+    return text;
+  },
+  error(r) {
+    const e = (r.data && r.data.error) || {}; const msg = e.message || ''; const status = e.status || '';
+    if (r.status === 429 || status === 'RESOURCE_EXHAUSTED') return new AppError(E.QUOTA, 'ใช้โควตาฟรีของ Gemini ครบในช่วงนี้แล้ว กรุณารอประมาณ 1 นาทีแล้วลองใหม่');
+    if (msg.includes('API key') || status === 'PERMISSION_DENIED' || r.status === 403 || r.status === 401)
+      return new AppError(E.AI, 'Gemini API key ใช้ไม่ได้ (' + (status || 'HTTP ' + r.status) + ') ให้ผู้ดูแลตรวจสอบในเมนูตั้งค่า');
+    if (r.status >= 500) return new AppError(E.AI, 'Gemini ไม่ว่างในขณะนี้ กรุณาลองใหม่อีกครั้ง');
+    return new AppError(E.AI, 'Gemini ตอบกลับผิดพลาด (HTTP ' + r.status + ')' + (msg ? ': ' + msg : ''));
+  },
+};
+
+/* =====================================================================
+   UI
+   ===================================================================== */
+const $app = document.getElementById('app');
+const $title = document.getElementById('title');
+const $back = document.getElementById('back');
+const $action = document.getElementById('headerAction');
+
+function h(tag, props) {
+  const el = document.createElement(tag);
+  if (props) for (const k of Object.keys(props)) {
+    const v = props[k];
+    if (v == null || v === false) continue;
+    if (k === 'class') el.className = v;
+    else if (k === 'style') el.style.cssText = v;
+    else if (k === 'text') el.textContent = v;
+    else if (k === 'value') el.value = v;
+    else if (k.startsWith('on') && typeof v === 'function') el.addEventListener(k.slice(2), v);
+    else if (v === true) { el.setAttribute(k, ''); if (k in el) el[k] = true; }
+    else el.setAttribute(k, v);
+  }
+  for (let i = 2; i < arguments.length; i++) add(el, arguments[i]);
+  return el;
+}
+function add(el, c) {
+  if (c == null || c === false) return;
+  if (Array.isArray(c)) { c.forEach(x => add(el, x)); return; }
+  el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+}
+const css = v => 'var(--' + v + ')';
+function badge(text, color) {
+  const b = h('span', { class: 'badge', text });
+  b.style.color = color; b.style.background = 'color-mix(in srgb, ' + color + ' 12%, white)';
+  return b;
+}
+function line(l, r, color, strong) {
+  return h('div', { class: 'line' }, h('span', { class: 'l', text: l }),
+    h('span', { class: 'r' + (strong ? ' bold' : ''), style: color ? 'color:' + color : null, text: r }));
+}
+
+let busyCount = 0;
+function busy(msg) { busyCount++; document.getElementById('busyMsg').textContent = msg || 'กำลังโหลด...'; document.getElementById('busy').classList.remove('hidden'); }
+function idle() { busyCount = Math.max(0, busyCount - 1); if (!busyCount) document.getElementById('busy').classList.add('hidden'); }
+async function withBusy(msg, fn) { busy(msg); try { return await fn(); } finally { idle(); } }
+
+let toastTimer = null;
+function toast(msg) {
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+let modalResolve = null;
+function closeModal(value) {
+  const m = document.getElementById('modal');
+  m.classList.add('hidden'); m.innerHTML = '';
+  const r = modalResolve; modalResolve = null; if (r) r(value);
+}
+function modal(title, body, buttons) {
+  const m = document.getElementById('modal');
+  if (modalResolve) closeModal(undefined);
+  return new Promise(resolve => {
+    modalResolve = resolve;
+    m.innerHTML = '';
+    const actions = h('div', { class: 'actions' });
+    (buttons || [{ label: 'ตกลง', value: true }]).forEach(b => {
+      actions.append(h('button', { class: 'btn' + (b.outline ? ' outline' : ''), style: b.color ? 'background:' + b.color : null, text: b.label,
+        onclick: () => closeModal(b.value) }));
+    });
+    m.append(h('div', { class: 'box', role: 'dialog' }, h('h3', { text: title }),
+      typeof body === 'string' ? h('div', { class: 'msg', text: body }) : body, actions));
+    m.classList.remove('hidden');
+  });
+}
+const alertBox = (title, msg) => modal(title, msg, [{ label: 'ตกลง', value: true }]);
+const confirmBox = (title, msg, ok, color) => modal(title, msg, [{ label: 'ยกเลิก', value: false, outline: true }, { label: ok, value: true, color }]);
+
+/** Shows the error under its field when it names one, otherwise as a dialog (with retry when given). */
+async function showError(e, form, retry) {
+  e = toAppError(e);
+  if (e.code === E.UNAUTH && !Session.ok() && !e.field && location.hash !== '#/login') { toast(e.message); go('#/login'); return; }
+  if (form && e.field && form[e.field]) {
+    const f = form[e.field]; f.err.textContent = e.message; f.input.classList.add('bad'); f.input.focus();
+    if (f.input.type === 'date') await alertBox('ข้อมูลไม่ถูกต้อง', e.message);
+    return;
+  }
+  if (retry) {
+    if (await modal('ทำรายการไม่สำเร็จ', e.display(), [{ label: 'ปิด', value: false, outline: true }, { label: 'ลองใหม่', value: true }])) retry();
+  } else await alertBox('ทำรายการไม่สำเร็จ', e.display());
+}
+function clearErrors(form) { for (const k of Object.keys(form || {})) { form[k].err.textContent = ''; form[k].input.classList.remove('bad'); } }
+function field(form, key, label, input) {
+  const err = h('div', { class: 'err' });
+  if (form && key) form[key] = { input, err };
+  input.addEventListener('input', () => { err.textContent = ''; input.classList.remove('bad'); });
+  return h('label', { class: 'field' }, h('span', { class: 'lbl', text: label }), input, err);
+}
+const input = (type, placeholder, extra) => h('input', Object.assign({ class: 'input', type, placeholder }, extra || {}));
+const moneyInput = placeholder => input('text', placeholder, { inputmode: 'decimal', autocomplete: 'off' });
+const dateInput = ms => input('date', '', { value: D.toInput(ms) });
+const textArea = placeholder => h('textarea', { class: 'input', placeholder, rows: '2' });
+function checkRow(label, checked) {
+  const box = h('input', { type: 'checkbox' }); box.checked = !!checked;
+  return { row: h('label', { class: 'check' }, box, h('span', { text: label })), box };
+}
+function radioRow(name, label, value, checked) {
+  const r = h('input', { type: 'radio', name, value }); r.checked = !!checked;
+  return { row: h('label', { class: 'check' }, r, h('span', { text: label })), box: r };
+}
+
+/* ---------- router ---------- */
+let navToken = 0;
+const alive = t => t === navToken;
+function go(hash) { if (location.hash === hash) route(); else location.hash = hash; }
+function setHeader(title, back) {
+  $title.textContent = title; document.title = title === 'บ่อตกปลายิ่งเจริญ' ? title : title + ' · บ่อตกปลายิ่งเจริญ';
+  $back.classList.toggle('hidden', !back); $action.innerHTML = '';
+}
+$back.addEventListener('click', () => { if (history.length > 1) history.back(); else go('#/'); });
+
+const ROUTES = [
+  [/^#\/login$/, () => renderLogin()],
+  [/^#\/?$/, () => renderHome()],
+  [/^#\/revenue(?:\/(\w+))?$/, m => renderRevenue(m[1])],
+  [/^#\/fish(?:\/(\w+))?$/, m => renderFish(m[1])],
+  [/^#\/expense(?:\/(\w+))?$/, m => renderExpense(m[1])],
+  [/^#\/history$/, () => renderHistory()],
+  [/^#\/report$/, () => renderReport()],
+  [/^#\/settings$/, () => renderSettings()],
+  [/^#\/user(?:\/(\w+))?$/, m => renderUser(m[1])],
+  [/^#\/chat$/, () => renderChat()],
+];
+function route() {
+  navToken++;
+  if (modalResolve) closeModal(undefined);
+  window.scrollTo(0, 0);
+  document.body.classList.remove('chatmode');
+  const hash = location.hash || '#/';
+  if (!Session.ok()) { if (hash !== '#/login') { history.replaceState(null, '', '#/login'); } renderLogin(); return; }
+  for (const [re, fn] of ROUTES) { const m = re.exec(hash); if (m) { if (re.source.includes('login')) { go('#/'); return; } fn(m); return; } }
+  go('#/');
+}
+window.addEventListener('hashchange', route);
+
+/* ---------- login ---------- */
+const LOGO = '<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" rx="14" fill="#0E7490"/>' +
+  '<rect y="38" width="64" height="26" rx="0" fill="#155E75"/><rect y="50" width="64" height="14" rx="14" fill="#155E75"/>' +
+  '<ellipse cx="28" cy="25" rx="16" ry="10" fill="#fff"/><path d="M41 25 L54 16 L51 25 L54 34 Z" fill="#fff"/>' +
+  '<circle cx="19" cy="23.5" r="2.2" fill="#0E7490"/><circle cx="47" cy="45" r="8" fill="#F59E0B" stroke="#FFD666" stroke-width="1.2"/>' +
+  '<path d="M47 40v10M43.5 43h7M43.5 47h7" stroke="#fff" stroke-width="1.8"/></svg>';
+
+function renderLogin() {
+  setHeader('เข้าสู่ระบบ', false);
+  const form = {};
+  const email = input('email', 'name@example.com', { autocomplete: 'username', autocapitalize: 'none' });
+  const pw = input('password', 'รหัสผ่าน', { autocomplete: 'current-password' });
+  const btn = h('button', { class: 'btn', text: 'เข้าสู่ระบบ' });
+  const logo = h('div', { class: 'logo' }); logo.innerHTML = LOGO;
+  const f = h('form', { class: 'card', onsubmit: ev => { ev.preventDefault(); submit(); } },
+    field(form, 'email', 'อีเมล', email), field(form, 'password', 'รหัสผ่าน', pw), btn);
+  $app.replaceChildren(logo,
+    h('div', { class: 'center bold', style: 'font-size:24px;color:' + css('primary-dark'), text: 'บ่อตกปลายิ่งเจริญ' }),
+    h('div', { class: 'center muted', style: 'margin-bottom:20px', text: 'ระบบบริหารจัดการต้นทุนและผลกำไร' }), f);
+  async function submit() {
+    clearErrors(form); btn.disabled = true;
+    try {
+      const r = await withBusy('กำลังตรวจสอบบัญชี...', () => Auth.login(email.value, pw.value));
+      pw.value = '';
+      if (r === 'FIRST_ADMIN') await firstAdmin(); else go('#/');
+    } catch (e) { showError(e, form); } finally { btn.disabled = false; }
+  }
+}
+
+async function firstAdmin() {
+  const name = input('text', 'ชื่อ-นามสกุล');
+  const body = h('div', null, h('div', { text: 'ระบบยังไม่มีผู้ดูแล บัญชี ' + Session.email + ' จะเป็นเจ้าของ/ผู้ดูแลระบบ (ADMIN) คนแรก' }),
+    h('div', { style: 'margin-top:12px' }, name));
+  const ok = await modal('ตั้งค่าผู้ดูแลระบบคนแรก', body, [{ label: 'ยกเลิก', value: false, outline: true }, { label: 'ยืนยัน', value: true }]);
+  if (!ok) { Session.clear(); return; }
+  try { await withBusy('กำลังสร้างโปรไฟล์ผู้ดูแล...', () => Users.bootstrap(name.value)); go('#/'); }
+  catch (e) { await showError(e); if (!Session.profile) firstAdmin(); }
+}
+
+/* ---------- home ---------- */
+function renderHome() {
+  setHeader('บ่อตกปลายิ่งเจริญ', false);
+  const t = navToken;
+  draw();
+  Users.getProfile(Session.uid).then(p => {
+    if (!alive(t)) return;
+    if (!p || !p.status) { Auth.logout(); toast('บัญชีนี้ถูกปิดการใช้งาน'); go('#/login'); return; }
+    Session.profile = p; draw(); // permission changes apply right away (TC-20)
+  }).catch(e => { if (e.code === E.UNAUTH && !Session.ok()) go('#/login'); });
+
+  function tile(title, sub, color, hash) {
+    return h('a', { class: 'tile', href: hash }, h('span', { class: 'bar', style: 'background:' + color }),
+      h('span', null, h('div', { class: 't', text: title }), h('div', { class: 's', text: sub })), h('span', { class: 'arrow', text: '›' }));
+  }
+  function draw() {
+    const me = Session.profile; const tiles = [];
+    let any = false;
+    if (me.can('revenue.create')) { tiles.push(tile('บันทึกรายรับ', 'วันที่ จำนวนเงิน และรายละเอียด', css('income'), '#/revenue')); any = true; }
+    if (me.can('fish_cost.create')) { tiles.push(tile('บันทึกต้นทุนปลา', 'น้ำหนัก (กก.) × ราคาต่อกิโลกรัม คำนวณให้อัตโนมัติ', css('fish'), '#/fish')); any = true; }
+    if (me.can('expense.create')) { tiles.push(tile('บันทึกค่าใช้จ่าย', 'ค่าจัดสถานที่/จัดงาน และค่าบำรุงรักษา', css('expense'), '#/expense')); any = true; }
+    if (me.can('revenue.read') || me.can('fish_cost.read') || me.can('expense.read')) { tiles.push(tile('ค้นหา / ประวัติรายการ', 'ดู แก้ไข และค้นหาตามช่วงวัน ประเภท และคำค้น', css('primary'), '#/history')); any = true; }
+    if (me.isAdmin()) {
+      tiles.push(tile('รายงานสรุป', 'รายรับ ต้นทุนรวม กำไรเบื้องต้น และภาษีประมาณการ', css('primary-dark'), '#/report'));
+      tiles.push(tile('ตั้งค่า', 'ผู้ใช้ สิทธิ์ อัตราภาษี และ Gemini API key', css('muted'), '#/settings'));
+    }
+    if (!any && !me.isAdmin()) tiles.push(h('div', { class: 'card', text: 'บัญชีนี้ยังไม่ได้รับมอบหมายสิทธิ์ใด ๆ กรุณาติดต่อผู้ดูแลระบบ' }));
+    tiles.push(tile('ผู้ช่วย AI', 'ถาม-ตอบทั่วไปด้วย Gemini', css('ai'), '#/chat'));
+    const head = h('div', { class: 'card' },
+      h('div', { class: 'muted small', text: 'สวัสดี' }), h('div', { class: 'bold', style: 'font-size:19px', text: me.fullName || Session.email }),
+      h('div', { class: 'muted small', text: Session.email }),
+      h('div', { style: 'margin-top:8px' }, badge(me.isAdmin() ? 'ADMIN เจ้าของ/ผู้ดูแล' : 'STAFF ผู้ได้รับมอบหมาย', me.isAdmin() ? css('primary') : css('fish')),
+        badge(me.recordScope === 'ALL' ? 'เห็นทุกรายการ' : 'เห็นเฉพาะรายการของตนเอง', css('muted'))));
+    const out = h('button', { class: 'btn outline', style: 'color:' + css('danger'), text: 'ออกจากระบบ', onclick: async () => {
+      if (await confirmBox('ออกจากระบบ', 'ต้องการออกจากระบบหรือไม่', 'ออกจากระบบ', css('danger'))) { Auth.logout(); go('#/login'); }
+    } });
+    $app.replaceChildren(head, h('div', { style: 'margin-top:12px' }, tiles), out);
+  }
+}
+
+/* ---------- shared record helpers ---------- */
+function metaText(rec, names, extra) {
+  let s = 'สร้างโดย ' + Users.nameOf(names, rec.createdBy) + ' เมื่อ ' + D.fmtTime(rec.createdAt) +
+    '\nแก้ไขล่าสุดโดย ' + Users.nameOf(names, rec.updatedBy) + ' เมื่อ ' + D.fmtTime(rec.updatedAt);
+  if (extra) s = extra + '\n' + s;
+  return s;
+}
+function savedLine(dup, text) {
+  return (dup ? 'คำขอนี้ถูกบันทึกไว้แล้วก่อนหน้า ระบบไม่สร้างรายการซ้ำ (ตรวจสอบได้ในประวัติรายการ). ข้อมูลที่ส่ง: ' : 'บันทึกสำเร็จ: ') + text;
+}
+
+/* ---------- revenue form (figure 3.9 b) ---------- */
+function renderRevenue(id) {
+  const t = navToken; const form = {}; let record = null; let names = {}; let requestId = Store.newId();
+  setHeader(id ? 'รายการรายรับ' : 'บันทึกรายรับ', true);
+  const date = dateInput(D.today()), amount = moneyInput('0.00'), desc = textArea('เช่น ค่าบัตรตกปลา, ค่าอาหารเครื่องดื่ม');
+  const save = h('button', { class: 'btn', style: 'background:' + css('income'), text: 'บันทึก' });
+  const meta = h('div', { class: 'muted small', style: 'white-space:pre-wrap;margin-top:6px' });
+  const last = h('div', { class: 'small', style: 'color:' + css('income') + ';margin-top:8px' });
+  const del = h('button', { class: 'btn outline hidden', style: 'color:' + css('danger'), text: 'ลบรายการ (เปลี่ยนสถานะเป็น DELETED)' });
+  $app.replaceChildren(h('div', { class: 'card' },
+    field(form, 'date', 'วันที่', date), field(form, 'amount', 'จำนวนเงิน (บาท) ไม่ติดลบ', amount),
+    field(form, 'description', 'รายละเอียด (ไม่บังคับ)', desc), save), meta, last, del);
+
+  save.onclick = submit;
+  del.onclick = async () => {
+    if (!(await confirmBox('ยืนยันการลบ', 'รายการจะถูกเปลี่ยนสถานะเป็น DELETED ไม่นำไปรวมยอด แต่ยังเก็บไว้ตรวจสอบย้อนหลัง', 'ลบรายการ', css('danger')))) return;
+    try { await withBusy('กำลังลบ...', () => Revenues.softDelete(record)); toast('ลบรายการแล้ว (สถานะ DELETED)'); history.back(); }
+    catch (e) { showError(e); }
+  };
+  if (id) withBusy('กำลังโหลด...', async () => { names = await Users.names(); return Revenues.get(id); }).then(r => {
+    if (!alive(t)) return; record = r; const me = Session.profile;
+    date.value = D.toInput(r.date); amount.value = Money.toInput(r.amount); desc.value = r.description;
+    let extra = 'สถานะ: ' + (r.status === 'ACTIVE' ? 'ACTIVE' : 'DELETED (ลบแล้ว)');
+    if (r.status !== 'ACTIVE') extra += '\nลบโดย ' + Users.nameOf(names, r.deletedBy) + ' เมื่อ ' + D.fmtTime(r.deletedAt);
+    meta.textContent = metaText(r, names, extra);
+    const canEdit = r.status === 'ACTIVE' && me.can('revenue.update') && me.allows(r.createdBy);
+    const canDel = r.status === 'ACTIVE' && me.can('revenue.delete') && me.allows(r.createdBy);
+    [date, amount, desc].forEach(x => { x.disabled = !canEdit; });
+    save.textContent = 'บันทึกการแก้ไข'; save.classList.toggle('hidden', !canEdit); del.classList.toggle('hidden', !canDel);
+    if (!canEdit) setHeader('ดูรายการรายรับ', true);
+  }).catch(e => showError(e));
+
+  async function submit() {
+    clearErrors(form);
+    let amt, d;
+    try { d = D.fromInput(date.value); if (!d) throw invalid('date', 'กรุณาเลือกวันที่'); amt = Money.parseBaht(amount.value, 'amount', 'จำนวนเงิน'); }
+    catch (e) { showError(e, form); return; }
+    save.disabled = true;
+    try {
+      const s = await withBusy('กำลังบันทึก...', () => record ? Revenues.update(record, d, amt, desc.value) : Revenues.create(requestId, d, amt, desc.value));
+      if (record) { toast('บันทึกการแก้ไขแล้ว'); history.back(); return; }
+      last.textContent = savedLine(s.duplicate, D.fmt(d) + '  ' + Money.baht(amt));
+      toast('บันทึกรายรับสำเร็จ'); requestId = Store.newId(); amount.value = ''; desc.value = '';
+    } catch (e) { showError(e, form, submit); } finally { save.disabled = false; }
+  }
+}
+
+/* ---------- fish cost form ---------- */
+function renderFish(id) {
+  const t = navToken; const form = {}; let record = null; let names = {}; let requestId = Store.newId();
+  setHeader(id ? 'รายการต้นทุนปลา' : 'บันทึกต้นทุนปลา', true);
+  const date = dateInput(D.today()), weight = moneyInput('0.000'), price = moneyInput('0.00');
+  const total = h('div', { class: 'v', text: '-' });
+  const save = h('button', { class: 'btn', style: 'background:' + css('fish'), text: 'บันทึก' });
+  const meta = h('div', { class: 'muted small', style: 'white-space:pre-wrap;margin-top:6px' });
+  const last = h('div', { class: 'small', style: 'color:' + css('income') + ';margin-top:8px' });
+  $app.replaceChildren(h('div', { class: 'card' },
+    field(form, 'date', 'วันที่', date), field(form, 'weight', 'น้ำหนักปลา (กก.) มากกว่า 0 ทศนิยมไม่เกิน 3 ตำแหน่ง', weight),
+    field(form, 'price', 'ราคาต่อกิโลกรัม (บาท) ไม่ติดลบ', price),
+    h('div', { class: 'total' }, h('div', { class: 'muted small', text: 'ยอดต้นทุนปลา (คำนวณอัตโนมัติ)' }), total), save), meta, last);
+  const recalc = () => {
+    try { total.textContent = Money.baht(Calc.fishAmount(Money.parseWeight(weight.value, 'weight'), Money.parseBaht(price.value, 'price', 'ราคา'))); }
+    catch (e) { total.textContent = '-'; }
+  };
+  weight.addEventListener('input', recalc); price.addEventListener('input', recalc);
+  save.onclick = submit;
+  if (id) withBusy('กำลังโหลด...', async () => { names = await Users.names(); return FishCosts.get(id); }).then(c => {
+    if (!alive(t)) return; record = c; const me = Session.profile;
+    date.value = D.toInput(c.date); weight.value = Money.weight(c.grams); price.value = Money.toInput(c.pricePerKg);
+    total.textContent = Money.baht(c.amount); meta.textContent = metaText(c, names);
+    const canEdit = me.can('fish_cost.update') && me.allows(c.createdBy);
+    [date, weight, price].forEach(x => { x.disabled = !canEdit; });
+    save.textContent = 'บันทึกการแก้ไข'; save.classList.toggle('hidden', !canEdit);
+    if (!canEdit) setHeader('ดูรายการต้นทุนปลา', true);
+  }).catch(e => showError(e));
+
+  async function submit() {
+    clearErrors(form);
+    let g, p, d;
+    try {
+      d = D.fromInput(date.value); if (!d) throw invalid('date', 'กรุณาเลือกวันที่');
+      g = Money.parseWeight(weight.value, 'weight'); p = Money.parseBaht(price.value, 'price', 'ราคาต่อกิโลกรัม');
+    } catch (e) { showError(e, form); return; }
+    save.disabled = true;
+    try {
+      const s = await withBusy('กำลังบันทึก...', () => record ? FishCosts.update(record, d, g, p) : FishCosts.create(requestId, d, g, p));
+      if (record) { toast('บันทึกการแก้ไขแล้ว'); history.back(); return; }
+      last.textContent = savedLine(s.duplicate, D.fmt(d) + '  ' + Money.weight(g) + ' กก. × ' + Money.fmt(p) + ' = ' + Money.baht(Calc.fishAmount(g, p)));
+      toast('บันทึกต้นทุนปลาสำเร็จ'); requestId = Store.newId(); weight.value = ''; price.value = ''; recalc();
+    } catch (e) { showError(e, form, submit); } finally { save.disabled = false; }
+  }
+}
+
+/* ---------- expense form ---------- */
+function renderExpense(id) {
+  const t = navToken; const form = {}; let record = null; let names = {}; let requestId = Store.newId();
+  setHeader(id ? 'รายการค่าใช้จ่าย' : 'บันทึกค่าใช้จ่าย', true);
+  const date = dateInput(D.today());
+  const ev = radioRow('etype', 'EVENT: ค่าจัดเตรียมสถานที่และจัดงาน', 'EVENT', true);
+  const mt = radioRow('etype', 'MAINTENANCE: ค่าบำรุงรักษาสิ่งของและอุปกรณ์', 'MAINTENANCE', false);
+  const desc = textArea('เช่น เช่าเต็นท์งานแข่ง, ซ่อมเครื่องตีน้ำ'), amount = moneyInput('0.00');
+  const save = h('button', { class: 'btn', style: 'background:' + css('expense'), text: 'บันทึก' });
+  const meta = h('div', { class: 'muted small', style: 'white-space:pre-wrap;margin-top:6px' });
+  const last = h('div', { class: 'small', style: 'color:' + css('income') + ';margin-top:8px' });
+  $app.replaceChildren(h('div', { class: 'card' }, field(form, 'date', 'วันที่', date),
+    h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ประเภท' }), ev.row, mt.row),
+    field(form, 'description', 'รายละเอียด (ต้องกรอก)', desc), field(form, 'amount', 'จำนวนเงิน (บาท) ไม่ติดลบ', amount), save), meta, last);
+  save.onclick = submit;
+  if (id) withBusy('กำลังโหลด...', async () => { names = await Users.names(); return Expenses.get(id); }).then(x => {
+    if (!alive(t)) return; record = x; const me = Session.profile;
+    date.value = D.toInput(x.date); (x.type === 'MAINTENANCE' ? mt : ev).box.checked = true;
+    desc.value = x.description; amount.value = Money.toInput(x.amount); meta.textContent = metaText(x, names);
+    const canEdit = me.can('expense.update') && me.allows(x.createdBy);
+    [date, ev.box, mt.box, desc, amount].forEach(el => { el.disabled = !canEdit; });
+    save.textContent = 'บันทึกการแก้ไข'; save.classList.toggle('hidden', !canEdit);
+    if (!canEdit) setHeader('ดูรายการค่าใช้จ่าย', true);
+  }).catch(e => showError(e));
+
+  async function submit() {
+    clearErrors(form);
+    let amt, d;
+    try {
+      d = D.fromInput(date.value); if (!d) throw invalid('date', 'กรุณาเลือกวันที่');
+      if (!desc.value.trim()) throw invalid('description', 'กรุณากรอกรายละเอียดค่าใช้จ่าย');
+      amt = Money.parseBaht(amount.value, 'amount', 'จำนวนเงิน');
+    } catch (e) { showError(e, form); return; }
+    const type = mt.box.checked ? 'MAINTENANCE' : 'EVENT';
+    save.disabled = true;
+    try {
+      const s = await withBusy('กำลังบันทึก...', () => record ? Expenses.update(record, d, type, desc.value, amt) : Expenses.create(requestId, d, type, desc.value, amt));
+      if (record) { toast('บันทึกการแก้ไขแล้ว'); history.back(); return; }
+      last.textContent = savedLine(s.duplicate, D.fmt(d) + '  ' + type + '  ' + Money.baht(amt));
+      toast('บันทึกค่าใช้จ่ายสำเร็จ'); requestId = Store.newId(); desc.value = ''; amount.value = '';
+    } catch (e) { showError(e, form, submit); } finally { save.disabled = false; }
+  }
+}
+
+/* ---------- search / history (FR-11) ---------- */
+const historyState = { start: null, end: null, kinds: { REVENUE: true, FISH: true, EVENT: true, MAINTENANCE: true }, keyword: '', deleted: false, searched: false };
+function renderHistory() {
+  const t = navToken; const me = Session.profile; const form = {};
+  setHeader('ค้นหา / ประวัติรายการ', true);
+  if (!historyState.start) { historyState.start = D.monthStart(D.today()); historyState.end = D.today(); }
+  const start = dateInput(historyState.start), end = dateInput(historyState.end);
+  const kinds = [];
+  const addKind = (key, label, perm) => { if (me.can(perm)) { const c = checkRow(label, historyState.kinds[key]); kinds.push([key, c.box]); return c.row; } return null; };
+  const keyword = input('search', 'รายละเอียด หรือจำนวนเงิน', { value: historyState.keyword });
+  const del = checkRow('แสดงรายรับที่ลบแล้ว (DELETED)', historyState.deleted);
+  const btn = h('button', { class: 'btn', text: 'ค้นหา' });
+  const summary = h('div', { class: 'bold', style: 'margin:16px 2px 8px' });
+  const results = h('div');
+  $app.replaceChildren(h('form', { class: 'card', onsubmit: ev => { ev.preventDefault(); search(); } },
+    h('div', { class: 'two' }, field(form, 'range', 'วันเริ่มต้น', start), field(null, null, 'วันสิ้นสุด', end)),
+    h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ประเภท' }),
+      addKind('REVENUE', 'รายรับ', 'revenue.read'), addKind('FISH', 'ต้นทุนปลา', 'fish_cost.read'),
+      addKind('EVENT', 'ค่าจัดสถานที่/จัดงาน (EVENT)', 'expense.read'), addKind('MAINTENANCE', 'ค่าบำรุงรักษา (MAINTENANCE)', 'expense.read')),
+    field(null, null, 'คำค้น', keyword), me.can('revenue.read') ? del.row : null,
+    !me.isAdmin() && me.recordScope !== 'ALL' ? h('div', { class: 'muted small', text: 'ขอบเขตของคุณ: เฉพาะรายการที่คุณสร้าง (OWN)' }) : null,
+    btn), summary, results);
+  if (historyState.searched) search();
+
+  async function search() {
+    clearErrors(form);
+    historyState.start = D.fromInput(start.value); historyState.end = D.fromInput(end.value);
+    historyState.keyword = keyword.value; historyState.deleted = del.box.checked;
+    const chosen = [];
+    for (const [k, box] of kinds) { historyState.kinds[k] = box.checked; if (box.checked) chosen.push(k); }
+    if (!chosen.length) { alertBox('เลือกประเภท', 'กรุณาเลือกประเภทรายการอย่างน้อยหนึ่งประเภท'); return; }
+    const s = historyState.start, e = historyState.end ? D.rangeEnd(historyState.end) : 0;
+    try {
+      const [items, names] = await withBusy('กำลังค้นหา...', () => Promise.all([History.list(s, e, historyState.keyword, chosen, historyState.deleted), Users.names()]));
+      if (!alive(t)) return;
+      historyState.searched = true; show(items, names);
+    } catch (err) { showError(err, form); }
+  }
+  function show(items, names) {
+    summary.textContent = 'พบ ' + items.length + ' รายการ  (' + D.fmt(historyState.start) + ' ถึง ' + D.fmt(historyState.end) + ')';
+    const color = k => k === 'REVENUE' ? css('income') : k === 'FISH' ? css('fish') : k === 'MAINTENANCE' ? css('maint') : css('expense');
+    results.replaceChildren(...items.slice(0, 500).map(it => {
+      const c = color(it.kind); const income = it.kind === 'REVENUE';
+      const amt = h('span', { class: 'bold' + (it.deleted ? ' strike' : ''), style: 'margin-left:auto;font-size:17px;color:' + (it.deleted ? css('muted') : c),
+        text: (income ? '+' : '-') + Money.fmt(it.rec.amount) });
+      const path = it.kind === 'REVENUE' ? '#/revenue/' : it.kind === 'FISH' ? '#/fish/' : '#/expense/';
+      return h('div', { class: 'card item', onclick: () => go(path + it.rec.id) },
+        h('div', { class: 'row' }, badge(it.title, c), it.deleted ? badge('ลบแล้ว', css('danger')) : null, amt),
+        h('div', { style: 'margin-top:6px', text: D.fmt(it.rec.date) }),
+        it.detail ? h('div', { text: it.detail }) : null,
+        h('div', { class: 'muted tiny', style: 'margin-top:6px', text: 'สร้างโดย ' + Users.nameOf(names, it.rec.createdBy) + '  •  แก้ไขล่าสุดโดย ' +
+          Users.nameOf(names, it.rec.updatedBy) + ' ' + D.fmtTime(it.rec.updatedAt) }));
+    }));
+    if (items.length > 500) results.append(h('div', { class: 'muted small', text: 'แสดง 500 รายการแรก กรุณาจำกัดช่วงวันหรือคำค้นให้แคบลง' }));
+  }
+}
+
+/* ---------- report (ADMIN) ---------- */
+function renderReport() {
+  const t = navToken; let names = {};
+  if (!Session.profile.isAdmin()) { toast('เฉพาะผู้ดูแลระบบ (ADMIN)'); go('#/'); return; }
+  setHeader('รายงานสรุป', true);
+  const start = dateInput(D.monthStart(D.today())), end = dateInput(D.monthEnd(D.today()));
+  const quick = (label, s, e) => h('button', { class: 'btn outline', type: 'button', text: label, onclick: () => { start.value = D.toInput(s()); end.value = D.toInput(e()); } });
+  const calc = h('button', { class: 'btn', text: 'คำนวณรายงานใหม่' });
+  const result = h('div');
+  const snaps = h('div');
+  $app.replaceChildren(h('div', { class: 'card' },
+    h('div', { class: 'lbl muted small', style: 'margin-bottom:6px', text: 'เลือกช่วงเวลา' }),
+    h('div', { class: 'three' }, quick('วันนี้', D.today, D.today), quick('เดือนนี้', () => D.monthStart(D.today()), () => D.monthEnd(D.today())),
+      quick('ปีนี้', () => D.yearStart(D.today()), () => D.yearEnd(D.today()))),
+    h('div', { class: 'two' }, field(null, null, 'วันเริ่มต้น', start), field(null, null, 'วันสิ้นสุด', end)),
+    calc, h('div', { class: 'muted tiny', style: 'margin-top:8px', text: 'รายงานใหม่อ่านข้อมูลล่าสุด คำนวณด้วยอัตราภาษีที่ใช้งานอยู่ และเก็บเป็นภาพบันทึกผลสรุป' })),
+    result, h('div', { class: 'title', text: 'ภาพบันทึกผลสรุปเดิม' }), snaps);
+  calc.onclick = () => generate(Store.newId()); // a new press is a new request
+  loadSnaps();
+
+  async function generate(requestId) {
+    const s = D.fromInput(start.value), e = D.fromInput(end.value) ? D.rangeEnd(D.fromInput(end.value)) : 0;
+    try {
+      const r = await withBusy('กำลังคำนวณรายงาน...', async () => { names = await Users.names(); return Reports.getSummary(s, e, requestId); });
+      if (!alive(t)) return;
+      showSummary(r, true); loadSnaps();
+    } catch (err) {
+      const retry = err.code === E.NETWORK || err.code === E.SAVE_FAILED;
+      showError(err, null, retry ? () => generate(requestId) : null); // retry resends the same request ID
+    }
+  }
+  function showSummary(r, fresh) {
+    const lastDay = D.addDays(r.periodEnd, -1);
+    result.replaceChildren(h('div', { class: 'card' },
+      badge(fresh ? 'รายงานใหม่' : 'ภาพบันทึกผลสรุปเดิม', fresh ? css('income') : css('fish')),
+      h('div', { class: 'bold', style: 'font-size:18px;margin-top:8px', text: D.fmt(r.periodStart) + ' ถึง ' + D.fmt(lastDay) }),
+      h('div', { style: 'margin-top:8px' },
+        line('รายรับรวม', Money.baht(r.totalRevenue), css('income'), true),
+        line('ต้นทุนปลารวม', Money.baht(r.totalFishCost)),
+        line('ค่าใช้จ่ายรวม (EVENT + MAINTENANCE)', Money.baht(r.totalExpense)),
+        line('ต้นทุนรวม', Money.baht(r.totalCost), css('expense'), true)),
+      h('div', { class: 'divider' }),
+      line('กำไรเบื้องต้นก่อนภาษี', Money.baht(r.preliminaryProfit), r.preliminaryProfit >= 0 ? css('income') : css('expense'), true),
+      line('อัตราภาษีที่ใช้', Money.rate(r.rateCenti) + '%'),
+      line('ภาษีประมาณการ', Money.baht(r.estimatedTax), css('primary-dark'), true),
+      h('div', { class: 'divider' }),
+      h('div', { class: 'muted tiny', style: 'white-space:pre-wrap;margin-top:6px', text: 'รหัสผลสรุป: ' + r.id + '\nเวลาสร้าง: ' + D.fmtTime(r.generatedAt) +
+        '\nผู้สร้าง: ' + Users.nameOf(names, r.generatedBy) + '\nรหัสชุดอัตราภาษี: ' + r.taxConfigId }),
+      h('div', { class: 'note', text: fresh ? 'ผลสรุปนี้ถูกบันทึกแล้ว แม้แก้รายการหรืออัตราภาษีภายหลัง ผลสรุปนี้จะคงค่าเดิม'
+        : 'ข้อมูล ณ เวลาสร้าง ไม่ใช่ข้อมูลปัจจุบัน หากต้องการข้อมูลล่าสุดให้กดคำนวณรายงานใหม่' }),
+      h('div', { class: 'muted tiny', style: 'margin-top:4px', text: 'ภาษีเป็นการประมาณการภายในเพื่อการบริหาร ไม่ใช่การยื่นแบบภาษี' })));
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  async function loadSnaps() {
+    try {
+      if (Object.keys(names).length <= 1) names = await Users.names();
+      const list = await Reports.list(30);
+      if (!alive(t)) return;
+      snaps.replaceChildren(...(list.length ? list.map(r => h('div', { class: 'card item', onclick: () => openSnap(r.id) },
+        h('div', { class: 'bold', text: D.fmt(r.periodStart) + ' ถึง ' + D.fmt(D.addDays(r.periodEnd, -1)) }),
+        line('กำไรเบื้องต้น', Money.baht(r.preliminaryProfit), r.preliminaryProfit >= 0 ? css('income') : css('expense')),
+        h('div', { class: 'muted tiny', text: 'สร้างเมื่อ ' + D.fmtTime(r.generatedAt) + '  อัตรา ' + Money.rate(r.rateCenti) + '%' })))
+        : [h('div', { class: 'muted small', text: 'ยังไม่มีผลสรุปที่บันทึกไว้' })]));
+    } catch (e) { if (alive(t)) snaps.replaceChildren(h('div', { class: 'small', style: 'color:' + css('danger'), text: 'โหลดผลสรุปเดิมไม่สำเร็จ: ' + toAppError(e).message })); }
+  }
+  async function openSnap(id) {
+    try { const r = await withBusy('กำลังเปิดผลสรุป...', () => Reports.get(id)); if (alive(t)) showSummary(r, false); }
+    catch (e) { showError(e); }
+  }
+}
+
+/* ---------- settings (ADMIN) ---------- */
+function renderSettings() {
+  const t = navToken; const form = {}; let rateRequestId = Store.newId();
+  if (!Session.profile.isAdmin()) { toast('เฉพาะผู้ดูแลระบบ (ADMIN)'); go('#/'); return; }
+  setHeader('ตั้งค่า', true);
+  const current = h('div', { class: 'bold', text: 'กำลังโหลด...' });
+  const rate = moneyInput('เช่น 7');
+  const saveRate = h('button', { class: 'btn', text: 'บันทึกอัตราใหม่' });
+  const rateHist = h('div', { style: 'margin-top:8px' });
+  const aiStatus = h('div', { class: 'bold', text: 'กำลังโหลด...' });
+  const aiKey = input('password', 'วาง Gemini API key', { autocomplete: 'off', autocapitalize: 'none' });
+  const saveAi = h('button', { class: 'btn', style: 'background:' + css('ai'), text: 'บันทึก Gemini API key' });
+  const users = h('div');
+  $app.replaceChildren(
+    h('div', { class: 'title', style: 'margin-top:4px', text: 'อัตราภาษีประมาณการ' }),
+    h('div', { class: 'card' }, current, field(form, 'rate', 'อัตราใหม่ (ร้อยละ 0 ถึง 100 ทศนิยมไม่เกิน 2 ตำแหน่ง)', rate), saveRate,
+      h('div', { class: 'muted tiny', style: 'margin-top:8px', text: 'การเปลี่ยนอัตราจะสร้างรุ่นใหม่และปิดรุ่นเดิมพร้อมกัน รายงานที่สร้างไว้แล้วไม่เปลี่ยนตาม' }), rateHist),
+    h('div', { class: 'title', text: 'ผู้ช่วย AI' }),
+    h('div', { class: 'card' }, aiStatus, field(form, 'gemini', 'Gemini API key จาก Google AI Studio', aiKey), saveAi,
+      h('div', { class: 'muted tiny', style: 'margin-top:8px', text: 'คีย์เก็บในฐานข้อมูล ไม่อยู่ในไฟล์เว็บ ผู้ใช้ที่เข้าสู่ระบบแล้วจึงจะใช้ได้' })),
+    h('div', { class: 'row', style: 'margin:18px 2px 8px' }, h('div', { class: 'grow', style: 'font-size:19px;font-weight:700', text: 'ผู้ใช้และสิทธิ์' }),
+      h('a', { class: 'btn outline small', href: '#/user', text: '+ เพิ่มผู้ใช้', style: 'text-decoration:none' })),
+    users);
+  saveRate.onclick = submitRate; saveAi.onclick = submitAi;
+  load();
+
+  async function load() {
+    try {
+      const [hist, list, names, key] = await Promise.all([Tax.history(), Users.list(), Users.names(), AiConfig.get(true)]);
+      if (!alive(t)) return;
+      const act = hist.filter(x => x.active);
+      if (!act.length) { current.textContent = 'ยังไม่ได้ตั้งอัตราภาษี (รายงานจะแจ้ง CONFIG_MISSING)'; current.style.color = css('danger'); }
+      else if (act.length > 1) { current.textContent = 'พบอัตราที่ใช้งานอยู่ ' + act.length + ' ชุด (CONFIG_CONFLICT) บันทึกอัตราใหม่เพื่อแก้ไข'; current.style.color = css('danger'); }
+      else { current.textContent = 'อัตราปัจจุบัน ' + Money.rate(act[0].rateCenti) + '%  มีผลตั้งแต่ ' + D.fmtTime(act[0].effectiveDate); current.style.color = ''; }
+      rateHist.replaceChildren(hist.length ? h('div', { class: 'muted small', text: 'ประวัติอัตรา' }) : '', ...hist.map(x => h('div', { class: 'small',
+        style: 'color:' + (x.active ? css('income') : css('muted')), text: Money.rate(x.rateCenti) + '%  ตั้งแต่ ' + D.fmtTime(x.effectiveDate) +
+        (x.active ? '  [ใช้งานอยู่]' : '  [ปิดแล้ว]') + '  โดย ' + Users.nameOf(names, x.updatedBy) })));
+      aiStatus.textContent = key ? 'ตั้งค่าแล้ว (ลงท้ายด้วย ...' + key.slice(-4) + ')' : 'ยังไม่ได้ใส่ Gemini API key';
+      aiStatus.style.color = key ? css('income') : css('danger');
+      users.replaceChildren(...list.map(u => {
+        const granted = PERMS.filter(([k]) => u.can(k)).length;
+        return h('a', { class: 'card item', href: '#/user/' + u.uid, style: 'display:block;color:inherit;text-decoration:none' },
+          h('div', { class: 'row' }, h('div', { class: 'grow bold', text: u.fullName + (u.uid === Session.uid ? ' (คุณ)' : '') }),
+            badge(u.role, u.role === 'ADMIN' ? css('primary') : css('fish'))),
+          h('div', { class: 'muted small', text: u.email }),
+          h('div', { class: 'small', style: 'margin-top:4px;color:' + (u.status ? css('text') : css('danger')),
+            text: 'ขอบเขต ' + u.recordScope + '  •  สิทธิ์ ' + (u.role === 'ADMIN' ? 'ทั้งหมด' : granted + '/10') + '  •  ' + (u.status ? 'อนุญาตใช้งาน' : 'ปิดการใช้งาน') }));
+      }));
+    } catch (e) { current.textContent = 'โหลดข้อมูลไม่สำเร็จ'; showError(e, null, load); }
+  }
+  async function submitRate() {
+    clearErrors(form);
+    let c; try { c = Money.parseRate(rate.value, 'rate'); } catch (e) { showError(e, form); return; }
+    if (!(await confirmBox('ยืนยันอัตราภาษีใหม่', 'ตั้งอัตราภาษีประมาณการเป็น ' + Money.rate(c) + '% ตั้งแต่ตอนนี้', 'บันทึก'))) return;
+    const doSave = async () => {
+      saveRate.disabled = true;
+      try { await withBusy('กำลังบันทึกอัตรา...', () => Tax.update(c, rateRequestId)); rateRequestId = Store.newId(); rate.value = ''; toast('บันทึกอัตราภาษีใหม่แล้ว'); load(); }
+      catch (e) { showError(e, form, doSave); } finally { saveRate.disabled = false; }
+    };
+    doSave();
+  }
+  async function submitAi() {
+    clearErrors(form); saveAi.disabled = true;
+    try { await withBusy('กำลังบันทึก...', () => AiConfig.set(aiKey.value)); aiKey.value = ''; toast('บันทึก Gemini API key แล้ว'); load(); }
+    catch (e) { showError(e, form); } finally { saveAi.disabled = false; }
+  }
+}
+
+/* ---------- add / edit user (ADMIN) ---------- */
+function renderUser(uid) {
+  const t = navToken; const form = {}; let profile = null; const isNew = !uid; const isSelf = uid === Session.uid;
+  if (!Session.profile.isAdmin()) { go('#/'); return; }
+  setHeader(isNew ? 'เพิ่มผู้ใช้' : 'แก้ไขผู้ใช้และสิทธิ์', true);
+  const email = input('email', 'name@example.com', { autocapitalize: 'none', autocomplete: 'off' });
+  const pw = input('text', 'รหัสผ่าน', { autocomplete: 'new-password', autocapitalize: 'none' });
+  const emailView = h('div', { class: 'bold' });
+  const name = input('text', 'ชื่อ-นามสกุล');
+  const rAdmin = radioRow('role', 'ADMIN: เจ้าของธุรกิจ/ผู้ดูแลระบบ (ทุกสิทธิ์)', 'ADMIN', false);
+  const rStaff = radioRow('role', 'STAFF: ผู้ใช้งานที่ได้รับมอบหมาย', 'STAFF', true);
+  const sOwn = radioRow('scope', 'OWN: เฉพาะรายการที่ตนเองสร้าง', 'OWN', true);
+  const sAll = radioRow('scope', 'ALL: ทุกรายการของกิจการ', 'ALL', false);
+  const perms = PERMS.map(([k, label]) => [k, checkRow(label + '  (' + k + ')', false)]);
+  const status = checkRow('อนุญาตให้ใช้งาน (status)', true);
+  const save = h('button', { class: 'btn', text: 'บันทึก' });
+  $app.replaceChildren(h('div', { class: 'card' },
+    isNew ? [field(form, 'email', 'อีเมลสำหรับเข้าสู่ระบบ', email), field(form, 'password', 'รหัสผ่านเริ่มต้น (อย่างน้อย 6 ตัวอักษร)', pw),
+      h('div', { class: 'muted tiny', text: 'ระบบจะสร้างบัญชีใน Firebase Authentication ให้ แล้วแจ้งอีเมลและรหัสผ่านนี้แก่ผู้ใช้' })]
+      : h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'อีเมล' }), emailView),
+    field(form, 'full_name', 'ชื่อผู้ใช้งาน', name),
+    h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'บทบาท' }), rAdmin.row, rStaff.row),
+    h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ขอบเขตรายการ (record_scope)' }), sOwn.row, sAll.row),
+    h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'สิทธิ์แต่ละการทำงาน' }), perms.map(p => p[1].row)),
+    h('div', { class: 'field' }, status.row),
+    isSelf ? h('div', { class: 'note', text: 'บัญชีของคุณเองเปลี่ยนบทบาทหรือปิดการใช้งานไม่ได้ เพื่อป้องกันการล็อกตัวเองออกจากระบบ' }) : null,
+    save));
+  const applyRole = () => {
+    const admin = rAdmin.box.checked;
+    if (admin) sAll.box.checked = true;
+    sOwn.box.disabled = sAll.box.disabled = admin;
+    perms.forEach(([, c]) => { if (admin) c.box.checked = true; c.box.disabled = admin; });
+    rAdmin.box.disabled = rStaff.box.disabled = status.box.disabled = isSelf;
+  };
+  rAdmin.box.onchange = applyRole; rStaff.box.onchange = applyRole; applyRole();
+  save.onclick = submit;
+  if (!isNew) withBusy('กำลังโหลด...', async () => { const p = await Users.getProfile(uid); if (!p) throw new AppError(E.NOT_FOUND, 'ไม่พบโปรไฟล์ผู้ใช้'); return p; }).then(p => {
+    if (!alive(t)) return; profile = p;
+    emailView.textContent = p.email; name.value = p.fullName || '';
+    (p.role === 'ADMIN' ? rAdmin : rStaff).box.checked = true;
+    (p.recordScope === 'ALL' ? sAll : sOwn).box.checked = true;
+    perms.forEach(([k, c]) => { c.box.checked = p.permissions[k] === true; });
+    status.box.checked = p.status; applyRole();
+  }).catch(e => showError(e));
+
+  async function submit() {
+    clearErrors(form);
+    if (!isNew && !profile) return;
+    const p = isNew ? { permissions: {} } : profile;
+    if (isNew) p.email = email.value;
+    p.fullName = name.value; p.role = rAdmin.box.checked ? 'ADMIN' : 'STAFF'; p.recordScope = sAll.box.checked ? 'ALL' : 'OWN';
+    p.permissions = {}; perms.forEach(([k, c]) => { p.permissions[k] = c.box.checked; });
+    p.status = status.box.checked;
+    save.disabled = true;
+    try {
+      await withBusy('กำลังบันทึก...', () => Users.upsert(p, isNew, isNew ? pw.value : null));
+      toast(isNew ? 'เพิ่มผู้ใช้แล้ว' : 'บันทึกสิทธิ์แล้ว'); history.back();
+    } catch (e) { showError(e, form); } finally { save.disabled = false; }
+  }
+}
+
+/* ---------- AI chat ---------- */
+const chatHistory = [];
+function formatReply(md) {
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return md.replace(/\r/g, '').split('\n').map(l => {
+    let x = l.trim();
+    if (/^#+\s*/.test(x)) x = '**' + x.replace(/^#+\s*/, '') + '**';
+    else if (/^[*-]\s+/.test(x)) x = '• ' + x.replace(/^[*-]\s+/, '');
+    else x = l;
+    return esc(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  }).join('\n');
+}
+function renderChat() {
+  const t = navToken; let sending = false;
+  setHeader('ผู้ช่วย AI', true);
+  const clear = h('button', { text: 'ล้างแชท', onclick: () => { if (!sending) { chatHistory.length = 0; drawAll(); } } });
+  $action.append(clear);
+  const msgs = h('div', { class: 'msgs' });
+  const box = h('textarea', { class: 'input', rows: '1', placeholder: 'พิมพ์คำถาม...' });
+  const send = h('button', { class: 'btn', text: 'ส่ง' });
+  const bar = h('div', { class: 'chatbar' }, h('div', { class: 'inner' }, box, send));
+  $app.replaceChildren(h('div', { class: 'chatwrap' }, msgs), bar);
+  send.onclick = () => ask(box.value);
+  box.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(pointer:fine)').matches) { e.preventDefault(); ask(box.value); } });
+  box.addEventListener('input', () => { box.style.height = 'auto'; box.style.height = Math.min(box.scrollHeight, 120) + 'px'; });
+  drawAll();
+
+  function bubble(m) {
+    const b = h('div', { class: 'bubble ' + (m.error ? 'bad' : m.me ? 'me' : 'bot') });
+    if (m.me || m.error) b.textContent = m.text; else b.innerHTML = formatReply(m.text);
+    return b;
+  }
+  function drawAll() {
+    msgs.replaceChildren();
+    if (!chatHistory.length) {
+      msgs.append(h('div', { class: 'card' }, h('div', { class: 'bold', style: 'color:' + css('ai'), text: 'ผู้ช่วย AI (Gemini)' }),
+        h('div', { style: 'margin-top:6px', text: 'ถามได้ทุกเรื่อง เช่น การดูแลบ่อและปลา ไอเดียจัดงานแข่ง หรือช่วยคิดต้นทุนกำไร ผู้ช่วยมองไม่เห็นข้อมูลที่บันทึกในแอป และไม่ควรพิมพ์ข้อมูลส่วนตัวหรือความลับลงไป' })));
+      ['มีวิธีลดต้นทุนค่าปลาที่ปล่อยลงบ่อไหม', 'ช่วยคิดไอเดียจัดงานแข่งตกปลาให้คนมาเยอะขึ้น', 'ถ้าซื้อปลา 35.5 กก. กิโลละ 85 บาท ต้นทุนเท่าไร']
+        .forEach(s => msgs.append(h('button', { class: 'sample', text: s, onclick: () => ask(s) })));
+    }
+    chatHistory.forEach(m => msgs.append(bubble(m)));
+    if (chatHistory.length) scrollEnd();
+  }
+  function scrollEnd() { setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 30); }
+  async function ask(raw) {
+    const text = (raw || '').trim();
+    if (!text || sending) return;
+    sending = true; send.disabled = true; box.value = ''; box.style.height = 'auto';
+    if (!chatHistory.length) msgs.replaceChildren();
+    const mine = { me: true, text }; chatHistory.push(mine); msgs.append(bubble(mine));
+    const typing = h('div', { class: 'bubble bot muted', text: 'กำลังพิมพ์...' }); msgs.append(typing); scrollEnd();
+    try {
+      const reply = await Gemini.chat(chatHistory.filter(m => !m.error));
+      const bot = { me: false, text: reply }; chatHistory.push(bot);
+      if (alive(t)) typing.replaceWith(bubble(bot));
+    } catch (e) {
+      e = toAppError(e);
+      chatHistory.splice(chatHistory.indexOf(mine), 1); // a retry should not send the question twice
+      if (alive(t)) { typing.replaceWith(bubble({ error: true, text: e.message })); box.value = text; }
+    } finally { sending = false; send.disabled = false; scrollEnd(); }
+  }
+}
+
+/* ---------- start ---------- */
+(async function start() {
+  if (Session.load()) {
+    try {
+      const r = await withBusy('กำลังเข้าสู่ระบบ...', () => Auth.restore());
+      if (r === 'FIRST_ADMIN') { history.replaceState(null, '', '#/login'); renderLogin(); firstAdmin(); return; }
+    } catch (e) { if (e.code !== E.NETWORK) Session.clear(); else toast(e.message); }
+  }
+  route();
+})();
+</script>
+</body>
+</html>
