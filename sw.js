@@ -1,7 +1,7 @@
 /* Offline shell for the web version. Pages are fetched fresh when online
    (so updates show at once) and served from the cache when offline.
    Requests to the database and the assistant are never touched. */
-const CACHE = 'tokpra-3.2.2';
+const CACHE = 'tokpra-3.2.3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './favicon.svg'];
 self.addEventListener('install', e => {
   self.skipWaiting();

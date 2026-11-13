@@ -39,8 +39,8 @@
   --brand:#0E5A37; --brand-press:#0A4A2C; --brand-tint:#E3EEE6; --on-brand:#FFFFFF;
   --band:#0E5A37; --band-2:#0B4B2D; --band-ink:#FFFFFF; --band-dim:rgba(255,255,255,.74); --band-rule:rgba(255,255,255,.2);
   --act:#F4B42A; --act-press:#E2A217; --on-act:#1C1605;
-  --in:#11803F; --loss:#B42318; --danger:#B42318; --danger-tint:#FBEAE7; --warn:#7D5000; --warn-tint:#FAEFD6;
-  --c-in:#11803F; --c-fish:#1F6C8C; --c-event:#B95F12; --c-maint:#6C5D99;
+  --in:#0F7A3B; --loss:#B42318; --danger:#B42318; --danger-tint:#FBEAE7; --warn:#7D5000; --warn-tint:#FAEFD6;
+  --c-in:#0F7A3B; --c-fish:#1F6C8C; --c-event:#B95F12; --c-maint:#6C5D99;
   --k-in:#13824A; --k-fish:#1F6C8C; --k-event:#C0620F; --k-maint:#6C5D99; --k-bill:#8A6A1F;
   --ch-in:#13824A; --ch-out:#B65C9A;
   --lift:0 1px 2px rgba(18,40,27,.08),0 8px 24px rgba(18,40,27,.12);
@@ -76,7 +76,8 @@ svg.i.sm{width:1.2rem;height:1.2rem}
 
 /* figures: money and weights */
 .fig{font-family:"Figures","Plex Thai",sans-serif;font-variant-numeric:tabular-nums;white-space:nowrap;letter-spacing:.01em}
-.fig .dec{font-size:.8em;opacity:.7}
+/* the satang part is set smaller, at full strength (faded, it fell below 4.5:1 contrast on green, red and muted figures) */
+.fig .dec{font-size:.8em}
 .c-in{color:var(--in)} .c-out{color:var(--loss)} .c-danger{color:var(--danger)}
 
 /* ---------- frame ---------- */
@@ -85,7 +86,13 @@ svg.i.sm{width:1.2rem;height:1.2rem}
 #stage{flex:1;min-width:0;display:flex;flex-direction:column}
 #bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:2px;
   padding:calc(env(safe-area-inset-top) + 6px) 6px 6px 16px;min-height:calc(env(safe-area-inset-top) + var(--bar-h))}
-#bar h1{flex:1;min-width:0;font-size:1.2rem;font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Thai marks: IBM Plex Sans Thai Looped puts a tone mark stacked on an upper vowel (ที่ นี้ สิทธิ์) up to 1.22em
+   above the baseline and a vowel under a tailed letter (ฎุ) 0.55em below it, so a box that hides its overflow
+   cuts those marks off at the line heights used for reading (ที่ reads as ที). One-line boxes that hide their
+   overflow use a line height of 2, and a negative margin of half the difference keeps them exactly where the
+   tighter line height put them. Two-line row titles keep 1.85 between their lines and get room on top instead.
+   test/thai_marks.py measures every screen for this. */
+#bar h1{flex:1;min-width:0;font-size:1.2rem;font-weight:600;line-height:2;margin:-.35em 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #barActions{display:flex}
 .iconbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:44px;height:44px;padding:0 10px;border:0;border-radius:22px;background:transparent;color:var(--ink);font-size:.95rem;font-weight:500}
 .iconbtn:active{background:var(--paper-2)}
@@ -151,7 +158,7 @@ body.auth .authfoot .dim{color:var(--band-dim)}
 .ledger.two{grid-template-columns:1fr 1fr}
 .ledger > div{min-width:0;padding-right:10px}
 .ledger > div + div{padding-left:12px;border-left:1px solid var(--band-rule)}
-.ledger .k{font-size:.78rem;color:var(--band-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ledger .k{font-size:.78rem;color:var(--band-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:2;margin:-.225em 0}
 .ledger .v{font-size:1.06rem;font-weight:600;line-height:1.4}
 .ledger .v.fig{font-weight:500}
 .actcard{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,1fr);margin:-40px 0 0;padding:6px;background:var(--paper);border-radius:var(--r-card);box-shadow:var(--lift)}
@@ -183,10 +190,10 @@ body.home .list{border-top:0}
 .rowitem.bare + .rowitem.bare::before{left:16px}
 a.rowitem:active,button.rowitem:active{background:var(--paper-2)}
 .rmain{flex:1;min-width:0;display:flex;flex-direction:column}
-.rt{font-weight:500;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
-.rd{font-size:.86rem;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.45}
+.rt{font-weight:500;line-height:1.85;padding-top:.15em;margin:-.375em 0 -.225em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.rd{font-size:.86rem;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:2;margin:-.275em 0}
 .ramt{font-family:"Figures","Plex Thai",sans-serif;font-size:1.06rem;font-weight:500;white-space:nowrap;text-align:right;letter-spacing:.01em}
-.ramt .dec{font-size:.8em;opacity:.7}
+.ramt .dec{font-size:.8em}
 .ramt.gone{color:var(--ink-3);text-decoration:line-through}
 .rowitem .chev{color:var(--ink-3);display:flex}
 .kind{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;flex:none;background:var(--ink-3);color:#fff}
@@ -214,7 +221,7 @@ a.rowitem:active,button.rowitem:active{background:var(--paper-2)}
 .searchbox .input{min-height:44px;padding-left:40px;font-size:1rem;background:var(--paper-2);border-color:transparent}
 .searchbox .input:focus{background:var(--paper)}
 .periodbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 10px 0 12px;border:1px solid var(--rule-2);border-radius:var(--r-ctl);background:var(--paper);color:var(--ink);font-size:.92rem;font-weight:500;white-space:nowrap;max-width:52%}
-.periodbtn span{overflow:hidden;text-overflow:ellipsis}
+.periodbtn span{overflow:hidden;text-overflow:ellipsis;line-height:2;margin:-.225em 0}
 .periodbtn svg{color:var(--ink-2)}
 .tabs{display:flex;gap:2px;overflow-x:auto;margin:6px -16px 0;padding:0 8px;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
@@ -240,6 +247,9 @@ a.rowitem:active,button.rowitem:active{background:var(--paper-2)}
 .hint{font-size:.8rem;color:var(--ink-3);margin-top:5px}
 .input{width:100%;min-height:50px;padding:11px 14px;background:var(--paper);border:1px solid var(--rule-2);border-radius:var(--r-ctl);font-size:1.06rem;outline:none;-webkit-appearance:none;appearance:none}
 textarea.input{min-height:80px;resize:vertical;line-height:1.5}
+/* one-line fields: a search field cuts tone marks at its own line (นี้ reads as นี), as Safari can for any field,
+   so they get a line height of 2; less padding keeps the field the same height. The amount field holds digits only. */
+input.input:not(.big){padding-top:7px;padding-bottom:7px;line-height:2}
 .input::placeholder{color:var(--ink-3)}
 .input:focus{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
 .input.bad{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-tint)}
@@ -251,7 +261,7 @@ textarea.input{min-height:80px;resize:vertical;line-height:1.5}
 .input.big{font-family:"Figures","Plex Thai",sans-serif;font-size:1.85rem;font-weight:600;min-height:64px;letter-spacing:.01em}
 .datebtn{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 14px;background:var(--paper);border:1px solid var(--rule-2);border-radius:var(--r-ctl);font-size:1.06rem;text-align:left}
 .datebtn svg{color:var(--ink-2)}
-.datebtn span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.datebtn span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:2;margin:-.225em 0}
 .datebtn input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;padding:0;margin:0;-webkit-appearance:none;appearance:none}
 .datebtn.off{opacity:.7}
 .datebtn:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-tint)}
@@ -439,6 +449,7 @@ body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
   #side a.on{background:rgba(255,255,255,.12);color:var(--band-ink);font-weight:600;box-shadow:inset 3px 0 0 var(--act)}
   #side .who{margin-top:auto;padding:14px 10px 0;border-top:1px solid var(--band-rule);font-size:.85rem;color:var(--band-dim);overflow:hidden;text-overflow:ellipsis}
   #side .who .b{color:var(--band-ink)}
+  #side .who .dim{color:var(--band-dim)}
   #tabs{display:none!important}
   main{max-width:760px;padding:16px 32px 56px}
   main.wide{max-width:900px}
@@ -459,10 +470,10 @@ body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
   #sheet .grab{display:none}
   #toast{bottom:28px}
 }
-@media (max-width:599px){body.home #barTitle{display:none}}
+/* on a phone the home bar shows the wordmark; its title stays for screen readers (every screen keeps a heading) */
+@media (max-width:599px){body.home #barTitle{position:absolute;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}}
 main.fade{animation:fade .16s ease-out}
 @keyframes fade{from{opacity:.4}to{opacity:1}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 @media (pointer:coarse){
   #tabs,#bar,#side,.chip,.btn,.rowitem,.seg,.actcard a,.check,.pchip,.ask,.band,.tabs,.optrow,.periodbtn{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 }
@@ -619,9 +630,18 @@ svg.cash .day{transition:opacity .12s}
 .cashtable td{padding:7px 0;border-bottom:1px solid var(--rule);text-align:right}
 .cashtable tr:last-child td{border-bottom:0}
 .newrow .kind.plain{color:var(--brand)}
-.newrow .rd{white-space:normal}
+.newrow .rd{white-space:normal;overflow:visible;line-height:1.5;margin:0}
 .erracts{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .notice.stale{background:var(--paper-2);color:var(--ink-2);box-shadow:inset 0 0 0 1px var(--rule);padding:8px 8px 8px 14px}
+
+/* dark mode: the danger colour is a light coral there, so its filled button takes dark text */
+html[data-theme=dark] .btn.dangerfill{color:#2B0D0A}
+/* people who ask their phone or computer for less motion: every animation jumps to its end at once (removing
+   animations outright, as before, left the check mark of "บันทึกแล้ว" undrawn, since it is drawn by one) */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  /* entrances have nothing to keep at their end: none at all, so even the very first frame is the final one */
+  #sheet .box,main.fade{animation:none!important}}
+#sheet .box:focus,#modal .box:focus{outline:none}
 
 </style>
 <script>
@@ -673,7 +693,7 @@ const ART = {
 
 const ROOT_SCOPE = typeof window !== 'undefined' ? window : globalThis;
 
-const APP = { version: '3.2.2', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
+const APP = { version: '3.2.3', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
 const CONFIG = {
   projectId: 'tokpra-d7af6',
   apiKey: 'AIzaSyDOvLTt5QX-k13XF2OJhSnLZesy3uQ2e8I',
@@ -691,6 +711,7 @@ const E = {
   CONFIG_MISSING: 'CONFIG_MISSING', CONFIG_CONFLICT: 'CONFIG_CONFLICT', SAVE_FAILED: 'SAVE_FAILED',
   NETWORK: 'NETWORK_ERROR', TIMEOUT: 'TIMEOUT', NOT_FOUND: 'NOT_FOUND', CONFLICT: 'CONFLICT',
   QUOTA: 'QUOTA_EXCEEDED', ASSISTANT: 'ASSISTANT_ERROR', CANCELLED: 'CANCELLED', GUARD: 'READ_GUARD',
+  INDEX: 'NEEDS_INDEX',
 };
 class AppError extends Error {
   constructor(code, message, field) { super(message); this.code = code; this.field = field || null; }
@@ -890,7 +911,8 @@ const G = {
 /* ---------- small local storage helpers (may be missing in private modes) ---------- */
 const Local = {
   get(key, fallback) { try { const v = ROOT_SCOPE.localStorage.getItem(key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; } },
-  set(key, value) { try { ROOT_SCOPE.localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* ignore */ } },
+  /** false when the browser refused (its storage for this site is full, or blocked) */
+  set(key, value) { try { ROOT_SCOPE.localStorage.setItem(key, JSON.stringify(value)); return true; } catch (e) { return false; } },
   del(key) { try { ROOT_SCOPE.localStorage.removeItem(key); } catch (e) { /* ignore */ } },
 };
 
@@ -1038,8 +1060,10 @@ const Auth = {
     const r = await Net.request('POST', URLS.idt + op + '?key=' + CONFIG.apiKey, {
       json: body, netMsg: 'เชื่อมต่อระบบบัญชีไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่',
     });
-    if (r.ok) return r.data || {};
-    throw authCodeError((r.data && r.data.error && r.data.error.message) || '');
+    if (r.ok && r.data) return r.data;
+    // not an answer from the account service (see Fs.garbled): like no signal
+    if (r.ok || !(r.data && r.data.error)) throw new AppError(E.NETWORK, 'เชื่อมต่อระบบบัญชีไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
+    throw authCodeError(r.data.error.message || '');
   },
   _password(op, email, password) { return Auth._call(op, { email, password, returnSecureToken: true }); },
   _apply(j, email) {
@@ -1125,7 +1149,14 @@ const Auth = {
           form: 'grant_type=refresh_token&refresh_token=' + encodeURIComponent(Session.refreshToken),
           netMsg: 'เชื่อมต่อระบบบัญชีไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่',
         });
-        if (!r.ok || !r.data || !r.data.id_token) { Session.clear(); throw new AppError(E.UNAUTH, 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่'); }
+        if (!r.ok || !r.data || !r.data.id_token) {
+          // only the token service saying this sign-in is no longer valid signs out; a server error, a quota
+          // reply, or a Wi-Fi sign-in page answering in its place is treated like no signal, so records
+          // still wait in the outbox and home still shows its last figures
+          const said = r.data && r.data.error && r.data.error.message;
+          if (said && r.status >= 400 && r.status < 500 && r.status !== 429) { Session.clear(); throw new AppError(E.UNAUTH, 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่'); }
+          throw new AppError(E.NETWORK, 'เชื่อมต่อระบบบัญชีไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่');
+        }
         Session.idToken = r.data.id_token;
         Session.refreshToken = r.data.refresh_token || Session.refreshToken;
         Session.uid = r.data.user_id || Session.uid;
@@ -1150,20 +1181,27 @@ const Thrift = {
   DOCS_WINDOW_MS: 600000, DOCS_MAX: 6000,
   sent: new Map(),   // request key -> times it was sent (ms)
   docs: [],          // [time, documents read]
+  asked: 0,          // reads the person asked for (a report) under way: not held to the document cap
   check(key) {
     const now = Date.now();
     const times = (Thrift.sent.get(key) || []).filter(x => now - x < Thrift.SAME_WINDOW_MS);
     Thrift.docs = Thrift.docs.filter(x => now - x[0] < Thrift.DOCS_WINDOW_MS);
     const read = Thrift.docs.reduce((a, x) => a + x[1], 0);
-    if (times.length >= Thrift.SAME_MAX || read >= Thrift.DOCS_MAX) {
+    if (times.length >= Thrift.SAME_MAX || (read >= Thrift.DOCS_MAX && !Thrift.asked)) {
       throw new AppError(E.GUARD, 'แอปหยุดโหลดข้อมูลซ้ำชั่วคราวเพื่อไม่ให้ใช้โควตาฐานข้อมูลหมด รอสักครู่แล้วลองใหม่');
     }
     times.push(now);
     Thrift.sent.set(key, times);
   },
   /** Firestore bills at least one read per query, even with no results. */
-  count(n) { Thrift.docs.push([Date.now(), Math.max(1, n)]); },
-  reset() { Thrift.sent.clear(); Thrift.docs = []; },
+  count(n) { if (!Thrift.asked) Thrift.docs.push([Date.now(), Math.max(1, n)]); },
+  reset() { Thrift.sent.clear(); Thrift.docs = []; Thrift.asked = 0; },
+  /**
+   * Runs fn, a load the person asked for by pressing a button, such as a year's report: it may read
+   * more than the 6,000-document cap, which is meant for loads that repeat on their own (the
+   * 3.2.2 loop). The same request sent 12 times in two minutes is still refused.
+   */
+  async asking(fn) { Thrift.asked++; try { return await fn(); } finally { Thrift.asked--; } },
 };
 
 /** The free quota renews at midnight Pacific time; returns that moment as epoch ms. */
@@ -1190,27 +1228,42 @@ const Fs = {
     if (r.status === 401) { await Auth.refresh(); r = await Net.request(method, url, opts()); }
     return r;
   },
+  /**
+   * A reply that is not from the database (a network that answers in its place) must not read as
+   * "no such document", "no records" or "saved": it is handled like no signal, so nothing is
+   * signed out, no zero figures are shown or kept, and a new record waits in the outbox.
+   */
+  garbled() { return new AppError(E.NETWORK, 'คำตอบที่ได้รับไม่ได้มาจากฐานข้อมูล ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่'); },
   async get(path) {
     const r = await Fs._call('GET', URLS.fs() + '/' + path);
+    // "not found" from the database comes with its error in JSON (or, through some layers, with no body);
+    // a page of some other kind is not the database
+    if (r.status === 404 && r.text && !(r.data && r.data.error)) throw Fs.garbled();
     if (r.ok || r.status === 404) Thrift.count(1);
     if (r.status === 404) return null;
     if (!r.ok) throw Fs.error(r, false);
+    if (!r.data || !r.data.name) throw Fs.garbled();
     return r.data;
   },
   async query(structuredQuery) {
     const r = await Fs._call('POST', URLS.fs() + ':runQuery', { structuredQuery });
     if (!r.ok) throw Fs.error(r, false);
+    if (!Array.isArray(r.data)) throw Fs.garbled();
     const out = [];
+    let readTime = null;
     for (const item of r.data || []) {
       if (item.error) throw Fs.error({ status: 500, data: item }, false);
       if (item.document) out.push(item.document);
+      if (item.readTime && !readTime) readTime = item.readTime;
     }
     Thrift.count(out.length);
+    out.readTime = readTime;   // the server's time of this read, for asking later only for what changed after it
     return out;
   },
   async commit(writes) {
     const r = await Fs._call('POST', URLS.fs() + ':commit', { writes });
     if (!r.ok) throw Fs.error(r, true);
+    if (!r.data || !r.data.commitTime) throw Fs.garbled();
     return r.data;
   },
   _write(path, fields, serverTime, exists) {
@@ -1236,6 +1289,8 @@ const Fs = {
     const status = e.status || '';
     if (r.status === 401 || status === 'UNAUTHENTICATED') return new AppError(E.UNAUTH, 'เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่');
     if (r.status === 403 || status === 'PERMISSION_DENIED') return new AppError(E.DENIED, 'คุณไม่มีสิทธิ์ทำรายการนี้ หรือบัญชีถูกปิดการใช้งาน');
+    // a query that needs a composite index the project does not have yet (the caller falls back)
+    if (status === 'FAILED_PRECONDITION' && /index/i.test(e.message || '')) return new AppError(E.INDEX, 'ฐานข้อมูลยังไม่มีดัชนีสำหรับคำขอนี้');
     if (status === 'ALREADY_EXISTS' || status === 'FAILED_PRECONDITION' || r.status === 409) return new AppError(E.CONFLICT, 'รายการนี้ถูกบันทึกหรือเปลี่ยนแปลงไปแล้ว');
     if (r.status === 404 || status === 'NOT_FOUND') return new AppError(E.NOT_FOUND, 'ไม่พบรายการนี้ในฐานข้อมูล');
     if (r.status === 429 || status === 'RESOURCE_EXHAUSTED') {
@@ -1280,15 +1335,45 @@ const Store = {
     const resp = await Fs.commit([Fs.updateWrite(path, fields, serverTime)]);
     return Store.confirmed(path, fields, resp, serverTime);
   },
-  /** record_scope: OWN reads the caller's own rows, ALL reads by date range (single-field index only) */
+  /** true when this person sees only the records they made (record_scope OWN) */
+  ownScope() { const me = Session.profile; return !!(me && me.role !== 'ADMIN' && me.recordScope !== 'ALL'); },
+  /**
+   * record_scope: OWN reads the caller's own rows, ALL reads by date range (single-field index only).
+   * The rules let OWN ask only for "created_by is me". With the composite index (created_by, date)
+   * in the project, that is asked for one period at a time. Without it, Firestore refuses the
+   * query, and the only one left returns every record this person ever made (one read each, a list
+   * that grows every day), so that list is kept for the screens' five minutes and each period is cut
+   * from it. The refusal is remembered for six hours, then the index is tried again.
+   */
+  INDEX_RETRY_MS: 6 * 3600 * 1000,
   async listRecords(collection, start, end) {
-    const me = Session.profile;
-    const own = me && me.role !== 'ADMIN' && me.recordScope !== 'ALL';
-    const q = own
-      ? Fs.q(collection, [Fs.filter('created_by', 'EQUAL', V.str(Session.uid))])
-      : Fs.q(collection, [Fs.filter('date', 'GREATER_THAN_OR_EQUAL', V.ts(start)), Fs.filter('date', 'LESS_THAN', V.ts(end))], 'date', true);
-    const docs = await Fs.query(q);
-    return docs.filter(d => { const t = G.ts(G.f(d), 'date'); return t >= start && t < end; });
+    let docs;
+    if (Store.ownScope()) {
+      if (!(Date.now() - (Local.get('tokpra.ownIndex', {})[collection] || 0) < Store.INDEX_RETRY_MS)) {
+        try {
+          docs = await Fs.query(Fs.q(collection, [Fs.filter('created_by', 'EQUAL', V.str(Session.uid)),
+            Fs.filter('date', 'GREATER_THAN_OR_EQUAL', V.ts(start)), Fs.filter('date', 'LESS_THAN', V.ts(end))]));
+        } catch (e) {
+          if (e.code !== E.INDEX) throw e;
+          // read again here: the three record types are asked for at the same time
+          const missing = Local.get('tokpra.ownIndex', {});
+          missing[collection] = Date.now();
+          Local.set('tokpra.ownIndex', missing);
+        }
+      }
+      const key = 'own:' + collection;
+      if (!docs) docs = Cache.get(key, Cache.VIEW_MS);
+      if (!docs) {
+        const gen = Cache.gen;
+        docs = await Fs.query(Fs.q(collection, [Fs.filter('created_by', 'EQUAL', V.str(Session.uid))]));
+        Cache.put(key, docs, gen);
+      }
+    } else {
+      docs = await Fs.query(Fs.q(collection, [Fs.filter('date', 'GREATER_THAN_OR_EQUAL', V.ts(start)), Fs.filter('date', 'LESS_THAN', V.ts(end))], 'date', true));
+    }
+    const out = docs.filter(d => { const t = G.ts(G.f(d), 'date'); return t >= start && t < end; });
+    out.readTime = docs.readTime;
+    return out;
   },
   matches(keyword, ...texts) {
     const k = (keyword || '').trim().toLowerCase().replace(/,/g, '');
@@ -1359,13 +1444,22 @@ function summaryFrom(doc) {
 
 /* ---------- small session cache so screens open instantly when going back ---------- */
 const Cache = {
+  /** how long screens reuse what they loaded */
+  VIEW_MS: 5 * 60 * 1000,
   names: null,
   store: {},
+  /** goes up whenever cached data stops being trusted, so a load that was already running is not kept */
+  gen: 0,
   get(key, maxAgeMs) { const c = Cache.store[key]; return c && Date.now() - c.at < maxAgeMs ? c.value : null; },
-  put(key, value) { Cache.store[key] = { value, at: Date.now() }; },
-  /** call after any change to records, users or settings */
-  dirty() { Cache.store = {}; },
-  clear() { Cache.store = {}; Cache.names = null; },
+  /** the cached value however old it is (home brings an old copy up to date instead of loading it again) */
+  peek(key) { const c = Cache.store[key]; return c ? c.value : null; },
+  /** everything counts as old, but stays available to peek() */
+  expire() { for (const k of Object.keys(Cache.store)) Cache.store[k].at = 0; Cache.gen++; },
+  /** gen: the value of Cache.gen when the load started; the result is not kept when something changed meanwhile */
+  put(key, value, gen) { if (gen === undefined || gen === Cache.gen) Cache.store[key] = { value, at: Date.now() }; },
+  /** call after a change to users or settings (saved records update the caches instead, see Records.saved) */
+  dirty() { Cache.store = {}; Cache.gen++; },
+  clear() { Cache.store = {}; Cache.names = null; Cache.gen++; },
 };
 
 /* ---------- UserService (FR-02) ---------- */
@@ -1440,6 +1534,10 @@ const Users = {
       await Store.replace('users/' + p.uid, Users.fields(p, p.createdAtRaw), ['updated_at']);
     }
     Cache.names = null; Cache.dirty();
+    // home's copy on this device is brought up to date with only the records that changed, which says
+    // nothing about names: put the new name in it, as a saved record is put in
+    const keep = 'tokpra.home.' + Session.uid, kept = Local.get(keep, null);
+    if (kept && kept.data && kept.data.names) { kept.data.names[p.uid] = p.fullName; try { Local.set(keep, kept); } catch (e) { /* storage full */ } }
   },
 };
 
@@ -1447,7 +1545,8 @@ const Users = {
 const Revenues = {
   async list(start, end) {
     Store.require(Session.profile.can('revenue.read'));
-    return (await Store.listRecords('revenues', start, end)).map(revenueFrom);
+    const docs = await Store.listRecords('revenues', start, end);
+    return Object.assign(docs.map(revenueFrom), { readTime: docs.readTime });
   },
   async get(id) { const d = await Fs.get('revenues/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการรายรับนี้'); return revenueFrom(d); },
   _check(date, amount, description) {
@@ -1461,7 +1560,7 @@ const Revenues = {
     const f = { date: V.ts(date), amount: V.int(amount), description: V.str((description || '').trim()), status: V.str('ACTIVE'),
       created_by: V.str(Session.uid), updated_by: V.str(Session.uid), deleted_by: V.nul(), deleted_at: V.nul() };
     const r = await Store.createOnce('revenues/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
-    Cache.dirty();
+    Records.saved('revenue', r.doc);
     return r;
   },
   async update(orig, date, amount, description) {
@@ -1471,16 +1570,14 @@ const Revenues = {
     const f = { date: V.ts(date), amount: V.int(amount), description: V.str((description || '').trim()), status: V.str('ACTIVE'),
       created_by: V.str(orig.createdBy), created_at: V.tsRaw(orig.createdAtRaw), updated_by: V.str(Session.uid),
       deleted_by: V.nul(), deleted_at: V.nul() };
-    await Store.replace('revenues/' + orig.id, f, ['updated_at']);
-    Cache.dirty();
+    Records.saved('revenue', await Store.replace('revenues/' + orig.id, f, ['updated_at']));
   },
   async softDelete(orig) {
     Store.require(Session.profile.can('revenue.delete') && Session.profile.allows(orig.createdBy));
     if (orig.status !== 'ACTIVE') throw new AppError(E.VALIDATION, 'รายการนี้ถูกลบไปแล้ว');
     const f = { date: V.tsRaw(orig.dateRaw), amount: V.int(orig.amount), description: V.str(orig.description), status: V.str('DELETED'),
       created_by: V.str(orig.createdBy), created_at: V.tsRaw(orig.createdAtRaw), updated_by: V.str(Session.uid), deleted_by: V.str(Session.uid) };
-    await Store.replace('revenues/' + orig.id, f, ['updated_at', 'deleted_at']);
-    Cache.dirty();
+    Records.saved('revenue', await Store.replace('revenues/' + orig.id, f, ['updated_at', 'deleted_at']));
   },
 };
 
@@ -1488,7 +1585,8 @@ const Revenues = {
 const FishCosts = {
   async list(start, end) {
     Store.require(Session.profile.can('fish_cost.read'));
-    return (await Store.listRecords('fish_costs', start, end)).map(fishFrom);
+    const docs = await Store.listRecords('fish_costs', start, end);
+    return Object.assign(docs.map(fishFrom), { readTime: docs.readTime });
   },
   async get(id) { const d = await Fs.get('fish_costs/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการต้นทุนปลานี้'); return fishFrom(d); },
   _fields(date, grams, price) {
@@ -1502,15 +1600,14 @@ const FishCosts = {
     Store.require(Session.profile.can('fish_cost.create'));
     const f = FishCosts._fields(date, grams, price); f.created_by = V.str(Session.uid);
     const r = await Store.createOnce('fish_costs/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
-    Cache.dirty();
+    Records.saved('fish', r.doc);
     return r;
   },
   async update(orig, date, grams, price) {
     Store.require(Session.profile.can('fish_cost.update') && Session.profile.allows(orig.createdBy));
     const f = FishCosts._fields(date, grams, price);
     f.created_by = V.str(orig.createdBy); f.created_at = V.tsRaw(orig.createdAtRaw);
-    await Store.replace('fish_costs/' + orig.id, f, ['updated_at']);
-    Cache.dirty();
+    Records.saved('fish', await Store.replace('fish_costs/' + orig.id, f, ['updated_at']));
   },
 };
 
@@ -1518,7 +1615,8 @@ const FishCosts = {
 const Expenses = {
   async list(start, end) {
     Store.require(Session.profile.can('expense.read'));
-    return (await Store.listRecords('expenses', start, end)).map(expenseFrom);
+    const docs = await Store.listRecords('expenses', start, end);
+    return Object.assign(docs.map(expenseFrom), { readTime: docs.readTime });
   },
   async get(id) { const d = await Fs.get('expenses/' + id); if (!d) throw new AppError(E.NOT_FOUND, 'ไม่พบรายการค่าใช้จ่ายนี้'); return expenseFrom(d); },
   _fields(date, type, description, amount) {
@@ -1534,15 +1632,14 @@ const Expenses = {
     Store.require(Session.profile.can('expense.create'));
     const f = Expenses._fields(date, type, description, amount); f.created_by = V.str(Session.uid);
     const r = await Store.createOnce('expenses/' + requestId, f, 'created_by', ['created_at', 'updated_at']);
-    Cache.dirty();
+    Records.saved('expense', r.doc);
     return r;
   },
   async update(orig, date, type, description, amount) {
     Store.require(Session.profile.can('expense.update') && Session.profile.allows(orig.createdBy));
     const f = Expenses._fields(date, type, description, amount);
     f.created_by = V.str(orig.createdBy); f.created_at = V.tsRaw(orig.createdAtRaw);
-    await Store.replace('expenses/' + orig.id, f, ['updated_at']);
-    Cache.dirty();
+    Records.saved('expense', await Store.replace('expenses/' + orig.id, f, ['updated_at']));
   },
 };
 
@@ -1554,6 +1651,20 @@ const KINDS = {
   maint: { label: 'ค่าบำรุงรักษา', perm: 'expense', sign: -1 },
 };
 const Records = {
+  /** record path (as in #/rec/<path>/<id>) to the list that holds it, its permission name and its reader */
+  TYPES: {
+    revenue: { list: 'revenues', collection: 'revenues', perm: 'revenue', from: revenueFrom },
+    fish: { list: 'fish', collection: 'fish_costs', perm: 'fish_cost', from: fishFrom },
+    expense: { list: 'expenses', collection: 'expenses', perm: 'expense', from: expenseFrom },
+  },
+  /** One row of a record list. */
+  item(path, r) {
+    if (path === 'revenue') return { kind: 'revenue', path, rec: r, title: r.description || 'รายรับ', deleted: r.status !== 'ACTIVE', amount: r.amount };
+    if (path === 'fish') return { kind: 'fish', path, rec: r, title: 'ซื้อปลา ' + Money.weight(r.grams) + ' กก.', note: Money.fmt(r.pricePerKg) + ' บาท/กก.', amount: r.amount };
+    return { kind: r.type === 'MAINTENANCE' ? 'maint' : 'event', path, rec: r, title: r.description, amount: r.amount };
+  },
+  /** newest day first; within a day, the last one recorded first */
+  order(a, b) { return (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt); },
   /** Loads every record type the user may read for [start, end). */
   async load(start, end) {
     Store.validateRange(start, end);
@@ -1564,11 +1675,108 @@ const Records = {
       me.can('expense.read') ? Expenses.list(start, end) : [],
     ]);
     const items = [];
-    for (const r of rev) items.push({ kind: 'revenue', path: 'revenue', rec: r, title: r.description || 'รายรับ', deleted: r.status !== 'ACTIVE', amount: r.amount });
-    for (const c of fish) items.push({ kind: 'fish', path: 'fish', rec: c, title: 'ซื้อปลา ' + Money.weight(c.grams) + ' กก.', note: Money.fmt(c.pricePerKg) + ' บาท/กก.', amount: c.amount });
-    for (const e of exp) items.push({ kind: e.type === 'MAINTENANCE' ? 'maint' : 'event', path: 'expense', rec: e, title: e.description, amount: e.amount });
-    items.sort((a, b) => (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt));
-    return { items, revenues: rev, fish, expenses: exp };
+    for (const r of rev) items.push(Records.item('revenue', r));
+    for (const c of fish) items.push(Records.item('fish', c));
+    for (const e of exp) items.push(Records.item('expense', e));
+    items.sort(Records.order);
+    // the earliest of the reads' server times: anything changed after it is not in this data
+    const times = [rev, fish, exp].map(x => x.readTime).filter(Boolean).map(D.parse).filter(Boolean);
+    return { items, revenues: Array.from(rev), fish: Array.from(fish), expenses: Array.from(exp), readAt: times.length ? Math.min(...times) : 0 };
+  },
+  /**
+   * Puts one saved record into a period that is already loaded: the old copy is replaced,
+   * a new one is added, and one whose date moved outside [start, end) is taken out.
+   * A deleted income stays in the lists with its deleted flag, as a fresh load returns it.
+   * Returns false when the data is not in the shape this version builds.
+   */
+  patch(data, path, rec, start, end) {
+    const list = Records.TYPES[path].list;
+    if (!data || !Array.isArray(data.items) || !Array.isArray(data[list])) return false;
+    data[list] = data[list].filter(x => x.id !== rec.id);
+    data.items = data.items.filter(it => !(it.path === path && it.rec.id === rec.id));
+    if (rec.date >= start && rec.date < end) {
+      data[list].push(rec);
+      data.items.push(Records.item(path, rec));
+      data.items.sort(Records.order);
+    }
+    return true;
+  },
+  /**
+   * Called after a record was added, edited or deleted. Loading home again would cost about
+   * one database read per record of the last 30 days, so every loaded period gets the saved
+   * record put in place instead: the screens' caches, and the copy home keeps on this device
+   * for use without signal. Comparisons with an earlier period hold only totals, so they go.
+   * doc is the stored document; null when it was saved before but could not be read back.
+   */
+  saved(path, doc) {
+    Cache.gen++;   // a load that was already running may have missed this record
+    for (const key of Object.keys(Cache.store)) if (key.startsWith('before:')) delete Cache.store[key];
+    if (!doc) { Cache.dirty(); return; }
+    const t = Records.TYPES[path];
+    const me = Session.profile;
+    if (!me || !me.can(t.perm + '.read')) return;   // lists without this type of record stay as they are
+    const rec = t.from(doc);
+    for (const key of Object.keys(Cache.store)) {
+      const m = /^rec:(\d+):(\d+)$/.exec(key);
+      if (key !== 'home' && !m) continue;
+      const data = Cache.store[key].value;
+      const range = m ? [Number(m[1]), Number(m[2])] : data && data.range;
+      if (!range || !Records.patch(data, path, rec, range[0], range[1])) delete Cache.store[key];
+    }
+    // the list of every record this person made (record_scope OWN) holds the stored documents themselves
+    const own = Cache.store['own:' + t.collection];
+    if (own && G.str(G.f(doc), 'created_by') === Session.uid) own.value = Object.assign(own.value.filter(d => G.id(d) !== rec.id).concat([doc]), { readTime: own.value.readTime });
+    const keep = 'tokpra.home.' + Session.uid;
+    const kept = Local.get(keep, null);
+    // an older copy without its range keeps its figures as they were at the time it shows
+    if (kept && kept.data && kept.data.range && Records.patch(kept.data, path, rec, kept.data.range[0], kept.data.range[1])) Local.set(keep, kept);
+  },
+
+  /*
+   * Home's 30 days are brought up to date by asking only for the records changed since they were
+   * read (updated_at is stamped by the server on every save, including a delete), which costs about
+   * one read per query when nothing changed, instead of one read per record of the 30 days. A record
+   * removed in the Firebase console leaves no trace to ask for, so a full load still happens every
+   * FULL_MS, on a new day, and on pull to refresh. Only for people who see every record: for record
+   * scope OWN the rules need a created_by filter, and together with updated_at that would need one
+   * more composite index (created_by, updated_at) per collection, which the app does not ask for.
+   */
+  FULL_MS: 2 * 3600 * 1000,
+  /**
+   * Who loaded a copy and which record types they could read. A copy loaded with other read
+   * permissions holds types this person may no longer see, or lacks types they were just given.
+   */
+  accessOf() {
+    const me = Session.profile;
+    return [Session.uid, me.recordScope].concat(Object.keys(Records.TYPES).filter(p => me.can(Records.TYPES[p].perm + '.read'))).join('|');
+  },
+  /** Set by pull to refresh and the refresh button: the next home load reads everything again. */
+  fullNext: false,
+  /** Loaded home data that a refresh can bring up to date (from this session or kept on the device), or null. */
+  reusable(candidates, start, end, now) {
+    if (Store.ownScope()) return null;
+    const access = Records.accessOf();
+    for (const d of candidates) {
+      if (d && d.range && d.range[0] === start && d.range[1] === end && d.syncedAt && d.fullAt && (now || Date.now()) - d.fullAt < Records.FULL_MS
+        && d.access === access && Array.isArray(d.items) && Array.isArray(d.revenues) && Array.isArray(d.fish) && Array.isArray(d.expenses)) return d;
+    }
+    return null;
+  },
+  /** Applies every record changed since data.syncedAt to data, and moves syncedAt on. */
+  async refresh(data) {
+    const me = Session.profile;
+    // a save is stamped when the server takes it, a moment before a read can see it, so look back a minute
+    const since = V.ts(data.syncedAt - 60000);
+    const paths = Object.keys(Records.TYPES).filter(path => me.can(Records.TYPES[path].perm + '.read'));
+    const found = await Promise.all(paths.map(path => Fs.query(Fs.q(Records.TYPES[path].collection, [Fs.filter('updated_at', 'GREATER_THAN_OR_EQUAL', since)]))));
+    let readAt = 0;
+    found.forEach((docs, i) => {
+      for (const d of docs) Records.patch(data, paths[i], Records.TYPES[paths[i]].from(d), data.range[0], data.range[1]);
+      const t = D.parse(docs.readTime);
+      if (t && (!readAt || t < readAt)) readAt = t;
+    });
+    if (readAt) data.syncedAt = readAt;
+    return data;
   },
   filter(items, kinds, keyword, showDeleted) {
     return items.filter(it => kinds.includes(it.kind) && (showDeleted || !it.deleted)
@@ -1617,8 +1825,8 @@ const Reports = {
     const existing = await Fs.get('report_summaries/' + requestId);
     if (existing) return summaryFrom(existing);
     const tax = await Tax.getActive(Date.now());
-    const [rev, fish, exp] = await Promise.all([
-      Store.listRecords('revenues', start, end), Store.listRecords('fish_costs', start, end), Store.listRecords('expenses', start, end)]);
+    const [rev, fish, exp] = await Thrift.asking(() => Promise.all([
+      Store.listRecords('revenues', start, end), Store.listRecords('fish_costs', start, end), Store.listRecords('expenses', start, end)]));
     const t = Calc.calculate(rev.map(revenueFrom), fish.map(fishFrom), exp.map(expenseFrom), tax.rateCenti);
     const f = {
       period_start: V.ts(start), period_end: V.ts(end), total_revenue: V.int(t.totalRevenue), total_fish_cost: V.int(t.totalFishCost),
@@ -1957,7 +2165,7 @@ const Assistant = {
 
 /* expose for tests (node) */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Assistant, systemPrompt, sseParser, Reports, Session, PERMS, Thrift, quotaResetAt, Users, userFrom };
+  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Assistant, systemPrompt, sseParser, Reports, Session, PERMS, Thrift, quotaResetAt, Users, userFrom, Cache, Fs };
 }
 
 'use strict';
@@ -2077,6 +2285,23 @@ function figParts(satang, prefix) {
   return [(prefix || '') + s.slice(0, i), h('span', { class: 'dec', text: s.slice(i) })];
 }
 function fig(satang, prefix, cls) { return h('span', { class: 'fig' + (cls ? ' ' + cls : '') }, figParts(satang, prefix)); }
+/**
+ * A figure wider than its column (a phone 320 px wide, or amounts in the millions) is set smaller
+ * until it fits, down to 60% of its size, instead of running past its column or off the screen.
+ */
+function fitFigures(root) {
+  const fit = (box, f) => {
+    f.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(f).fontSize); const least = size * 0.6;
+    while (box.scrollWidth > box.clientWidth + 1 && size > least) { size -= 1; f.style.fontSize = size + 'px'; }
+  };
+  requestAnimationFrame(() => {
+    if (!root || !root.isConnected) return;
+    for (const v of root.querySelectorAll('.totals .v, .ledger .v')) fit(v, v);
+    for (const b of root.querySelectorAll('.band-fig')) { const f = b.querySelector('.fig'); if (f) fit(b, f); }
+  });
+}
+window.addEventListener('resize', () => fitFigures(document.getElementById('app')));
 const signOf = v => (v > 0 ? '+' : '');
 /** The pond's name set like its shop sign: descriptor over the name, float mark beside it. */
 function wordmark() {
@@ -2210,26 +2435,49 @@ const Outbox = {
   key() { return 'tokpra.outbox.' + (Session.uid || ''); },
   all() { return Session.uid ? Local.get(Outbox.key(), []) : []; },
   put(list) { Local.set(Outbox.key(), list); Outbox.badge(); },
-  add(kind, args, label) { const l = Outbox.all(); if (!l.some(x => x.args[0] === args[0])) l.push({ kind, args, label, at: Date.now(), err: '' }); Outbox.put(l); },
+  /**
+   * A record kept for later must really be kept: when the browser's storage for the app is full,
+   * home's copy and the assistant chat (both can be loaded again) make room; if that is not
+   * enough, the save says so instead of "kept on this phone".
+   */
+  add(kind, args, label) {
+    const l = Outbox.all(); if (!l.some(x => x.args[0] === args[0])) l.push({ kind, args, label, at: Date.now(), err: '' });
+    if (!Local.set(Outbox.key(), l)) {
+      Local.del('tokpra.home.' + Session.uid); Local.del(Chat.key());
+      if (!Local.set(Outbox.key(), l)) throw new AppError(E.SAVE_FAILED, 'พื้นที่เก็บข้อมูลของแอปในเครื่องนี้เต็ม จึงเก็บรายการไว้ส่งทีหลังไม่ได้ รอให้มีสัญญาณแล้วบันทึกอีกครั้ง');
+    }
+    Outbox.badge();
+  },
   create(kind, args) { return ({ revenue: Revenues.create, fish: FishCosts.create, expense: Expenses.create })[kind].apply(null, args); },
   busy: false,
+  RETRY_MS: 30 * 60 * 1000,
   async flush(quiet) {
     if (Outbox.busy || !Session.ok() || navigator.onLine === false) return 0;
-    let list = Outbox.all(); if (!list.length) return 0;
+    const list = Outbox.all(); if (!list.length) return 0;
+    // a record refused for another reason than the connection (no permission, rejected data, quota) is tried
+    // again on its own only every half hour, so it cannot spend database reads every 45 seconds all day;
+    // "ส่งตอนนี้" still tries everything at once
+    const due = list.filter(x => !quiet || !x.err || Date.now() - (x.errAt || 0) > Outbox.RETRY_MS);
+    if (!due.length) return 0;
     Outbox.busy = true; let sent = 0;
+    // the list is read again before each change: a record that failed to send while this one was
+    // on its way was added to it meanwhile, and one thrown away from the list must stay away
+    const same = item => x => x.args[0] === item.args[0];
     try {
-      for (const item of list.slice()) {
-        try { await Outbox.create(item.kind, item.args); sent++; list = list.filter(x => x !== item); }
+      for (const item of due) {
+        if (!Outbox.all().some(same(item))) continue;
+        try { await Outbox.create(item.kind, item.args); sent++; Outbox.put(Outbox.all().filter(x => !same(item)(x))); }
         catch (e) {
           e = toAppError(e);
           if (e.code === E.NETWORK || e.code === E.TIMEOUT) break;
-          item.err = e.message;
+          const now = Outbox.all(), kept = now.find(same(item));
+          if (kept) { kept.err = e.message; kept.errAt = Date.now(); Outbox.put(now); }
         }
-        Outbox.put(list);
       }
     } finally { Outbox.busy = false; }
     if (sent) {
-      Cache.dirty(); Feedback.success(); toast('ส่งรายการที่รอไว้แล้ว ' + sent + ' รายการ');
+      // each record sent was already put into the loaded screens (Records.saved)
+      Feedback.success(); toast('ส่งรายการที่รอไว้แล้ว ' + sent + ' รายการ');
       if (currentRoute && !currentRoute.sub && (currentRoute.tab === 'home' || currentRoute.tab === 'records')) route();
     } else if (!quiet && Outbox.all().length) toast('ยังส่งไม่ได้ ลองใหม่เมื่อมีสัญญาณ');
     return sent;
@@ -2266,7 +2514,9 @@ async function saveNew(form, btn, kind, args, label) {
   catch (e) {
     e = toAppError(e);
     // no signal at all: keep it on the phone; a lost reply while online: offer the same safe retry as before
-    if ((e.code === E.NETWORK || e.code === E.TIMEOUT) && navigator.onLine === false) { Outbox.add(kind, args, label); return { queued: true }; }
+    if ((e.code === E.NETWORK || e.code === E.TIMEOUT) && navigator.onLine === false) {
+      try { Outbox.add(kind, args, label); return { queued: true }; } catch (x) { e = x; }
+    }
     showError(e, form, (e.code === E.NETWORK || e.code === E.TIMEOUT || e.code === E.SAVE_FAILED) ? () => btn.click() : null);
     return undefined;
   } finally { btn.disabled = false; }
@@ -2407,6 +2657,8 @@ document.addEventListener('keydown', ev => {
 
 /* ---------- unsaved changes: ask before leaving a form that was typed in ---------- */
 const Guard = { armed: false, dirty: false };
+/* Escape closes the dialog or sheet on top, as on Android's back button (never the PIN screen) */
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !Lock.shown && Overlay.closeTop()) ev.preventDefault(); });
 async function leaveOk() {
   if (!Guard.armed || !Guard.dirty) return true;
   const ok = await confirmBox('ยังไม่ได้บันทึก', 'ข้อมูลที่กรอกในหน้านี้จะหายไป ต้องการออกจากหน้านี้หรือไม่', 'ออกโดยไม่บันทึก', true);
@@ -2428,15 +2680,18 @@ const Overlay = {
   },
   closeAll() { if (Overlay.modalResolve) Overlay.closeModal(undefined); if (Overlay.sheetClose) Overlay.sheetClose(); },
 };
+/** Where keyboard focus was before a dialog or sheet opened; it goes back there when it closes. */
+function focusBack(el) { if (el && el.isConnected && el.focus && el !== document.body) { try { el.focus({ preventScroll: true }); } catch (e) { /* gone */ } } }
 function modal(title, body, buttons) {
   const m = $('#modal');
   if (Overlay.modalResolve) Overlay.closeModal(undefined);
+  const back = document.activeElement;
   return new Promise(resolve => {
-    Overlay.modalResolve = resolve;
+    Overlay.modalResolve = v => { resolve(v); focusBack(back); };
     const actions = h('div', { class: 'actions' });
     (buttons || [{ label: 'ตกลง', value: true }]).forEach(b => actions.append(h('button', {
       class: 'btn' + (b.ghost ? ' ghost' : '') + (b.danger ? ' dangerfill' : ''), type: 'button', text: b.label, onclick: () => Overlay.closeModal(b.value) })));
-    const box = h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true' }, h('h3', { text: title }),
+    const box = h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true', 'aria-label': title }, h('h3', { text: title }),
       typeof body === 'string' ? h('p', { class: 'pre muted', text: body }) : body, actions);
     fill(m, box);
     m.onclick = ev => { if (ev.target === m) Overlay.closeModal(undefined); };
@@ -2450,11 +2705,14 @@ const confirmBox = (title, msg, ok, danger) => modal(title, msg, [{ label: 'ย�
 function sheet(title, content) {
   const s = $('#sheet');
   if (Overlay.sheetClose) Overlay.sheetClose();
-  const close = () => { s.classList.add('hidden'); fill(s); Overlay.sheetClose = null; };
-  fill(s, h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true' }, h('div', { class: 'grab' }), title ? h('h3', { text: title }) : null, content));
+  const back = document.activeElement;
+  const close = () => { s.classList.add('hidden'); fill(s); Overlay.sheetClose = null; focusBack(back); };
+  const box = h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true', 'aria-label': title || '', tabindex: '-1' }, h('div', { class: 'grab' }), title ? h('h3', { text: title }) : null, content);
+  fill(s, box);
   s.onclick = ev => { if (ev.target === s) close(); };
   s.classList.remove('hidden');
   Overlay.sheetClose = close;
+  try { box.focus({ preventScroll: true }); } catch (e) { /* older browser */ }   // keyboard and screen reader users land in the sheet
   return close;
 }
 
@@ -2608,14 +2866,16 @@ function recordsSummary(items, heading, scopeNote) {
 /** Records as CSV for Excel: UTF-8 with a BOM so Thai shows correctly, plain numbers so Excel can add them up. */
 function recordsCsv(items, names) {
   const cell = v => { const t = String(v == null ? '' : v); return /[",\r\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; };
+  // text typed into the app (descriptions, names) that starts like a formula would run as one in Excel: keep it as text
+  const text = v => { const t = String(v == null ? '' : v); return /^[=+\-@\t\r]/.test(t) ? "'" + t : t; };
   const num = satang => (satang / 100).toFixed(2);
   const rows = [['วันที่', 'วันที่ (พ.ศ.)', 'ประเภท', 'รายการ', 'รายละเอียด', 'รายรับ (บาท)', 'รายจ่าย (บาท)', 'น้ำหนัก (กก.)', 'ราคาต่อกก. (บาท)', 'บันทึกโดย', 'สถานะ']];
   for (const it of items) {
     const k = KINDS[it.kind], r = it.rec;
-    rows.push([D.toInput(r.date), D.fmt(r.date), k.label, it.title, it.note || '',
+    rows.push([D.toInput(r.date), D.fmt(r.date), k.label, text(it.title), text(it.note || ''),
       k.sign > 0 ? num(it.amount) : '', k.sign > 0 ? '' : num(it.amount),
       it.kind === 'fish' && r.grams != null ? (r.grams / 1000).toFixed(3) : '', it.kind === 'fish' && r.pricePerKg != null ? (r.pricePerKg / 100).toFixed(2) : '',
-      Users.nameOf(names, r.createdBy), it.deleted ? 'ลบแล้ว' : '']);
+      text(Users.nameOf(names, r.createdBy)), it.deleted ? 'ลบแล้ว' : '']);
   }
   return '\uFEFF' + rows.map(r => r.map(cell).join(',')).join('\r\n') + '\r\n';
 }
@@ -2805,7 +3065,7 @@ function setPage(o) {
     a.classList.toggle('on', a.dataset.tab === o.tab);
     if (a.dataset.tab === o.tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   }
-  PTR.run = o.refresh ? () => { Cache.dirty(); Outbox.flush(true); return route(); } : null;
+  PTR.run = o.refresh ? () => { Cache.dirty(); Records.fullNext = true; Outbox.flush(true); return route(); } : null;
   setTimeout(() => Outbox.badge(), 0);
   if (o.guard) Guard.armed = true;
   paintBars();
@@ -2929,16 +3189,39 @@ function recordRow(it, names) {
 /*
  * Database reads are the scarce resource on the free plan (50,000 a day for
  * everyone together), so screens reuse what they loaded for five minutes.
- * Saving anything, pull to refresh and the refresh button load fresh data.
+ * A saved record is put into what is loaded (Records.saved); pull to refresh,
+ * the refresh button and changes to users or settings load fresh data.
  */
-const VIEW_CACHE_MS = 5 * 60 * 1000;
+const VIEW_CACHE_MS = Cache.VIEW_MS;
+/** The days home shows: this month and the last 30 days, whichever starts earlier, up to today. */
+function homeRange() {
+  const today = D.today();
+  return [Math.min(D.monthStart(today), D.addDays(today, -29)), D.addDays(today, 1)];
+}
+/**
+ * Home's data brought up to date with only what changed, from this session's copy or the one kept
+ * on the device; null when neither can be used that way (then the caller loads in full).
+ */
+async function homeFromKept(start, end) {
+  const keep = 'tokpra.home.' + Session.uid;
+  const kept = Local.get(keep, null);
+  const old = Records.reusable([Cache.peek('home'), kept && kept.data], start, end);
+  if (!old) return null;
+  const gen = Cache.gen;
+  const data = await Records.refresh(old);
+  // a record saved while this was loading may be missing from it: use it, but do not keep it
+  if (gen === Cache.gen) { Cache.put('home', data); Local.set(keep, { at: Date.now(), start, data }); }
+  return data;
+}
 /**
  * The home screen keeps the last 30 days up to today. A period that starts
  * inside them reuses those rows and reads only the days after today (records
  * can be dated ahead), which is usually an empty, one-read query.
  */
 async function loadFromHome(s, e) {
-  const home = Cache.get('home', VIEW_CACHE_MS);
+  let home = Cache.get('home', VIEW_CACHE_MS);
+  // opened on another screen first (the app reopened on the records list, say): bring home's kept copy up to date
+  if (!home && !Records.fullNext) { const [hs, he] = homeRange(); if (s >= hs) home = await homeFromKept(hs, he); }
   if (!home || !home.range || s < home.range[0]) return null;
   const cut = Math.min(e, home.range[1]);
   const inside = r => r.date >= s && r.date < cut;
@@ -2946,19 +3229,19 @@ async function loadFromHome(s, e) {
     expenses: home.expenses.filter(inside), names: home.names };
   if (e > cut) {
     const more = await Records.load(cut, e);
-    out.items = out.items.concat(more.items).sort((a, b) => (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt));
+    out.items = out.items.concat(more.items).sort(Records.order);
     out.revenues = out.revenues.concat(more.revenues); out.fish = out.fish.concat(more.fish); out.expenses = out.expenses.concat(more.expenses);
   }
   return out;
 }
 async function cachedTaxActives() {
   let list = Cache.get('taxActives', VIEW_CACHE_MS);
-  if (!list) { list = await Tax.actives(); Cache.put('taxActives', list); }
+  if (!list) { const gen = Cache.gen; list = await Tax.actives(); Cache.put('taxActives', list, gen); }
   return list;
 }
 async function HomePage() {
   const t = navToken; const me = Session.profile;
-  setPage({ tab: 'home', brand: true, title: 'หน้าหลัก', wide: true, refresh: true, actions: [iconButton('refresh', 'โหลดใหม่', () => { Cache.dirty(); route(); })] });
+  setPage({ tab: 'home', brand: true, title: 'หน้าหลัก', wide: true, refresh: true, actions: [iconButton('refresh', 'โหลดใหม่', () => { Cache.dirty(); Records.fullNext = true; route(); })] });
   const qa = quickAdd(me);
   const bandBox = h('div', null, h('section', { class: 'band' + (qa ? '' : ' flat') }, h('div', { class: 'skel' })));
   const recentBox = h('div', null, skeleton(3));
@@ -2985,32 +3268,43 @@ async function HomePage() {
 
   const today = D.today();
   const mStart = D.monthStart(today);
-  const start = Math.min(mStart, D.addDays(today, -29)), end = D.addDays(today, 1);
-  let data = Cache.get('home', VIEW_CACHE_MS), savedAt = 0;
+  const [start, end] = homeRange();
+  let data = Cache.get('home', VIEW_CACHE_MS), savedAt = 0, quota = '';
+  // a home loaded before midnight holds yesterday's 30 days
+  if (data && !(data.range && data.range[0] === start && data.range[1] === end)) data = null;
   const keep = 'tokpra.home.' + Session.uid;
   try {
     if (!data && readable) {
-      const [res, names] = await Promise.all([Records.load(start, end), Users.names()]);
-      data = Object.assign(res, { names, range: [start, end] });
-      Cache.put('home', data);
-      try { Local.set(keep, { at: Date.now(), start, data }); } catch (e) { /* storage full: not kept */ }
+      // an older copy (this session's, or the one kept on the device) is brought up to date with only what
+      // changed; pull to refresh and the refresh button read everything again, because a record deleted in
+      // the Firebase console leaves nothing behind for "only what changed" to find
+      const full = Records.fullNext; Records.fullNext = false;
+      if (!full) data = await homeFromKept(start, end);
+      if (!data) {
+        const gen = Cache.gen;
+        const [res, names] = await Promise.all([Records.load(start, end), Users.names()]);
+        data = Object.assign(res, { names, range: [start, end], fullAt: res.readAt, syncedAt: res.readAt, access: Records.accessOf() });
+        // a record saved while this was loading may be missing from it: show it, but do not keep it
+        if (gen === Cache.gen) { Cache.put('home', data); Local.set(keep, { at: Date.now(), start, data }); }
+      }
     }
   } catch (e) {
-    // no signal: show the last figures this phone saw, marked with their time
+    // no signal, or the day's free database reads used up: show the last figures this phone saw, marked with their time
     const last = Local.get(keep, null);
-    const offline = toAppError(e).code === E.NETWORK || toAppError(e).code === E.TIMEOUT;
-    if (offline && last && last.data && last.start <= start) { data = last.data; savedAt = last.at; }
+    e = toAppError(e);
+    const offline = e.code === E.NETWORK || e.code === E.TIMEOUT;
+    if ((offline || e.code === E.QUOTA) && last && last.data && last.start <= start) { data = last.data; savedAt = last.at; quota = !offline && e.message; }
     else { if (alive(t)) pageError(e, () => route()); return; }
   }
   if (!alive(t)) return;
-  if (savedAt) fill(notice, h('div', { class: 'notice stale' }, ic('wifioff', 'sm'),
-    h('span', { class: 'grow', text: 'ไม่มีสัญญาณ แสดงตัวเลขล่าสุดเมื่อ ' + D.fmtTime(savedAt) }),
+  if (savedAt) fill(notice, h('div', { class: 'notice stale' }, ic(quota ? 'info' : 'wifioff', 'sm'),
+    h('span', { class: 'grow', text: (quota ? quota + ' ' : 'ไม่มีสัญญาณ ') + 'แสดงตัวเลขล่าสุดเมื่อ ' + D.fmtTime(savedAt) }),
     h('button', { class: 'btn soft inline', type: 'button', onclick: () => route() }, 'ลองใหม่')));
 
   if (me.isAdmin()) {
     const inMonth = r => r.date >= mStart;
     const tot = Calc.calculate(data.revenues.filter(inMonth), data.fish.filter(inMonth), data.expenses.filter(inMonth), 0);
-    fill(bandBox, adminBand(tot, today, !qa));
+    fill(bandBox, adminBand(tot, today, !qa)); fitFigures(bandBox);
     fill(chartBox, cashChart(data.items, today));
     if (!savedAt) setupChecklist(data).then(box => {
       if (!alive(t)) return;
@@ -3022,10 +3316,10 @@ async function HomePage() {
     });
   } else {
     const mine = data ? data.items.filter(it => it.rec.createdBy === Session.uid) : null;
-    fill(bandBox, staffBand(me, mine, today, !qa));
+    fill(bandBox, staffBand(me, mine, today, !qa)); fitFigures(bandBox);
   }
   if (readable) {
-    const recent = data.items.filter(it => !it.deleted).sort((a, b) => (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt)).slice(0, 6);
+    const recent = data.items.filter(it => !it.deleted).sort(Records.order).slice(0, 6);
     fill(recentBox, recent.length ? h('div', { class: 'list' }, recent.map(it => recordRow(it, data.names)))
       : emptyState('ยังไม่มีรายการใน 30 วันนี้', canCreate(me) ? 'บันทึกรายรับหรือค่าใช้จ่ายรายการแรกได้เลย' : '',
         canCreate(me) ? h('button', { class: 'btn inline', type: 'button', onclick: openAddSheet }, ic('plus', 'sm'), 'เพิ่มรายการ') : null));
@@ -3043,7 +3337,9 @@ function cashChart(items, today) {
   }
   const maxIn = Math.max(0, ...days.map(x => x.inn)), maxOut = Math.max(0, ...days.map(x => x.out));
   if (!maxIn && !maxOut) return null;
-  const W = 336, H = 132, band = W / 14, bw = 12, top = 6, axis = 16;
+  // drawn for the room it gets, so a desktop does not blow the phone-sized drawing up 2.5 times
+  // (bars, day numbers and all) and push the latest records out of sight
+  const W = Math.max(336, Math.round(Math.max(0, (app().clientWidth || 0) - 40) / 1.15)), H = 132, band = W / 14, bw = Math.round(band / 2), top = 6, axis = 16;
   const k = (H - top - 2) / (maxIn + maxOut);
   const y0 = top + maxIn * k;
   const col = (x, h, up) => {
@@ -3052,7 +3348,7 @@ function cashChart(items, today) {
     if (up) { const y = y0 - 1 - h; return 'M' + x + ',' + (y0 - 1) + 'V' + (y + r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y + r) + 'V' + (y0 - 1) + 'Z'; }
     const y = y0 + 1 + h; return 'M' + x + ',' + (y0 + 1) + 'V' + (y - r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y + 'H' + (x + bw - r) + 'Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y - r) + 'V' + (y0 + 1) + 'Z';
   };
-  let svg = '<svg viewBox="0 0 ' + W + ' ' + (H + axis) + '" class="cash" role="img" aria-hidden="true">';
+  let svg = '<svg viewBox="0 0 ' + W + ' ' + (H + axis) + '" class="cash" role="img" tabindex="0" aria-label="กราฟรายรับและรายจ่าย 14 วัน กดลูกศรซ้ายหรือขวาเพื่อดูทีละวัน">';
   svg += '<line x1="0" x2="' + W + '" y1="' + y0 + '" y2="' + y0 + '" class="base"/>';
   days.forEach((x, i) => {
     const cx = i * band + (band - bw) / 2;
@@ -3091,6 +3387,15 @@ function cashChart(items, today) {
     const i = Number(g.dataset.i); picked = picked === i && ev.type === 'click' ? null : i; show(picked);
   };
   chart.addEventListener('click', pick);
+  // the keyboard steps through the days (the figures are read out by the line above the chart)
+  chart.addEventListener('keydown', ev => {
+    const step = { ArrowLeft: -1, ArrowRight: 1 }[ev.key];
+    if (step) picked = picked == null ? (step < 0 ? 13 : 0) : Math.max(0, Math.min(13, picked + step));
+    else if (ev.key === 'Home' || ev.key === 'End') picked = ev.key === 'Home' ? 0 : 13;
+    else if (ev.key === 'Escape' && picked != null) picked = null;
+    else return;
+    ev.preventDefault(); ev.stopPropagation(); show(picked);
+  });
   chart.addEventListener('pointermove', ev => { if (ev.pointerType === 'mouse') { const g = ev.target.closest && ev.target.closest('.day'); if (g) show(Number(g.dataset.i)); } });
   chart.addEventListener('pointerleave', ev => { if (ev.pointerType === 'mouse') show(picked); });
   show(null);
@@ -3207,6 +3512,7 @@ async function RecordsPage() {
   const periodLabel = () => ({ today: 'วันนี้', '7d': '7 วันล่าสุด', month: 'เดือนนี้', prev: 'เดือนก่อน' })[RecState.period] || D.range(RecState.start, RecState.end);
   const drawControls = () => {
     fill(periodBtn, ic('calendar', 'sm'), h('span', { text: periodLabel() }), ic('down', 'sm'));
+    periodBtn.setAttribute('aria-label', 'ช่วงเวลา ' + periodLabel());   // the spoken name includes the visible text
     const tabs = [['all', 'ทั้งหมด']].concat(kinds.map(k => [k, KINDS[k].label]));
     fill(tabsRow, ...tabs.map(([k, label]) => h('button', { type: 'button', role: 'tab', class: RecState.kind === k ? 'on' : '', 'aria-selected': String(RecState.kind === k), text: label,
       onclick: () => { RecState.kind = k; drawControls(); draw(); } })));
@@ -3264,6 +3570,7 @@ async function RecordsPage() {
       h('div', null, h('div', { class: 'k', text: 'รายรับ' }), h('div', { class: 'v fig c-in' }, figParts(tot.income))),
       h('div', null, h('div', { class: 'k', text: 'รายจ่าย' }), h('div', { class: 'v fig' }, figParts(tot.cost))),
       h('div', null, h('div', { class: 'k', text: 'คงเหลือ' }), h('div', { class: 'v fig' + (tot.income - tot.cost < 0 ? ' c-out' : '') }, figParts(tot.income - tot.cost, signOf(tot.income - tot.cost)))));
+    fitFigures(totalsBox);
     if (!items.length) {
       fill(listBox, emptyState(RecState.keyword ? 'ไม่พบรายการที่ตรงกับคำค้น' : 'ไม่มีรายการในช่วง ' + D.range(s, e),
         RecState.keyword ? 'ลองคำอื่น หรือเปลี่ยนช่วงเวลา' : '',
@@ -3283,19 +3590,26 @@ async function RecordsPage() {
         h('div', { class: 'list' }, g.items.map(it => recordRow(it, data.names))));
     }), groups.length > 120 ? h('p', { class: 'note', text: 'แสดง 120 วันล่าสุดของช่วงนี้ เลือกช่วงวันให้แคบลงเพื่อดูส่วนที่เหลือ' }) : null);
   };
+  let loads = 0;
   const load = async () => {
+    // periods picked one after another quickly: only the last one picked may fill the screen,
+    // or a slow earlier load would show its records and totals under the newer period's name
+    const mine = ++loads;
     const [s, e] = periodRange(RecState.period);
     const key = 'rec:' + s + ':' + e;
     data = Cache.get(key, VIEW_CACHE_MS);
     if (!data) {
       fill(listBox, skeleton(5)); fill(totalsBox);
+      let got;
       try {
+        const gen = Cache.gen;
         const reused = await loadFromHome(s, e);
         const [res, names] = reused ? [reused, reused.names] : await Promise.all([Records.load(s, e), Users.names()]);
-        data = Object.assign(res, { names });
-        Cache.put(key, data);
-      } catch (err) { if (alive(t)) { fill(listBox); showError(err, null, load); } return; }
-      if (!alive(t)) return;
+        got = Object.assign(res, { names });
+        Cache.put(key, got, gen);
+      } catch (err) { if (alive(t) && mine === loads) { fill(listBox); showError(err, null, load); } return; }
+      if (!alive(t) || mine !== loads) return;
+      data = got;
     }
     draw();
     if (RecState.restore) { RecState.restore = false; window.scrollTo(0, RecState.scroll); }
@@ -3350,9 +3664,13 @@ function receiptView(kindKey, title, rec, names, rows, note) {
     note ? h('p', { class: 'note', text: note }) : null);
   Guard.armed = false;
 }
-function savedBanner(dup, text, href) {
+function savedBanner(dup, text, href, typed) {
+  // a retry after a lost reply finds the record already saved: show what was saved, and say so when
+  // the form was changed in between (the record keeps the first values; "ดูรายการ" opens it to edit)
+  const changed = dup && typed && typed !== text;
   return h('div', { class: 'saved', role: 'status' }, ic('check', 'sm'),
-    h('div', { class: 'grow' }, h('div', { class: 'ink b', text: dup ? 'รายการนี้บันทึกไว้แล้ว ไม่ได้บันทึกซ้ำ' : 'บันทึกแล้ว' }), h('div', { text })),
+    h('div', { class: 'grow' }, h('div', { class: 'ink b', text: dup ? 'รายการนี้บันทึกไว้แล้ว ไม่ได้บันทึกซ้ำ' : 'บันทึกแล้ว' }), h('div', { text }),
+      changed ? h('div', { class: 'small', text: 'บันทึกไว้ด้วยค่านี้ ต่างจากที่กรอกล่าสุด แตะ "ดูรายการ" เพื่อแก้ไข' }) : null),
     href ? h('a', { href, class: 'b', text: 'ดูรายการ' }) : null);
 }
 function afterSaveEdit(msg) { done(msg); goBack(true); }
@@ -3360,8 +3678,30 @@ function afterSaveEdit(msg) { done(msg); goBack(true); }
 async function runSave(form, btn, label, fn) {
   btn.disabled = true;
   try { return await withBusy(label, fn); }
-  catch (e) { showError(e, form, (e.code === E.NETWORK || e.code === E.TIMEOUT || e.code === E.SAVE_FAILED) ? () => btn.click() : null); return undefined; }
+  catch (e) {
+    const shown = showError(e, form, (e.code === E.NETWORK || e.code === E.TIMEOUT || e.code === E.SAVE_FAILED) ? () => btn.click() : null);
+    if (e.gone) shown.then(() => route());   // show the record as it is now
+    return undefined;
+  }
   finally { btn.disabled = false; }
+}
+/**
+ * The rules refuse to change an income that is no longer active, so an edit or a delete of one
+ * that someone else deleted while this screen was open comes back as "no permission". Read it
+ * again (one read, only in that case) and say what happened instead.
+ */
+async function goneInstead(e, id, names) {
+  e = toAppError(e);
+  if (e.code !== E.DENIED) return e;
+  try {
+    const now = await Revenues.get(id);
+    if (now.status !== 'ACTIVE') {
+      const g = new AppError(E.CONFLICT, 'รายการนี้ถูกลบไปแล้วโดย ' + Users.nameOf(names, now.deletedBy) + ' เมื่อ ' + D.fmtTime(now.deletedAt));
+      g.gone = true;
+      return g;
+    }
+  } catch (x) { /* keep the first error */ }
+  return e;
 }
 
 function revenueForm({ rec, names }) {
@@ -3403,19 +3743,25 @@ function revenueForm({ rec, names }) {
     let amt;
     try { amt = Money.parseBaht(amount.input.value, 'amount', 'จำนวนเงิน'); } catch (e) { showError(e, form); return; }
     const d = date.value, text = desc.value;
-    const line = Money.baht(amt) + ' ' + dateLabel(d) + (text.trim() ? ' ' + text.trim() : '');
+    const lineOf = (a, dt, tx) => Money.baht(a) + ' ' + dateLabel(dt) + (tx.trim() ? ' ' + tx.trim() : '');
+    const line = lineOf(amt, d, text);
     const r = isNew ? await saveNew(form, save, 'revenue', [requestId, d, amt, text], 'รายรับ ' + line)
-      : await runSave(form, save, 'กำลังบันทึก', () => Revenues.update(rec, d, amt, text).then(() => true));
+      : await runSave(form, save, 'กำลังบันทึก', () => Revenues.update(rec, d, amt, text).then(() => true, async e => { throw await goneInstead(e, rec.id, names); }));
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
     Recent.add('revenue', text);
     if (r.queued) afterQueued(savedBox, line);
-    else { fill(savedBox, savedBanner(r.duplicate, line, r.doc ? '#/rec/revenue/' + G.id(r.doc) : null)); done('บันทึกรายรับแล้ว'); }
+    else {
+      const kept = r.duplicate && r.doc ? revenueFrom(r.doc) : null;
+      fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.amount, kept.date, kept.description) : line, r.doc ? '#/rec/revenue/' + G.id(r.doc) : null, line));
+      done('บันทึกรายรับแล้ว');
+    }
     requestId = Store.newId(); amount.input.value = ''; desc.value = ''; words.update(); amount.input.focus();
   };
   async function del() {
     if (!(await confirmBox('ลบรายการนี้', 'รายการจะถูกเปลี่ยนเป็น "ลบแล้ว" และไม่ถูกนับในยอด แต่ยังเก็บไว้ตรวจสอบย้อนหลัง', 'ลบรายการ', true))) return;
-    try { await withBusy('กำลังลบ', () => Revenues.softDelete(rec)); afterSaveEdit('ลบรายการแล้ว'); } catch (e) { showError(e); }
+    try { await withBusy('กำลังลบ', () => Revenues.softDelete(rec)); afterSaveEdit('ลบรายการแล้ว'); }
+    catch (e) { e = await goneInstead(e, rec.id, names); await showError(e); if (e.gone) route(); }
   }
 }
 
@@ -3461,13 +3807,18 @@ function fishForm({ rec, names }) {
     try { g = Money.parseWeight(weight.input.value, 'weight'); p = Money.parseBaht(price.input.value, 'price', 'ราคาต่อกิโลกรัม'); }
     catch (e) { showError(e, form); return; }
     const d = date.value;
-    const line = Money.weight(g) + ' กก. × ' + Money.fmt(p) + ' = ' + Money.baht(Calc.fishAmount(g, p)) + ' ' + dateLabel(d);
+    const lineOf = (gg, pp, aa, dt) => Money.weight(gg) + ' กก. × ' + Money.fmt(pp) + ' = ' + Money.baht(aa) + ' ' + dateLabel(dt);
+    const line = lineOf(g, p, Calc.fishAmount(g, p), d);
     const r = isNew ? await saveNew(form, save, 'fish', [requestId, d, g, p], 'ซื้อปลา ' + line)
       : await runSave(form, save, 'กำลังบันทึก', () => FishCosts.update(rec, d, g, p).then(() => true));
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
     if (r.queued) afterQueued(savedBox, line);
-    else { fill(savedBox, savedBanner(r.duplicate, line, r.doc ? '#/rec/fish/' + G.id(r.doc) : null)); done('บันทึกต้นทุนปลาแล้ว'); }
+    else {
+      const kept = r.duplicate && r.doc ? fishFrom(r.doc) : null;
+      fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.grams, kept.pricePerKg, kept.amount, kept.date) : line, r.doc ? '#/rec/fish/' + G.id(r.doc) : null, line));
+      done('บันทึกต้นทุนปลาแล้ว');
+    }
     requestId = Store.newId(); weight.input.value = ''; price.input.value = ''; recalc(); weight.input.focus();
   };
 }
@@ -3516,14 +3867,19 @@ function expenseForm({ rec, names, kind }) {
       amt = Money.parseBaht(amount.input.value, 'amount', 'จำนวนเงิน');
     } catch (e) { showError(e, form); return; }
     const d = date.value, text = desc.value, ty = type;
-    const line = (ty === 'MAINTENANCE' ? 'ค่าบำรุงรักษา ' : 'ค่าจัดงาน ') + text.trim() + ' ' + Money.baht(amt) + ' ' + dateLabel(d);
+    const lineOf = (t, tx, a, dt) => (t === 'MAINTENANCE' ? 'ค่าบำรุงรักษา ' : 'ค่าจัดงาน ') + tx.trim() + ' ' + Money.baht(a) + ' ' + dateLabel(dt);
+    const line = lineOf(ty, text, amt, d);
     const r = isNew ? await saveNew(form, save, 'expense', [requestId, d, ty, text, amt], line)
       : await runSave(form, save, 'กำลังบันทึก', () => Expenses.update(rec, d, ty, text, amt).then(() => true));
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
     Recent.add(ty, text); drawChips();
     if (r.queued) afterQueued(savedBox, line);
-    else { fill(savedBox, savedBanner(r.duplicate, line, r.doc ? '#/rec/expense/' + G.id(r.doc) : null)); done('บันทึกค่าใช้จ่ายแล้ว'); }
+    else {
+      const kept = r.duplicate && r.doc ? expenseFrom(r.doc) : null;
+      fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.type, kept.description, kept.amount, kept.date) : line, r.doc ? '#/rec/expense/' + G.id(r.doc) : null, line));
+      done('บันทึกค่าใช้จ่ายแล้ว');
+    }
     requestId = Store.newId(); desc.value = ''; amount.input.value = ''; words.update(); desc.focus();
   };
 }
@@ -3538,6 +3894,12 @@ function reportRange() {
   if (RepState.period === 'prev') { const s = D.prevMonthStart(t); return [s, D.addDays(D.monthEnd(s), 1)]; }
   if (RepState.period === 'year') return [D.yearStart(t), D.addDays(D.yearEnd(t), 1)];
   return [RepState.start || D.monthStart(t), RepState.end || D.addDays(t, 1)];
+}
+/** A report just made: kept for its own screen, and put at the top of the saved list if that is loaded. */
+function rememberReport(r) {
+  Cache.put('report:' + r.id, r);
+  const list = Cache.get('reports', VIEW_CACHE_MS);
+  if (list && !list.some(x => x.id === r.id)) { list.unshift(r); if (list.length > 30) list.length = 30; }
 }
 async function ReportPage() {
   const t = navToken;
@@ -3570,7 +3932,7 @@ async function ReportPage() {
     const [s, e] = reportRange();
     try {
       const r = await withBusy('กำลังคำนวณรายงาน', () => Reports.getSummary(s, e, requestId));
-      Cache.put('report:' + r.id, r);
+      rememberReport(r);
       go('#/report/' + r.id);
     } catch (err) {
       const retry = err.code === E.NETWORK || err.code === E.TIMEOUT || err.code === E.SAVE_FAILED;
@@ -3578,14 +3940,18 @@ async function ReportPage() {
     }
   }
   try {
-    const list = await Reports.list(30);
+    let list = Cache.get('reports', VIEW_CACHE_MS);
+    if (!list) { const gen = Cache.gen; list = await Reports.list(30); Cache.put('reports', list, gen); }
     if (!alive(t)) return;
     fill(listBox, list.length ? h('div', { class: 'list' }, list.map(r => h('a', { class: 'rowitem', href: '#/report/' + r.id },
       h('span', { class: 'kind plain' }, ic('doc', 'sm')),
       h('span', { class: 'rmain' }, h('span', { class: 'rt', text: D.range(r.periodStart, r.periodEnd) }), h('span', { class: 'rd', text: 'สร้างเมื่อ ' + D.fmtTime(r.generatedAt) })),
       h('span', { class: 'ramt ' + (r.preliminaryProfit >= 0 ? 'c-in' : 'c-out') }, figParts(r.preliminaryProfit, signOf(r.preliminaryProfit))))))
       : emptyState('ยังไม่มีรายงาน', 'เลือกช่วงเวลาแล้วกดสร้างรายงาน'));
-  } catch (e) { if (alive(t)) fill(listBox, h('p', { class: 'note c-danger', text: toAppError(e).message })); }
+  } catch (e) {
+    if (alive(t)) fill(listBox, h('p', { class: 'note c-danger', text: toAppError(e).message }),
+      h('button', { class: 'btn soft inline', type: 'button', onclick: () => route() }, ic('refresh', 'sm'), 'ลองใหม่'));
+  }
 }
 async function ReportView(id) {
   const t = navToken;
@@ -3628,7 +3994,7 @@ async function ReportView(id) {
     h('button', { class: 'btn ghost', type: 'button', onclick: async () => {
       try {
         const n = await withBusy('กำลังคำนวณรายงาน', () => Reports.getSummary(r.periodStart, r.periodEnd, Store.newId()));
-        Cache.put('report:' + n.id, n); go('#/report/' + n.id, { replace: true }); done('สร้างรายงานใหม่แล้ว');
+        rememberReport(n); go('#/report/' + n.id, { replace: true }); done('สร้างรายงานใหม่แล้ว');
       } catch (e) { showError(e); }
     } }, ic('refresh', 'sm'), 'สร้างใหม่ด้วยข้อมูลล่าสุด'));
 }
@@ -3641,17 +4007,30 @@ function periodBefore(s, e) {
   return [D.addDays(s, -days), s];
 }
 /** Revenue, cost and profit of the period before, with the change (live figures, shown under the slip). */
-async function compareWithBefore(r, box, t) {
+async function compareWithBefore(r, box, t, asked) {
   const [ps, pe] = periodBefore(r.periodStart, r.periodEnd);
-  fill(box, h('div', { class: 'skel', style: 'min-height:120px;margin-bottom:6px' }));
   let tot = Cache.get('before:' + ps + ':' + pe, VIEW_CACHE_MS);
+  const askFirst = (note, bad) => fill(box, h('section', { class: 'panel compare' },
+    h('div', { class: 'cmphead' }, h('b', { text: 'เทียบกับช่วงก่อนหน้า' }), h('span', { class: 'dim small', text: D.range(ps, pe) })),
+    h('p', { class: 'note' + (bad ? ' c-danger' : ''), text: note }),
+    h('button', { class: 'btn soft inline', type: 'button', onclick: () => compareWithBefore(r, box, t, true) }, ic('report', 'sm'), 'เทียบกับช่วงก่อนหน้า')));
+  // the period before a long report (a year, say) can hold thousands of records, one database read each,
+  // so it is loaded only when asked for
+  if (!tot && !asked && pe - ps > 62 * 86400000) { askFirst('ช่วงยาวมีรายการมาก จึงโหลดเมื่อกดเท่านั้น เพื่อประหยัดโควตาของฐานข้อมูล'); return; }
+  fill(box, h('div', { class: 'skel', style: 'min-height:120px;margin-bottom:6px' }));
   try {
     if (!tot) {
-      const res = await Records.load(ps, pe);
+      const gen = Cache.gen;
+      // a short period before (a week, say) often lies inside home's last 30 days
+      const res = (await loadFromHome(ps, pe)) || await (asked ? Thrift.asking(() => Records.load(ps, pe)) : Records.load(ps, pe));
       tot = Calc.calculate(res.revenues, res.fish, res.expenses, 0);
-      Cache.put('before:' + ps + ':' + pe, tot);
+      Cache.put('before:' + ps + ':' + pe, tot, gen);
     }
-  } catch (e) { if (alive(t)) fill(box); return; }
+  } catch (e) {
+    // asked for and failed: say why and keep the button; on its own it just stays out of the way
+    if (alive(t)) { if (asked) askFirst(toAppError(e).message, true); else fill(box); }
+    return;
+  }
   if (!alive(t)) return;
   const row = (label, now, before, goodUp) => {
     const d = now - before;
@@ -3697,7 +4076,8 @@ function formatReply(md) {
 async function monthFiguresMessage() {
   const today = D.today();
   const s = D.monthStart(today), e = D.addDays(today, 1);
-  const res = await Records.load(s, e);
+  // home's last 30 days already hold this month when it was opened in the last five minutes
+  const res = (await loadFromHome(s, e)) || await Records.load(s, e);
   const tot = Calc.calculate(res.revenues, res.fish, res.expenses, 0);
   return ['ช่วยวิเคราะห์ผลประกอบการเดือน' + D.monthName(today) + ' (ข้อมูลถึง ' + D.fmt(today) + ')',
     'รายรับ ' + Money.baht(tot.totalRevenue), 'ต้นทุนปลา ' + Money.baht(tot.totalFishCost),
@@ -3888,12 +4268,15 @@ async function SettingsPage() {
     navRow('percent', 'อัตราภาษี', 'กำลังโหลด', () => go('#/settings/tax')),
     navRow('assistant', 'ผู้ช่วย', 'กำลังโหลด', () => go('#/settings/assistant'))));
   try {
-    const [rates, cfg] = await Promise.all([Tax.actives(), AssistantConfig.get(true)]);
+    const [rates, cfg] = await Promise.all([cachedTaxActives(), AssistantConfig.get()]);
     if (!alive(t)) return;
     const subs = adminRows.querySelectorAll('.rd');
     subs[1].textContent = rates.length === 1 ? 'ใช้อยู่ ' + Money.rate(rates[0].rateCenti) + '%' : rates.length ? 'พบอัตราซ้ำกัน ต้องแก้ไข' : 'ยังไม่ได้ตั้ง';
     subs[2].textContent = cfg.enabled && cfg.key ? 'เปิดใช้งาน โหมด' + (cfg.mode === 'DETAILED' ? 'ละเอียด' : 'เร็ว') : 'ยังไม่เปิดใช้งาน';
-  } catch (e) { /* rows still work */ }
+  } catch (e) {
+    // the rows still open their screens; they must not say "loading" for ever
+    if (alive(t)) for (const sub of adminRows.querySelectorAll('.rd')) if (sub.textContent === 'กำลังโหลด') sub.textContent = 'แตะเพื่อดูและแก้ไข';
+  }
 }
 /** Shown once after an update to people who already used the app. */
 const WHATS_NEW = [
@@ -4159,7 +4542,8 @@ window.addEventListener('online', updateOnline);
 window.addEventListener('offline', updateOnline);
 document.addEventListener('visibilitychange', () => {
   // coming back to the app after a while: refresh the profile and data quietly
-  if (document.visibilityState === 'visible' && Session.ok() && currentRoute && !currentRoute.sub && Date.now() - (window.__hiddenAt || 0) > 5 * 60 * 1000) { Cache.dirty(); route(); }
+  // (home then asks only for what changed since it was read; see Records.refresh)
+  if (document.visibilityState === 'visible' && Session.ok() && currentRoute && !currentRoute.sub && Date.now() - (window.__hiddenAt || 0) > 5 * 60 * 1000) { Cache.expire(); route(); }
   if (document.visibilityState === 'hidden') window.__hiddenAt = Date.now();
 });
 
