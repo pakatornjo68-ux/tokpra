@@ -673,7 +673,7 @@ const ART = {
 
 const ROOT_SCOPE = typeof window !== 'undefined' ? window : globalThis;
 
-const APP = { version: '3.2.1', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
+const APP = { version: '3.2.2', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
 const CONFIG = {
   projectId: 'tokpra-d7af6',
   apiKey: 'AIzaSyDOvLTt5QX-k13XF2OJhSnLZesy3uQ2e8I',
@@ -690,7 +690,7 @@ const E = {
   VALIDATION: 'VALIDATION_ERROR', UNAUTH: 'UNAUTHENTICATED', DENIED: 'PERMISSION_DENIED',
   CONFIG_MISSING: 'CONFIG_MISSING', CONFIG_CONFLICT: 'CONFIG_CONFLICT', SAVE_FAILED: 'SAVE_FAILED',
   NETWORK: 'NETWORK_ERROR', TIMEOUT: 'TIMEOUT', NOT_FOUND: 'NOT_FOUND', CONFLICT: 'CONFLICT',
-  QUOTA: 'QUOTA_EXCEEDED', ASSISTANT: 'ASSISTANT_ERROR', CANCELLED: 'CANCELLED',
+  QUOTA: 'QUOTA_EXCEEDED', ASSISTANT: 'ASSISTANT_ERROR', CANCELLED: 'CANCELLED', GUARD: 'READ_GUARD',
 };
 class AppError extends Error {
   constructor(code, message, field) { super(message); this.code = code; this.field = field || null; }
@@ -1138,9 +1138,51 @@ const Auth = {
 };
 
 /* ---------- Cloud Firestore REST ---------- */
+/*
+ * Quota guard. The free plan allows 50,000 document reads a day for everyone
+ * together. A bug that repeats a request in a loop must not be able to use that
+ * up, so the database layer refuses a request that has already been sent many
+ * times in the last two minutes, and stops reading after an unusual number of
+ * documents in ten minutes. Normal use never comes close to either limit.
+ */
+const Thrift = {
+  SAME_WINDOW_MS: 120000, SAME_MAX: 12,
+  DOCS_WINDOW_MS: 600000, DOCS_MAX: 6000,
+  sent: new Map(),   // request key -> times it was sent (ms)
+  docs: [],          // [time, documents read]
+  check(key) {
+    const now = Date.now();
+    const times = (Thrift.sent.get(key) || []).filter(x => now - x < Thrift.SAME_WINDOW_MS);
+    Thrift.docs = Thrift.docs.filter(x => now - x[0] < Thrift.DOCS_WINDOW_MS);
+    const read = Thrift.docs.reduce((a, x) => a + x[1], 0);
+    if (times.length >= Thrift.SAME_MAX || read >= Thrift.DOCS_MAX) {
+      throw new AppError(E.GUARD, 'แอปหยุดโหลดข้อมูลซ้ำชั่วคราวเพื่อไม่ให้ใช้โควตาฐานข้อมูลหมด รอสักครู่แล้วลองใหม่');
+    }
+    times.push(now);
+    Thrift.sent.set(key, times);
+  },
+  /** Firestore bills at least one read per query, even with no results. */
+  count(n) { Thrift.docs.push([Date.now(), Math.max(1, n)]); },
+  reset() { Thrift.sent.clear(); Thrift.docs = []; },
+};
+
+/** The free quota renews at midnight Pacific time; returns that moment as epoch ms. */
+function quotaResetAt(now) {
+  now = now || Date.now();
+  try {
+    const parts = {};
+    for (const x of new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', hourCycle: 'h23',
+      year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }).formatToParts(new Date(now))) parts[x.type] = Number(x.value);
+    const wall = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+    const offset = wall - Math.floor(now / 1000) * 1000;   // Pacific wall clock minus UTC
+    return Date.UTC(parts.year, parts.month - 1, parts.day + 1) - offset;
+  } catch (e) { return 0; }
+}
+
 const Fs = {
   docName: path => 'projects/' + CONFIG.projectId + '/databases/(default)/documents/' + path,
   async _call(method, url, json) {
+    Thrift.check(method + ' ' + url + (json ? ' ' + JSON.stringify(json) : ''));
     const opts = () => ({ headers: { Authorization: 'Bearer ' + Session.idToken }, json,
       netMsg: 'เชื่อมต่อฐานข้อมูลไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่' });
     await Auth.token();
@@ -1150,6 +1192,7 @@ const Fs = {
   },
   async get(path) {
     const r = await Fs._call('GET', URLS.fs() + '/' + path);
+    if (r.ok || r.status === 404) Thrift.count(1);
     if (r.status === 404) return null;
     if (!r.ok) throw Fs.error(r, false);
     return r.data;
@@ -1162,6 +1205,7 @@ const Fs = {
       if (item.error) throw Fs.error({ status: 500, data: item }, false);
       if (item.document) out.push(item.document);
     }
+    Thrift.count(out.length);
     return out;
   },
   async commit(writes) {
@@ -1194,7 +1238,12 @@ const Fs = {
     if (r.status === 403 || status === 'PERMISSION_DENIED') return new AppError(E.DENIED, 'คุณไม่มีสิทธิ์ทำรายการนี้ หรือบัญชีถูกปิดการใช้งาน');
     if (status === 'ALREADY_EXISTS' || status === 'FAILED_PRECONDITION' || r.status === 409) return new AppError(E.CONFLICT, 'รายการนี้ถูกบันทึกหรือเปลี่ยนแปลงไปแล้ว');
     if (r.status === 404 || status === 'NOT_FOUND') return new AppError(E.NOT_FOUND, 'ไม่พบรายการนี้ในฐานข้อมูล');
-    if (r.status === 429 || status === 'RESOURCE_EXHAUSTED') return new AppError(E.QUOTA, 'ฐานข้อมูลใช้โควตาฟรีของวันนี้ครบแล้ว ลองใหม่พรุ่งนี้');
+    if (r.status === 429 || status === 'RESOURCE_EXHAUSTED') {
+      const at = quotaResetAt();
+      return new AppError(E.QUOTA, 'ฐานข้อมูลใช้โควตาฟรีของวันนี้ครบแล้ว ' + (at
+        ? 'ใช้ได้อีกครั้งประมาณ ' + D.time(at) + ' น. ' + (D.dayStartOf(at) === D.today() ? 'วันนี้' : 'พรุ่งนี้')
+        : 'ลองใหม่พรุ่งนี้'));
+    }
     if (r.status === 400 || status === 'INVALID_ARGUMENT') return new AppError(E.VALIDATION, 'ข้อมูลไม่ถูกต้อง ' + (e.message || ''));
     return write ? new AppError(E.SAVE_FAILED, 'บันทึกไม่สำเร็จ (HTTP ' + r.status + ') ลองใหม่อีกครั้ง')
                  : new AppError(E.NETWORK, 'โหลดข้อมูลไม่สำเร็จ (HTTP ' + r.status + ')');
@@ -1321,10 +1370,22 @@ const Cache = {
 
 /* ---------- UserService (FR-02) ---------- */
 const Users = {
+  /** true right after the signed-in profile was read (sign-in, restore), so home need not read it again */
+  fresh: false,
   async getProfile(uid) {
     const d = await Fs.get('users/' + uid);
-    if (d && uid === Session.uid) Local.set('tokpra.profile.' + uid, d);
+    if (d && uid === Session.uid) { Local.set('tokpra.profile.' + uid, d); Users.fresh = true; }
     return d ? userFrom(d) : null;
+  },
+  /**
+   * What decides which menus and actions a profile gets, as a stable string.
+   * Firestore does not keep map fields in a fixed order, so the permission
+   * map is reduced to its sorted granted keys before comparing.
+   */
+  accessKey(p) {
+    if (!p) return '';
+    const granted = Object.keys(p.permissions || {}).filter(k => p.permissions[k] === true).sort().join(',');
+    return [p.role, p.recordScope, p.status ? 1 : 0, p.fullName, granted].join('|');
   },
   /** The last profile seen on this device (used only to open the app without signal). */
   cachedProfile(uid) { const d = Local.get('tokpra.profile.' + uid, null); return d ? userFrom(d) : null; },
@@ -1896,7 +1957,7 @@ const Assistant = {
 
 /* expose for tests (node) */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Assistant, systemPrompt, sseParser, Reports, Session, PERMS };
+  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Assistant, systemPrompt, sseParser, Reports, Session, PERMS, Thrift, quotaResetAt, Users, userFrom };
 }
 
 'use strict';
@@ -2865,6 +2926,36 @@ function recordRow(it, names) {
       h('span', { class: 'rd', text: sub })),
     h('span', { class: 'ramt ' + (it.deleted ? 'gone' : k.sign > 0 ? 'c-in' : '') }, figParts(it.amount, k.sign > 0 ? '+' : '−')));
 }
+/*
+ * Database reads are the scarce resource on the free plan (50,000 a day for
+ * everyone together), so screens reuse what they loaded for five minutes.
+ * Saving anything, pull to refresh and the refresh button load fresh data.
+ */
+const VIEW_CACHE_MS = 5 * 60 * 1000;
+/**
+ * The home screen keeps the last 30 days up to today. A period that starts
+ * inside them reuses those rows and reads only the days after today (records
+ * can be dated ahead), which is usually an empty, one-read query.
+ */
+async function loadFromHome(s, e) {
+  const home = Cache.get('home', VIEW_CACHE_MS);
+  if (!home || !home.range || s < home.range[0]) return null;
+  const cut = Math.min(e, home.range[1]);
+  const inside = r => r.date >= s && r.date < cut;
+  const out = { items: home.items.filter(it => inside(it.rec)), revenues: home.revenues.filter(inside), fish: home.fish.filter(inside),
+    expenses: home.expenses.filter(inside), names: home.names };
+  if (e > cut) {
+    const more = await Records.load(cut, e);
+    out.items = out.items.concat(more.items).sort((a, b) => (b.rec.date - a.rec.date) || (b.rec.createdAt - a.rec.createdAt));
+    out.revenues = out.revenues.concat(more.revenues); out.fish = out.fish.concat(more.fish); out.expenses = out.expenses.concat(more.expenses);
+  }
+  return out;
+}
+async function cachedTaxActives() {
+  let list = Cache.get('taxActives', VIEW_CACHE_MS);
+  if (!list) { list = await Tax.actives(); Cache.put('taxActives', list); }
+  return list;
+}
 async function HomePage() {
   const t = navToken; const me = Session.profile;
   setPage({ tab: 'home', brand: true, title: 'หน้าหลัก', wide: true, refresh: true, actions: [iconButton('refresh', 'โหลดใหม่', () => { Cache.dirty(); route(); })] });
@@ -2877,23 +2968,30 @@ async function HomePage() {
   fill(app(), bandBox, qa, h('div', { id: 'outbox' }), notice, installNotice(), chartBox,
     readable ? h('h2', { class: 'h2' }, 'รายการล่าสุด', h('a', { href: '#/records', text: 'ดูทั้งหมด' })) : null, readable ? recentBox : null);
 
-  // fresh profile so permission changes by the admin apply right away (TC-20)
-  Users.getProfile(Session.uid).then(p => {
-    if (!p || !p.status) { Auth.logout(); toast('บัญชีนี้ถูกปิดการใช้งาน'); go('#/login', { replace: true }); return; }
-    const changed = JSON.stringify([p.role, p.recordScope, p.permissions, p.fullName]) !== JSON.stringify([me.role, me.recordScope, me.permissions, me.fullName]);
-    Session.profile = p;
-    if (changed && alive(t)) { Cache.clear(); buildNav(); route(); }
-  }).catch(() => { /* shown by the data load below */ });
+  // Re-read the profile on each visit (one read) so a disabled account is signed out
+  // (TC-02) and permission changes by the admin reach this device (TC-20). Skipped
+  // when it was read moments ago (sign-in, or the visit that rebuilt this screen).
+  // The screen is rebuilt only when access really changed, so this cannot loop.
+  if (Users.fresh) Users.fresh = false;
+  else if (Session.idToken !== 'offline') {
+    Users.getProfile(Session.uid).then(p => {
+      Users.fresh = false;
+      if (!p || !p.status) { Auth.logout(); toast('บัญชีนี้ถูกปิดการใช้งาน'); go('#/login', { replace: true }); return; }
+      const changed = Users.accessKey(p) !== Users.accessKey(Session.profile);
+      Session.profile = p;
+      if (changed && alive(t)) { Users.fresh = true; Cache.clear(); buildNav(); route(); }
+    }).catch(() => { /* shown by the data load below */ });
+  }
 
   const today = D.today();
   const mStart = D.monthStart(today);
   const start = Math.min(mStart, D.addDays(today, -29)), end = D.addDays(today, 1);
-  let data = Cache.get('home', 60000), savedAt = 0;
+  let data = Cache.get('home', VIEW_CACHE_MS), savedAt = 0;
   const keep = 'tokpra.home.' + Session.uid;
   try {
     if (!data && readable) {
       const [res, names] = await Promise.all([Records.load(start, end), Users.names()]);
-      data = Object.assign(res, { names });
+      data = Object.assign(res, { names, range: [start, end] });
       Cache.put('home', data);
       try { Local.set(keep, { at: Date.now(), start, data }); } catch (e) { /* storage full: not kept */ }
     }
@@ -2917,7 +3015,7 @@ async function HomePage() {
     if (!savedAt) setupChecklist(data).then(box => {
       if (!alive(t)) return;
       if (box) { fill(notice, box); return; }
-      Tax.actives().then(list => {
+      cachedTaxActives().then(list => {
         if (alive(t) && !list.length) fill(notice, h('a', { class: 'notice', href: '#/settings/tax' }, ic('percent', 'sm'),
           h('span', { class: 'grow', text: 'ยังไม่ได้ตั้งอัตราภาษี ตั้งก่อนสร้างรายงาน' }), ic('chev', 'sm')));
       }).catch(() => {});
@@ -3002,7 +3100,7 @@ function cashChart(items, today) {
 async function setupChecklist(data) {
   if (Local.get('tokpra.setupDone', false)) return null;
   let rates = [], cfg = {}, users = [];
-  try { [rates, cfg, users] = await Promise.all([Tax.actives(), AssistantConfig.get(true), Users.list()]); } catch (e) { return null; }
+  try { [rates, cfg, users] = await Promise.all([cachedTaxActives(), AssistantConfig.get(), Users.names().then(m => Object.keys(m))]); } catch (e) { return null; }
   const steps = [
     ['percent', 'ตั้งอัตราภาษี', 'ใช้คำนวณภาษีในรายงาน', rates.length === 1, () => go('#/settings/tax')],
     ['users', 'เพิ่มพนักงาน', 'ให้พนักงานบันทึกรายการเองได้', users.length > 1, () => go('#/settings/users')],
@@ -3188,11 +3286,12 @@ async function RecordsPage() {
   const load = async () => {
     const [s, e] = periodRange(RecState.period);
     const key = 'rec:' + s + ':' + e;
-    data = Cache.get(key, 60000);
+    data = Cache.get(key, VIEW_CACHE_MS);
     if (!data) {
       fill(listBox, skeleton(5)); fill(totalsBox);
       try {
-        const [res, names] = await Promise.all([Records.load(s, e), Users.names()]);
+        const reused = await loadFromHome(s, e);
+        const [res, names] = reused ? [reused, reused.names] : await Promise.all([Records.load(s, e), Users.names()]);
         data = Object.assign(res, { names });
         Cache.put(key, data);
       } catch (err) { if (alive(t)) { fill(listBox); showError(err, null, load); } return; }
@@ -3545,10 +3644,13 @@ function periodBefore(s, e) {
 async function compareWithBefore(r, box, t) {
   const [ps, pe] = periodBefore(r.periodStart, r.periodEnd);
   fill(box, h('div', { class: 'skel', style: 'min-height:120px;margin-bottom:6px' }));
-  let tot;
+  let tot = Cache.get('before:' + ps + ':' + pe, VIEW_CACHE_MS);
   try {
-    const res = await Records.load(ps, pe);
-    tot = Calc.calculate(res.revenues, res.fish, res.expenses, 0);
+    if (!tot) {
+      const res = await Records.load(ps, pe);
+      tot = Calc.calculate(res.revenues, res.fish, res.expenses, 0);
+      Cache.put('before:' + ps + ':' + pe, tot);
+    }
   } catch (e) { if (alive(t)) fill(box); return; }
   if (!alive(t)) return;
   const row = (label, now, before, goodUp) => {
@@ -4088,7 +4190,12 @@ function hideBoot() {
       if (r === 'FIRST_ADMIN') { hideBoot(); history.replaceState(null, '', '#/login'); LoginPage(); firstAdmin(); return; }
       buildNav(); Chat.load();
       const seen = Local.get('tokpra.seenVersion', '');
-      if (seen !== APP.version) { Local.set('tokpra.seenVersion', APP.version); if (r !== 'OFFLINE') setTimeout(() => { if (!Lock.shown) whatsNew(); }, 900); }
+      // the notes list features, so a fix-only update (3.2.1 to 3.2.2) does not show them again
+      const series = v => String(v || '').split('.').slice(0, 2).join('.');
+      if (seen !== APP.version) {
+        Local.set('tokpra.seenVersion', APP.version);
+        if (r !== 'OFFLINE' && series(seen) !== series(APP.version)) setTimeout(() => { if (!Lock.shown) whatsNew(); }, 900);
+      }
       Lock.lockNow();
       if (r === 'OFFLINE') setTimeout(() => toast('ไม่มีสัญญาณ บันทึกรายการใหม่ได้ ระบบจะส่งให้เมื่อกลับมาออนไลน์'), 600);
     } catch (e) {

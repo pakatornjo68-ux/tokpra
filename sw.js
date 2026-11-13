@@ -1,7 +1,7 @@
 /* Offline shell for the web version. Pages are fetched fresh when online
    (so updates show at once) and served from the cache when offline.
    Requests to the database and the assistant are never touched. */
-const CACHE = 'tokpra-3.2.1';
+const CACHE = 'tokpra-3.2.2';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './favicon.svg'];
 self.addEventListener('install', e => {
   self.skipWaiting();
@@ -13,8 +13,10 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
-  e.respondWith(fetch(req).then(res => {
-    if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
+  // Always ask the server (a small "not modified" reply when nothing changed), so a new
+  // version shows the next time the app opens instead of after the browser's own cache expires.
+  e.respondWith(fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }).then(res => {
+    if (res.ok && !res.redirected) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
     return res;
-  }).catch(() => caches.match(req).then(r => r || caches.match('./index.html'))));
+  }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('./index.html'))));
 });
