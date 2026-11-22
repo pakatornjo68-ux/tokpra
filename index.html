@@ -371,33 +371,7 @@ html[data-theme=dark] .seg button.on{background:#2A352E;box-shadow:none}
   padding:10px 16px;border-radius:12px;font-size:.95rem;max-width:88%;text-align:center;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none}
 #toast.show{opacity:1;transform:translateX(-50%)}
 body.sub #toast,body.kbd #toast{bottom:calc(env(safe-area-inset-bottom) + 28px)}
-body.chat #toast{bottom:calc(env(safe-area-inset-bottom) + 150px)}
 
-/* ---------- assistant ---------- */
-.msgs{padding-bottom:84px}
-.chatintro{padding-top:8px}
-.introhead{display:flex;gap:14px;align-items:flex-start;margin:6px 0 18px}
-.ask{position:relative;display:flex;align-items:center;gap:12px;width:calc(100% + 32px);margin:0 -16px;text-align:left;background:var(--paper);border:0;border-top:1px solid var(--rule);padding:14px 44px 14px 16px;color:var(--ink);font-size:.98rem;line-height:1.45}
-.ask:last-child{border-bottom:1px solid var(--rule)}
-.ask::after{content:"";position:absolute;right:20px;top:50%;width:8px;height:8px;margin-top:-4px;border-top:2px solid var(--ink-3);border-right:2px solid var(--ink-3);transform:rotate(45deg)}
-.ask:active{background:var(--paper-2)}
-.bubble{max-width:88%;padding:10px 14px;border-radius:18px;margin:10px 0;white-space:pre-wrap;overflow-wrap:anywhere;user-select:text;-webkit-user-select:text;line-height:1.6}
-.bubble.me{margin-left:auto;background:var(--brand);color:var(--on-brand);border-bottom-right-radius:6px}
-.bubble.bot{background:var(--paper);border:1px solid var(--rule);border-bottom-left-radius:6px}
-.bubble.bad{background:var(--danger-tint);color:var(--danger);border-bottom-left-radius:6px}
-.bubble .retry{display:inline-flex;margin-top:8px}
-.dots{display:inline-flex;gap:5px;align-items:center;height:1.6em}
-.dots i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:dt 1.1s infinite ease-in-out}
-.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
-@keyframes dt{0%,60%,100%{opacity:.25;transform:none}30%{opacity:1;transform:translateY(-3px)}}
-.chatbar{position:fixed;left:0;right:0;bottom:calc(env(safe-area-inset-bottom) + var(--tabs-h));z-index:28;padding:8px 12px;background:var(--paper);border-top:1px solid var(--rule)}
-body.kbd .chatbar{bottom:0;padding-bottom:calc(env(safe-area-inset-bottom) + 8px)}
-.chatbar .inner{max-width:608px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
-.chatbar textarea{flex:1;min-height:48px;max-height:132px;resize:none;border-radius:24px;padding:11px 18px;background:var(--paper-2);border-color:var(--rule)}
-.chatbar .send{width:48px;height:48px;border-radius:50%;border:0;background:var(--act);color:var(--on-act);display:flex;align-items:center;justify-content:center;flex:none}
-.chatbar .send:disabled{opacity:.5}
-.chatbar .send.stopping{background:var(--ink-2);color:var(--paper)}
-body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
 
 /* ---------- settings ---------- */
 .profile{display:flex;align-items:center;gap:14px;background:var(--paper);margin:-12px -16px 0;padding:18px 16px;border-bottom:1px solid var(--rule)}
@@ -418,17 +392,13 @@ body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
 
 /* ---------- wide screens ---------- */
 @media (min-width:600px){
-  .list,.panel,.ask,.rechead,.totals,.profile{margin-left:0;margin-right:0}
+  .list,.panel,.rechead,.totals,.profile{margin-left:0;margin-right:0}
   .list,.panel{border:1px solid var(--rule);border-radius:var(--r-card)}
   .list{overflow:hidden}
   .rechead{margin-top:0;border:1px solid var(--rule);border-radius:var(--r-card);padding-bottom:0;overflow:hidden}
   .totals{margin:0 -16px}
   .tabs{margin-left:-16px;margin-right:-16px}
   .profile{margin-top:0;border:1px solid var(--rule);border-radius:var(--r-card)}
-  .ask{width:100%}
-  .ask:first-of-type{border-radius:var(--r-card) var(--r-card) 0 0;border-top:1px solid var(--rule)}
-  .ask{border-left:1px solid var(--rule);border-right:1px solid var(--rule)}
-  .ask:last-child{border-radius:0 0 var(--r-card) var(--r-card)}
   .dayhead{margin:0;padding-left:4px;padding-right:4px}
   .band{margin:12px 0 0;border-radius:20px;padding:20px 24px 62px}
   body.home{background:var(--ground)}
@@ -462,9 +432,6 @@ body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
   body.home #barTitle{display:block}
   .band{margin-top:0}
   .dayhead{top:0}
-  .chatbar{left:256px;bottom:0;padding-bottom:20px;background:var(--ground);border-top:0}
-  .chatbar .inner{max-width:696px}
-  .msgs{padding-bottom:96px}
   #sheet{align-items:center}
   #sheet .box{border-radius:20px;max-width:440px}
   #sheet .grab{display:none}
@@ -475,7 +442,7 @@ body.chat main{padding-bottom:calc(env(safe-area-inset-bottom) + 150px)}
 main.fade{animation:fade .16s ease-out}
 @keyframes fade{from{opacity:.4}to{opacity:1}}
 @media (pointer:coarse){
-  #tabs,#bar,#side,.chip,.btn,.rowitem,.seg,.actcard a,.check,.pchip,.ask,.band,.tabs,.optrow,.periodbtn{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+  #tabs,#bar,#side,.chip,.btn,.rowitem,.seg,.actcard a,.check,.pchip,.band,.tabs,.optrow,.periodbtn{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 }
 .band .skel{min-height:136px;margin:6px 0 4px;background:rgba(255,255,255,.1);animation:none}
 .optdel{padding:12px 8px 4px!important;margin-top:8px;border-top:1px solid var(--rule)}
@@ -494,14 +461,13 @@ body.home #ptr{top:calc(env(safe-area-inset-top) + var(--bar-h) - 44px)}
 .bigfig{display:flex;align-items:baseline;gap:6px;margin-top:2px}
 .bigfig .v{font-family:"Figures","Plex Thai",sans-serif;font-size:2rem;font-weight:600;line-height:1.25}
 .bigfig .u{font-size:1rem;color:var(--ink-2)}
-/* amount in words, quick date picks, answer actions */
+/* amount in words, quick date picks, small actions */
 .words{font-size:.84rem;color:var(--ink-2);margin-top:6px;line-height:1.5}
 .words:empty{display:none}
 .calcwords{text-align:right;margin-top:6px}
 .slip-net .words{margin-top:4px;font-size:.84rem}
 .datechips{margin-top:8px}
 .datechips .chip{min-height:34px;padding:3px 12px;font-size:.86rem}
-.bact{display:flex;gap:4px;margin:8px -6px -4px;padding-top:6px;border-top:1px solid var(--rule)}
 .mini{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:4px 10px;border:0;border-radius:8px;background:transparent;color:var(--ink-2);font-size:.84rem}
 .mini:active{background:var(--paper-2)}
 .mini svg{width:1rem;height:1rem}
@@ -516,7 +482,7 @@ body.home #ptr{top:calc(env(safe-area-inset-top) + var(--bar-h) - 44px)}
   .slip{position:absolute;left:0;top:0;width:100%;max-width:150mm;margin:0;padding:0;box-shadow:none;border-radius:0}
   .slip::after{display:none}
   .slip-net .fig{color:#000!important}
-  #tabs,#bar,#side,#toast,#ptr,.chatbar{display:none!important}
+  #tabs,#bar,#side,#toast,#ptr{display:none!important}
   .signs{display:grid!important;grid-template-columns:1fr 1fr;gap:18mm;margin-top:22mm;font-size:10pt;text-align:center}
   .sigline{border-bottom:1px dotted #000;height:9mm;text-align:left}
   .sigrole{margin-top:2mm} .sigdate{margin-top:3mm;color:#333}
@@ -578,8 +544,6 @@ svg.cash .day{transition:opacity .12s}
 .notice.outbox .btn.inline{min-height:38px;flex:none}
 .rechead + #outbox .notice{margin-top:12px}
 .saved.queued{background:var(--warn-tint);color:var(--warn)}
-.followups{margin:2px 0 10px}
-.followups .chip{min-height:36px;font-size:.88rem;color:var(--brand);border-color:var(--rule-2)}
 .saved.queued > svg path{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
 /* a record that cannot be changed, shown as a receipt */
 .receipt{margin-top:4px}
@@ -643,6 +607,57 @@ html[data-theme=dark] .btn.dangerfill{color:#2B0D0A}
   #sheet .box,main.fade{animation:none!important}}
 #sheet .box:focus,#modal .box:focus{outline:none}
 
+/* ---------- forecast: the home card with its dropdown, and the choice on new records ---------- */
+.fc{margin-top:16px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r-card);overflow:hidden}
+.fc > summary{display:flex;align-items:center;gap:12px;min-height:66px;padding:12px 14px 12px 16px;cursor:pointer;list-style:none}
+.fc > summary::-webkit-details-marker{display:none}
+.fc > summary .kind.big{width:40px;height:40px}
+.fc > summary .kind svg{width:1.35rem;height:1.35rem}
+.fc > summary .rt{font-weight:600}
+.fc > summary .rd .fig{color:var(--ink);font-weight:500}
+.fc > summary .rd .when{display:block;overflow:hidden;text-overflow:ellipsis}
+.fc > summary > svg{color:var(--ink-3);transition:transform .15s}
+.fc[open] > summary > svg{transform:rotate(180deg)}
+.fc > summary:active{background:var(--paper-2)}
+.fcbody{padding:2px 16px 14px;border-top:1px solid var(--rule)}
+.fcbody > .seg{margin-top:14px}
+.fcbody > .btn{margin-top:12px}
+.fcpick{margin-top:16px}
+.selectbox{position:relative}
+.selectbox select.input{padding-right:42px;cursor:pointer;text-overflow:ellipsis;white-space:nowrap;line-height:2;padding-top:7px;padding-bottom:7px}
+.selectbox > svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--ink-2);pointer-events:none}
+.fcview{margin-top:16px}
+.fchead{display:flex;align-items:flex-start;gap:10px}
+.fchead .k{font-size:.9rem;color:var(--ink-2)}
+.fchead .tag{margin-top:3px;flex:none}
+.fcfig{display:flex;align-items:baseline;gap:6px;margin-top:2px}
+.fcfig .fig{font-size:2.1rem;font-weight:600;line-height:1.25;color:var(--in)}
+.fcfig.loss .fig{color:var(--loss)}
+.fcfig .u{color:var(--ink-2)}
+.fcview > .small{margin-top:2px}
+.fcgrid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:12px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.fcgrid > div{min-width:0;padding:10px 10px 10px 0}
+.fcgrid > div + div{padding-left:12px;border-left:1px solid var(--rule)}
+.fcgrid .k{font-size:.8rem;color:var(--ink-2)}
+.fcgrid .v{font-size:1.06rem;font-weight:500;line-height:1.5}
+.fctext{margin-top:12px;line-height:1.65}
+.fcsub{margin-top:12px;font-size:.86rem;font-weight:600}
+.fclist{margin:4px 0 0;padding-left:1.25em;color:var(--ink-2);font-size:.92rem;line-height:1.6}
+.fclist li + li{margin-top:3px}
+.fcfoot{margin-top:14px;padding-top:10px;border-top:1px dashed var(--rule-2);font-size:.8rem;color:var(--ink-3);line-height:1.6}
+.fcshare{margin:8px 0 0 -6px}
+.fcrun{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--brand-tint);color:var(--brand);font-size:.92rem;line-height:1.45}
+.fcrun > svg{flex:none}
+.fcrun .spin{width:18px;height:18px;border-width:2.5px}
+.fcrun .fig{font-weight:600}
+.fcrun a{color:var(--brand);font-weight:600;text-decoration:none;white-space:nowrap;padding:2px 4px}
+.fcrun.bad{background:var(--danger-tint);color:var(--danger)}
+.fcrun.warn{background:var(--warn-tint);color:var(--warn)}
+.fcrun .mini{color:inherit;flex:none}
+.saved + .fcrun{margin-top:8px}
+.fcask{margin-top:14px;padding-top:4px;border-top:1px solid var(--rule)}
+.fcask .check{font-weight:500}
+.fcmore{margin:2px 0 4px 34px}
 </style>
 <script>
 (function () {
@@ -693,7 +708,7 @@ const ART = {
 
 const ROOT_SCOPE = typeof window !== 'undefined' ? window : globalThis;
 
-const APP = { version: '3.2.3', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
+const APP = { version: '3.3.0', name: 'บ่อตกปลายิ่งเจริญ', shortName: 'ยิ่งเจริญ' };
 const CONFIG = {
   projectId: 'tokpra-d7af6',
   apiKey: 'AIzaSyDOvLTt5QX-k13XF2OJhSnLZesy3uQ2e8I',
@@ -710,7 +725,7 @@ const E = {
   VALIDATION: 'VALIDATION_ERROR', UNAUTH: 'UNAUTHENTICATED', DENIED: 'PERMISSION_DENIED',
   CONFIG_MISSING: 'CONFIG_MISSING', CONFIG_CONFLICT: 'CONFIG_CONFLICT', SAVE_FAILED: 'SAVE_FAILED',
   NETWORK: 'NETWORK_ERROR', TIMEOUT: 'TIMEOUT', NOT_FOUND: 'NOT_FOUND', CONFLICT: 'CONFLICT',
-  QUOTA: 'QUOTA_EXCEEDED', ASSISTANT: 'ASSISTANT_ERROR', CANCELLED: 'CANCELLED', GUARD: 'READ_GUARD',
+  QUOTA: 'QUOTA_EXCEEDED', AI: 'AI_ERROR', CANCELLED: 'CANCELLED', GUARD: 'READ_GUARD',
   INDEX: 'NEEDS_INDEX',
 };
 class AppError extends Error {
@@ -1126,7 +1141,7 @@ const Auth = {
     Auth._apply(j, Session.email);
     Session.save();
   },
-  logout() { Session.clear(); AssistantConfig.data = null; Cache.clear(); },
+  logout() { Session.clear(); AiConfig.data = null; Cache.clear(); },
   /** Creates a sign-in account for a new staff member and returns its UID. */
   async createAccount(email, password) {
     try { return (await Auth._password('signUp', email, password)).localId; } catch (e) {
@@ -1711,11 +1726,12 @@ const Records = {
   saved(path, doc) {
     Cache.gen++;   // a load that was already running may have missed this record
     for (const key of Object.keys(Cache.store)) if (key.startsWith('before:')) delete Cache.store[key];
-    if (!doc) { Cache.dirty(); return; }
+    if (!doc) { Cache.dirty(); Forecast.touched(0); return; }
     const t = Records.TYPES[path];
     const me = Session.profile;
     if (!me || !me.can(t.perm + '.read')) return;   // lists without this type of record stay as they are
     const rec = t.from(doc);
+    Forecast.touched(rec.date);   // the forecast's day totals before today, kept on this device
     for (const key of Object.keys(Cache.store)) {
       const m = /^rec:(\d+):(\d+)$/.exec(key);
       if (key !== 'home' && !m) continue;
@@ -1873,17 +1889,19 @@ const Reports = {
 };
 
 /* =====================================================================
-   Assistant: a general chat assistant. It cannot see the app's records.
+   AI: settings and the model calls behind the forecast.
    Settings (key, on/off, speed, notes about the business) are stored in
-   app_config/ai so the key is never inside the public web files.
+   app_config/ai so the key is never inside the public web files. The
+   field names are the ones version 3.2 used, so a project that is
+   already set up keeps its key and its security rules.
    ===================================================================== */
-const AssistantConfig = {
+const AiConfig = {
   data: null, at: 0,
   async get(force) {
-    if (AssistantConfig.data && !force && Date.now() - AssistantConfig.at < 5 * 60 * 1000) return AssistantConfig.data;
+    if (AiConfig.data && !force && Date.now() - AiConfig.at < 5 * 60 * 1000) return AiConfig.data;
     const d = await Fs.get('app_config/ai');
     const f = G.f(d || {});
-    AssistantConfig.data = {
+    AiConfig.data = {
       exists: !!d,
       // older versions stored the key under the second field name
       key: G.str(f, 'assistant_key') || G.str(f, 'gemini_api_key') || '',
@@ -1892,8 +1910,8 @@ const AssistantConfig = {
       notes: G.str(f, 'assistant_notes') || '',
       updatedAt: G.ts(f, 'updated_at'),
     };
-    AssistantConfig.at = Date.now();
-    return AssistantConfig.data;
+    AiConfig.at = Date.now();
+    return AiConfig.data;
   },
   async save(next) {
     Store.require(Session.profile.isAdmin());
@@ -1905,54 +1923,10 @@ const AssistantConfig = {
     const fields = { assistant_key: V.str(key), assistant_enabled: V.bool(next.enabled), assistant_mode: V.str(next.mode === 'DETAILED' ? 'DETAILED' : 'FAST'),
       assistant_notes: V.str((next.notes || '').trim()), updated_by: V.str(Session.uid) };
     await Fs.commit([exists ? Fs.updateWrite('app_config/ai', fields, ['updated_at']) : Fs.createWrite('app_config/ai', fields, ['updated_at'])]);
-    AssistantConfig.data = null;
-    Assistant.fresh();
+    AiConfig.data = null;
+    Ai.fresh();
   },
 };
-
-/** The assistant's instructions. ctx: { name, admin, today, notes } */
-function systemPrompt(ctx) {
-  const text = [
-    'คุณคือ "ผู้ช่วย" ในแอป' + APP.name + ' ซึ่งใช้บันทึกรายรับ ต้นทุนปลา และค่าใช้จ่าย แล้วสรุปกำไรของบ่อตกปลา',
-    'ผู้ที่คุยกับคุณชื่อ ' + ctx.name + ' เป็น' + (ctx.admin ? 'เจ้าของกิจการและผู้ดูแลระบบ' : 'พนักงานที่เจ้าของมอบหมายให้บันทึกข้อมูล') + ' วันนี้คือ' + ctx.today,
-    '',
-    'วิธีตอบ',
-    '1. ตอบภาษาไทยที่สุภาพ เป็นกันเอง และกระชับ ขึ้นต้นด้วยคำตอบทันที ถ้าผู้ใช้เขียนภาษาอื่นให้ตอบภาษานั้น',
-    '2. ใช้ประโยคสั้นหรือรายการสั้น ๆ ไม่ใช้ตาราง ไม่ใช้หัวข้อใหญ่ และไม่ใช้อีโมจิ',
-    '3. ถ้าคำถามไม่ชัด ให้ถามกลับเพียงหนึ่งคำถาม',
-    '4. เขียนจำนวนเงินแบบ 1,234.50 บาท เมื่อคำนวณให้แสดงวิธีคิดสั้น ๆ',
-    '',
-    'สิ่งที่ช่วยได้',
-    'การบริหารบ่อตกปลา เช่น ดูแลคุณภาพน้ำและปลา เลือกซื้อและปล่อยปลา จัดกิจกรรมและการแข่งขัน ตั้งราคา ทำการตลาด และลดต้นทุน',
-    'คำนวณต้นทุน กำไร และภาษีประมาณการตามสูตรของแอป อธิบายวิธีใช้แอป และตอบคำถามทั่วไป',
-    '',
-    'สูตรที่แอปใช้',
-    'ต้นทุนปลา = น้ำหนัก (กก.) × ราคาต่อกิโลกรัม ปัดเศษครึ่งขึ้นเป็นสตางค์',
-    'ค่าใช้จ่ายมีสองประเภท คือ ค่าจัดงาน (ค่าจัดเตรียมสถานที่และจัดงาน) และค่าบำรุงรักษา (ค่าซ่อมและดูแลสิ่งของอุปกรณ์)',
-    'ต้นทุนรวม = ต้นทุนปลา + ค่าใช้จ่ายทั้งหมด',
-    'กำไรเบื้องต้น = รายรับรวม (ไม่นับรายการที่ถูกลบ) ลบด้วยต้นทุนรวม',
-    'ภาษีประมาณการ = กำไรเบื้องต้น × อัตราภาษีที่ผู้ดูแลตั้ง ÷ 100 ถ้ากำไรเป็นศูนย์หรือติดลบ ภาษีเป็นศูนย์',
-    '',
-    'วิธีใช้แอป',
-    'หน้าหลัก: ผู้ดูแลเห็นกำไรเบื้องต้นของเดือนนี้ กราฟรายรับและรายจ่าย 14 วัน และรายการเริ่มต้นใช้งาน พนักงานเห็นยอดเงินที่รับวันนี้และกด "ส่งยอดวันนี้" ได้ ทุกคนมีปุ่มเพิ่มรายการด่วนและรายการล่าสุด ดึงหน้าจอลงเพื่อโหลดใหม่',
-    'บันทึกรายการ: มีปุ่มเลือกวันที่ วันนี้ เมื่อวาน และแสดงยอดเงินเป็นตัวอักษรใต้ช่องจำนวนเงิน ถ้าไม่มีสัญญาณ รายการใหม่จะเก็บไว้ในเครื่องและส่งให้อัตโนมัติเมื่อกลับมาออนไลน์',
-    'รายการ: ค้นหาตามช่วงเวลา ประเภท และคำค้น แตะรายการเพื่อดูหรือแก้ไข ปุ่มมุมขวาบนใช้แชร์สรุปยอด ส่งออกไฟล์ CSV สำหรับ Excel และเพิ่มรายการ',
-    'รายรับที่ลบจะยังเก็บไว้ในสถานะ "ลบแล้ว" และไม่ถูกนับในยอด ส่วนต้นทุนปลาและค่าใช้จ่ายแก้ไขได้แต่ลบไม่ได้',
-    'รายงาน (เฉพาะผู้ดูแล): เลือกช่วงเวลาแล้วกด "สร้างรายงาน" ผลจะถูกบันทึกไว้ดูย้อนหลัง เทียบกับช่วงก่อนหน้า แชร์ และพิมพ์หรือบันทึกเป็น PDF ได้',
-    'ตั้งค่า: เปลี่ยนรหัสผ่าน ธีม ขนาดตัวอักษร เสียงและการสั่น ล็อกด้วยรหัส PIN และวิธีใช้งาน ผู้ดูแลจัดการผู้ใช้และสิทธิ์ อัตราภาษี และผู้ช่วยได้ที่นี่',
-    'พนักงานจะเห็นเมนูตามสิทธิ์ที่ได้รับ ถ้าไม่เห็นเมนูที่ต้องการให้ติดต่อผู้ดูแล',
-    '',
-    'ข้อจำกัด',
-    'คุณมองไม่เห็นข้อมูลในแอป เว้นแต่ผู้ใช้พิมพ์หรือแนบตัวเลขมาในข้อความ ห้ามเดายอดเงินของกิจการ ถ้าถูกถามยอดให้แนะนำหน้าหลักหรือเมนูรายงาน',
-    'คุณบันทึกหรือแก้ไขข้อมูลในแอปไม่ได้ ให้บอกขั้นตอนให้ผู้ใช้ทำเอง',
-    'ภาษีในแอปเป็นการประมาณเพื่อวางแผนเท่านั้น เรื่องการยื่นภาษีจริงหรือกฎหมายให้แนะนำปรึกษากรมสรรพากรหรือนักบัญชี',
-    'เรื่องโรคปลา ยา หรือสารเคมี ให้คำแนะนำทั่วไปอย่างระมัดระวัง และแนะนำผู้เชี่ยวชาญหรือกรมประมงเมื่อจำเป็น',
-    'ไม่ขอรหัสผ่าน คีย์ หรือข้อมูลส่วนตัวจากผู้ใช้',
-    'ถ้าถูกถามว่าคุณคือใคร ให้ตอบว่าเป็นผู้ช่วยของแอปนี้ ไม่ต้องระบุชื่อโมเดลหรือบริษัทผู้ให้บริการเบื้องหลัง',
-  ].join('\n');
-  const notes = (ctx.notes || '').trim();
-  return notes ? text + '\n\nข้อมูลกิจการจากเจ้าของ (ใช้ประกอบคำตอบได้)\n' + notes : text;
-}
 
 /** Splits a server-sent-events stream into data payloads. */
 function sseParser(onData) {
@@ -1971,7 +1945,7 @@ function sseParser(onData) {
   };
 }
 
-const Assistant = {
+const Ai = {
   // Fast mode starts with the quickest model and minimal thinking. When a model is busy,
   // out of free quota or slow to start, the next one is tried automatically.
   PLANS: {
@@ -1992,32 +1966,18 @@ const Assistant = {
   },
   IDLE_MS: 20000,
   TOTAL_MS: 120000,
-  WAIT_MS: 60000, // no more models are tried once a question has waited this long
+  WAIT_MS: 60000, // no more models are tried once a request has waited this long
   // when every model fails, the reason shown is the first of these that happened
   WHY: ['key', 'network', 'blocked', 'server', 'timeout', 'quota', 'daily', 'gone'],
   cool: {},
   gone: new Set(),
   noThink: new Set(Local.get('tokpra.nothink', [])),
-
-  /** Chat history to API contents: last 12 turns, alternating roles, starting with the user. */
-  contents(history) {
-    const msgs = history.filter(m => !m.error && m.text).slice(-12);
-    while (msgs.length && msgs[0].role !== 'user') msgs.shift();
-    const out = [];
-    for (const m of msgs) {
-      const role = m.role === 'user' ? 'user' : 'model';
-      const text = m.text.length > 4000 ? m.text.slice(0, 4000) : m.text;
-      const last = out[out.length - 1];
-      if (last && last.role === role) last.parts[0].text += '\n\n' + text;
-      else out.push({ role, parts: [{ text }] });
-    }
-    return out;
-  },
+  noJson: new Set(Local.get('tokpra.nojson', [])),
 
   _order(mode) {
-    const plans = (Assistant.PLANS[mode] || Assistant.PLANS.FAST).filter(p => !Assistant.gone.has(p.id));
+    const plans = (Ai.PLANS[mode] || Ai.PLANS.FAST).filter(p => !Ai.gone.has(p.id));
     const now = Date.now();
-    return plans.slice().sort((a, b) => ((Assistant.cool[a.id] || 0) > now) - ((Assistant.cool[b.id] || 0) > now));
+    return plans.slice().sort((a, b) => ((Ai.cool[a.id] || 0) > now) - ((Ai.cool[b.id] || 0) > now));
   },
 
   _classify(status, raw) {
@@ -2037,10 +1997,11 @@ const Assistant = {
     return 'bad';
   },
 
-  /** One streamed attempt with one model. Never throws. */
-  _attempt(plan, useThink, req, onText, holder) {
+  /** One streamed attempt with one model. opts: { think, json }. Never throws. */
+  _attempt(plan, opts, req, onText, holder) {
     const genCfg = { maxOutputTokens: req.mode === 'DETAILED' ? 4096 : 2048 };
-    if (useThink && plan.think) genCfg.thinkingConfig = { thinkingLevel: plan.think };
+    if (opts.think && plan.think) genCfg.thinkingConfig = { thinkingLevel: plan.think };
+    if (opts.json) genCfg.responseMimeType = 'application/json';
     const body = { systemInstruction: { parts: [{ text: req.system }] }, contents: req.contents, generationConfig: genCfg };
     let text = '', raw = '', events = 0, finish = '', blocked = '', streamErr = null, timedOut = '';
     const t0 = Date.now();
@@ -2056,7 +2017,7 @@ const Assistant = {
     };
     const sse = sseParser(data => { events++; try { take(JSON.parse(data)); } catch (e) { /* partial or keep-alive */ } });
     const s = Net.stream(URLS.model + plan.id + ':streamGenerateContent?alt=sse', {
-      headers: { 'x-goog-api-key': req.key }, json: body, timeout: Assistant.TOTAL_MS,
+      headers: { 'x-goog-api-key': req.key }, json: body, timeout: Ai.TOTAL_MS,
       onText: chunk => { last = Date.now(); if (raw.length < 300000) raw += chunk; sse.push(chunk); },
     });
     holder.cancel = () => { holder.stopped = true; s.cancel(); };
@@ -2064,8 +2025,8 @@ const Assistant = {
       const watch = setInterval(() => {
         const now = Date.now();
         if (!text && now - t0 > plan.firstMs) timedOut = 'first';
-        else if (text && now - last > Assistant.IDLE_MS) timedOut = 'idle';
-        else if (now - t0 > Assistant.TOTAL_MS) timedOut = 'total';
+        else if (text && now - last > Ai.IDLE_MS) timedOut = 'idle';
+        else if (now - t0 > Ai.TOTAL_MS) timedOut = 'total';
         if (timedOut) { clearInterval(watch); s.cancel(); }
       }, 400);
       const finishUp = res => {
@@ -2074,13 +2035,13 @@ const Assistant = {
         if (holder.stopped) return resolve({ ok: true, text, cut: text ? 'stopped' : '', stopped: true });
         if (timedOut) return resolve(text ? { ok: true, text, cut: 'timeout' } : { ok: false, kind: 'timeout' });
         if (!res) return resolve(text ? { ok: true, text, cut: 'network' } : { ok: false, kind: 'network' });
-        if (res.status >= 400) return resolve({ ok: false, kind: Assistant._classify(res.status, res.text), status: res.status });
+        if (res.status >= 400) return resolve({ ok: false, kind: Ai._classify(res.status, res.text), status: res.status });
         sse.end();
         if (!events && raw.trim()) {
           // the server answered without SSE framing: accept a plain JSON array or object
           try { const j = JSON.parse(raw); (Array.isArray(j) ? j : [j]).forEach(take); } catch (e) { /* ignore */ }
         }
-        if (streamErr) return resolve({ ok: false, kind: Assistant._classify(Number(streamErr.code) || 500, JSON.stringify({ error: streamErr })) });
+        if (streamErr) return resolve({ ok: false, kind: Ai._classify(Number(streamErr.code) || 500, JSON.stringify({ error: streamErr })) });
         if (!text) return resolve({ ok: false, kind: blocked || /SAFETY|PROHIBITED|BLOCKLIST|SPII/.test(finish) ? 'blocked' : 'empty' });
         resolve({ ok: true, text, cut: finish === 'MAX_TOKENS' ? 'length' : '' });
       };
@@ -2089,40 +2050,44 @@ const Assistant = {
   },
 
   /**
-   * Streams a reply. req: { key, mode, system, contents }. onText(full text so far).
-   * holder.cancel() stops the answer (set while streaming). Resolves { text, cut }.
+   * Streams a reply. req: { key, mode, system, contents, json, check }. onText(full text so far).
+   * json asks for a JSON reply; check(text) says whether a reply can be used, and one that cannot
+   * (cut short, or not in the asked shape) counts as no answer, so the next model is asked.
+   * holder.cancel() stops the request (set while streaming). Resolves { text, cut }.
    */
   async reply(req, onText, holder) {
-    if (!req.key) throw new AppError(E.ASSISTANT, 'ยังไม่ได้ตั้งค่าผู้ช่วย');
+    if (!req.key) throw new AppError(E.AI, 'ยังไม่ได้ตั้งค่าคีย์บริการ AI');
     const kinds = [], t0 = Date.now();
-    let plans = Assistant._order(req.mode);
-    if (!plans.length) { Assistant.gone.clear(); plans = Assistant._order(req.mode); }
+    let plans = Ai._order(req.mode);
+    if (!plans.length) { Ai.gone.clear(); plans = Ai._order(req.mode); }
     for (const plan of plans) {
-      if (holder.stopped || Date.now() - t0 > Assistant.WAIT_MS) break;
-      let useThink = !!plan.think && !Assistant.noThink.has(plan.id);
-      let r = await Assistant._attempt(plan, useThink, req, onText, holder);
-      if (!r.ok && r.kind === 'bad' && useThink && !holder.stopped) {
-        // this model rejected the thinking setting: remember and ask again without it
-        Assistant.noThink.add(plan.id); Local.set('tokpra.nothink', Array.from(Assistant.noThink));
-        r = await Assistant._attempt(plan, false, req, onText, holder);
+      if (holder.stopped || Date.now() - t0 > Ai.WAIT_MS) break;
+      let think = !!plan.think && !Ai.noThink.has(plan.id), json = !!req.json && !Ai.noJson.has(plan.id);
+      let r = await Ai._attempt(plan, { think, json }, req, onText, holder);
+      // a model that rejects a setting (the thinking level, or JSON replies) answers 400: remember which and ask again without it
+      while (!r.ok && r.kind === 'bad' && (think || json) && !holder.stopped) {
+        if (think) { think = false; Ai.noThink.add(plan.id); Local.set('tokpra.nothink', Array.from(Ai.noThink)); }
+        else { json = false; Ai.noJson.add(plan.id); Local.set('tokpra.nojson', Array.from(Ai.noJson)); }
+        r = await Ai._attempt(plan, { think, json }, req, onText, holder);
       }
+      if (r.ok && !r.stopped && req.check && !req.check(r.text)) r = { ok: false, kind: 'empty' };
       if (r.ok) return r;
       kinds.push(r.kind);
       if (r.kind === 'key' || r.kind === 'blocked' || r.kind === 'network') break;
-      if (r.kind === 'gone') Assistant.gone.add(plan.id);
-      Assistant.cool[plan.id] = Date.now() + ({ quota: 60000, daily: 3600000 }[r.kind] || 20000);
+      if (r.kind === 'gone') Ai.gone.add(plan.id);
+      Ai.cool[plan.id] = Date.now() + ({ quota: 60000, daily: 3600000 }[r.kind] || 20000);
       onText('');
     }
     if (holder.stopped) return { text: '', cut: 'stopped', stopped: true };
-    throw Assistant.errorFor(Assistant._why(kinds));
+    throw Ai.errorFor(Ai._why(kinds));
   },
 
   /** Forget skipped and resting models, e.g. after the key changes. */
-  fresh() { Assistant.cool = {}; Assistant.gone.clear(); },
+  fresh() { Ai.cool = {}; Ai.gone.clear(); },
 
   /** The most useful reason to show when no model answered. */
   _why(kinds) {
-    return Assistant.WHY.find(k => kinds.includes(k)) || kinds[kinds.length - 1] || 'empty';
+    return Ai.WHY.find(k => kinds.includes(k)) || kinds[kinds.length - 1] || 'empty';
   },
 
   /** Free daily quota starts again at midnight Pacific time: 15:00 in Thailand, 14:00 while the US is on summer time. */
@@ -2138,34 +2103,263 @@ const Assistant = {
 
   errorFor(kind) {
     const admin = Session.profile && Session.profile.isAdmin();
+    const off = 'การพยากรณ์ยังใช้งานไม่ได้ แจ้งผู้ดูแลให้ตรวจสอบการตั้งค่า';
     const msg = {
-      key: admin ? 'คีย์ของผู้ช่วยใช้ไม่ได้ ตรวจสอบที่ ตั้งค่า > ผู้ช่วย' : 'ผู้ช่วยยังใช้งานไม่ได้ แจ้งผู้ดูแลให้ตรวจสอบการตั้งค่าผู้ช่วย',
-      quota: 'ช่วงนี้มีการใช้ผู้ช่วยมากจนเกินโควตาฟรี รอประมาณ 1 นาทีแล้วลองใหม่',
-      daily: 'โควตาฟรีของผู้ช่วยวันนี้หมดแล้ว ใช้ได้อีกครั้งหลัง ' + Assistant._resetHour() + ':00 น.',
-      timeout: 'ผู้ช่วยตอบช้ากว่าปกติ ลองใหม่อีกครั้ง',
-      server: 'ระบบผู้ช่วยไม่ว่างชั่วคราว ลองใหม่อีกครั้ง',
+      key: admin ? 'คีย์บริการ AI ใช้ไม่ได้ ตรวจสอบที่ ตั้งค่า > พยากรณ์ด้วย AI' : off,
+      quota: 'ช่วงนี้มีการใช้ AI มากจนเกินโควตาฟรี รอประมาณ 1 นาทีแล้วลองใหม่',
+      daily: 'โควตาฟรีของ AI วันนี้หมดแล้ว ใช้ได้อีกครั้งหลัง ' + Ai._resetHour() + ':00 น.',
+      timeout: 'AI ตอบช้ากว่าปกติ ลองใหม่อีกครั้ง',
+      server: 'ระบบ AI ไม่ว่างชั่วคราว ลองใหม่อีกครั้ง',
       network: 'ไม่มีการเชื่อมต่ออินเทอร์เน็ต ตรวจสอบแล้วลองใหม่',
-      blocked: 'ผู้ช่วยตอบคำถามนี้ไม่ได้ ลองถามด้วยคำอื่น',
-      gone: admin ? 'คีย์นี้ใช้ผู้ช่วยรุ่นที่แอปรองรับไม่ได้ ตรวจสอบคีย์ที่ ตั้งค่า > ผู้ช่วย' : 'ผู้ช่วยยังใช้งานไม่ได้ แจ้งผู้ดูแลให้ตรวจสอบการตั้งค่าผู้ช่วย',
-    }[kind] || 'ผู้ช่วยไม่ได้ส่งคำตอบกลับมา ลองใหม่อีกครั้ง';
-    return new AppError(kind === 'quota' || kind === 'daily' ? E.QUOTA : kind === 'network' ? E.NETWORK : E.ASSISTANT, msg);
+      blocked: 'AI ไม่ตอบคำขอนี้ ลองใหม่อีกครั้ง',
+      gone: admin ? 'คีย์นี้ใช้โมเดลที่แอปรองรับไม่ได้ ตรวจสอบคีย์ที่ ตั้งค่า > พยากรณ์ด้วย AI' : off,
+    }[kind] || 'AI ไม่ได้ส่งผลที่ใช้ได้กลับมา ลองใหม่อีกครั้ง';
+    return new AppError(kind === 'quota' || kind === 'daily' ? E.QUOTA : kind === 'network' ? E.NETWORK : E.AI, msg);
   },
 
   /** Admin check from the settings screen: returns seconds to the first words. */
   async test(key, mode) {
-    Assistant.fresh();
+    Ai.fresh();
     const t0 = Date.now();
     let first = 0;
     const holder = {};
-    await Assistant.reply({ key, mode, system: 'ตอบสั้นที่สุด', contents: [{ role: 'user', parts: [{ text: 'ตอบคำเดียวว่า พร้อม' }] }] },
+    await Ai.reply({ key, mode, system: 'ตอบสั้นที่สุด', contents: [{ role: 'user', parts: [{ text: 'ตอบคำเดียวว่า พร้อม' }] }] },
       t => { if (t && !first) first = Date.now(); }, holder);
     return ((first || Date.now()) - t0) / 1000;
   },
 };
 
+/* =====================================================================
+   Forecast: the AI estimates how today or this month will end.
+   It is given totals per day for nine weeks, every record of the last
+   four weeks and of the period (type, details, amount and who recorded
+   it), the totals recorded so far and the app's own estimate from
+   averages. Its reply is checked before it is kept: figures are never
+   below what is already recorded, and profit is worked out here, not
+   taken from the model. Results are kept on this device.
+   ===================================================================== */
+const Forecast = {
+  HISTORY_DAYS: 63,   // nine weeks: a weekday pattern and about two months
+  DETAIL_DAYS: 28,    // records sent one by one: the last four weeks
+  MAX_ROWS: 1500,     // the newest records when there are more
+  KEEP: 20,           // results kept for each kind
+  key() { return 'tokpra.forecast.' + (Session.uid || ''); },
+  daysKey() { return 'tokpra.forecastDays.' + (Session.uid || ''); },
+  /** Owners, and staff who see every record of all three types: a forecast from part of the books would mislead. */
+  allowed(me) {
+    return !!(me && me.status && (me.role === 'ADMIN'
+      || (me.recordScope === 'ALL' && me.can('revenue.read') && me.can('fish_cost.read') && me.can('expense.read'))));
+  },
+  /** [start, end) of the period: the day itself, or its whole month */
+  range(kind, today) { return kind === 'MONTH' ? [D.monthStart(today), D.addDays(D.monthEnd(today), 1)] : [today, D.addDays(today, 1)]; },
+  /** Totals per day in satang: { day: [income, fish, event, maintenance, income count] }. Deleted income does not count. */
+  byDay(revenues, fish, expenses) {
+    const out = {};
+    const row = d => out[d] || (out[d] = [0, 0, 0, 0, 0]);
+    for (const r of revenues) if (r.status === 'ACTIVE') { const x = row(r.date); x[0] += r.amount; x[4]++; }
+    for (const c of fish) row(c.date)[1] += c.amount;
+    for (const e of expenses) row(e.date)[e.type === 'MAINTENANCE' ? 3 : 2] += e.amount;
+    return out;
+  },
+  /** The first day whose records are sent one by one: four weeks back, or the start of the month when that is earlier. */
+  detailFrom(today) { return Math.min(D.monthStart(today), D.addDays(today, -(Forecast.DETAIL_DAYS - 1))); },
+  /** Records in short form for the model: { d: day, t: recorded at, k: kind, a: satang, x: details, by: uid }. Deleted income is left out. */
+  rows(revenues, fish, expenses) {
+    const out = [];
+    for (const r of revenues) if (r.status === 'ACTIVE') out.push({ d: r.date, t: r.createdAt, k: 'revenue', a: r.amount, x: r.description, by: r.createdBy });
+    for (const c of fish) out.push({ d: c.date, t: c.createdAt, k: 'fish', a: c.amount, x: [c.grams, c.pricePerKg], by: c.createdBy });
+    for (const e of expenses) out.push({ d: e.date, t: e.createdAt, k: e.type === 'MAINTENANCE' ? 'maint' : 'event', a: e.amount, x: e.description, by: e.createdBy });
+    return out;
+  },
+  /** Totals of [start, end): { income, fish, expense } */
+  sum(days, start, end) {
+    const t = { income: 0, fish: 0, expense: 0 };
+    for (const k of Object.keys(days)) {
+      const d = Number(k);
+      if (d >= start && d < end) { const x = days[k]; t.income += x[0]; t.fish += x[1]; t.expense += x[2] + x[3]; }
+    }
+    return t;
+  },
+  /** The first day with any record before today, or 0 when there is none. */
+  firstDay(days, today) {
+    let first = 0;
+    for (const k of Object.keys(days)) { const d = Number(k); if (d < today && (!first || d < first)) first = d; }
+    return first;
+  },
+  /**
+   * The app's own estimate from averages, given to the model as an anchor and shown beside its answer.
+   * A day: the same weekday in the last eight weeks (the last 28 days when fewer than two of them have records).
+   * A month: what is recorded, plus the daily average of the last 28 days for the rest of today and each day to come.
+   */
+  baseline(kind, days, today, so, todaySo) {
+    const first = Forecast.firstDay(days, today);
+    const total = d => { const x = days[d]; return x ? { income: x[0], out: x[1] + x[2] + x[3] } : { income: 0, out: 0 }; };
+    const avg = list => {
+      const n = list.length || 1;
+      return { income: Math.round(list.reduce((a, x) => a + x.income, 0) / n), out: Math.round(list.reduce((a, x) => a + x.out, 0) / n) };
+    };
+    const recent = [];
+    for (let i = 1; i <= 28; i++) { const d = D.addDays(today, -i); if (first && d >= first) recent.push(total(d)); }
+    const daily = avg(recent);
+    if (kind === 'DAY') {
+      const same = [];
+      for (let w = 1; w <= 8; w++) { const d = D.addDays(today, -7 * w); if (first && d >= first) same.push(total(d)); }
+      const b = same.filter(x => x.income || x.out).length >= 2 ? avg(same) : daily;
+      return { income: Math.max(b.income, so.income), out: Math.max(b.out, so.fish + so.expense) };
+    }
+    let left = 0;
+    for (let d = D.addDays(today, 1), end = Forecast.range('MONTH', today)[1]; d < end; d = D.addDays(d, 1)) left++;
+    const todayOut = todaySo.fish + todaySo.expense;
+    return {
+      income: so.income + Math.max(0, daily.income - todaySo.income) + daily.income * left,
+      out: so.fish + so.expense + Math.max(0, daily.out - todayOut) + daily.out * left,
+    };
+  },
+  /** The model's instructions. */
+  system(kind, notes) {
+    const what = kind === 'MONTH' ? 'ทั้งเดือนนี้' : 'ทั้งวันนี้';
+    const text = [
+      'คุณคือระบบพยากรณ์ยอดในแอป' + APP.name + ' ซึ่งใช้บันทึกรายรับ ต้นทุนปลา และค่าใช้จ่ายของบ่อตกปลา',
+      'งานของคุณ: คาดการณ์ยอดรวม' + what + ' จากยอดรายวันย้อนหลัง รายการที่บันทึก ยอดที่บันทึกแล้ว ค่าอ้างอิงที่แอปคำนวณ และข้อมูลกิจการจากเจ้าของ',
+      '',
+      'กติกา',
+      '1. ตอบเป็น JSON ก้อนเดียวตามรูปแบบด้านล่าง ไม่มีข้อความอื่นก่อนหรือหลัง',
+      '2. revenue, fish_cost และ expense คือยอดรวม' + what + ' เป็นบาท รวมยอดที่บันทึกแล้ว จึงต้องไม่น้อยกว่ายอดที่บันทึกแล้ว',
+      '3. profit_low และ profit_high คือช่วงของกำไร (รายรับ ลบ ต้นทุนปลา ลบ ค่าใช้จ่าย) ที่เป็นไปได้ ติดลบได้ถ้าอาจขาดทุน',
+      '4. ดูรูปแบบตามวันในสัปดาห์และแนวโน้มล่าสุด ต้นทุนปลาและค่าใช้จ่ายมักเกิดเป็นครั้ง ๆ ไม่ได้เกิดทุกวัน ให้ประมาณจากความถี่ที่เห็นในข้อมูล',
+      '   ใช้รายละเอียดของแต่ละรายการประกอบ เช่น รายรับมาจากอะไร งานที่จัด รอบและปริมาณการซื้อปลา และผู้บันทึก',
+      '5. ถ้าข้อมูลย้อนหลังมีน้อยหรือไม่สม่ำเสมอ ให้ใกล้เคียงค่าอ้างอิงของแอป ตั้ง confidence เป็น LOW และบอกเหตุผล',
+      '6. summary คือสรุปหนึ่งถึงสองประโยค reasons คือเหตุผลไม่เกิน 3 ข้อ tips คือคำแนะนำที่ทำได้จริงไม่เกิน 3 ข้อ เขียนภาษาไทยสั้น สุภาพ ไม่ใช้อีโมจิและเครื่องหมาย markdown',
+      '7. ใช้เฉพาะตัวเลขที่ให้ไป ห้ามสมมติเหตุการณ์ที่ไม่มีในข้อมูล และไม่ต้องระบุชื่อโมเดลหรือผู้ให้บริการ',
+      '',
+      'รูปแบบ JSON',
+      '{"revenue":0,"fish_cost":0,"expense":0,"profit_low":0,"profit_high":0,"confidence":"LOW|MEDIUM|HIGH","summary":"","reasons":[""],"tips":[""]}',
+    ].join('\n');
+    const n = (notes || '').trim();
+    return n ? text + '\n\nข้อมูลกิจการจากเจ้าของ (ใช้ประกอบการพยากรณ์ได้)\n' + n : text;
+  },
+  /** The figures for the model: plain baht, one line per day from the first recorded day, then the records themselves. */
+  data(kind, days, rows, names, today, now, so, base) {
+    const b = v => (v / 100).toFixed(2);
+    const [start, end] = Forecast.range(kind, today);
+    const first = Forecast.firstDay(days, today);
+    const wd = d => DAYS[D.ymd(d)[3]];
+    const lines = [
+      'ช่วงที่ต้องพยากรณ์: ' + (kind === 'MONTH' ? 'เดือน' + D.monthName(today) + ' (' + D.toInput(start) + ' ถึง ' + D.toInput(D.addDays(end, -1)) + ')'
+        : 'วันที่ ' + D.toInput(today) + ' (' + wd(today) + ')'),
+      'ตอนนี้: ' + D.toInput(D.dayStartOf(now)) + ' เวลา ' + D.time(now) + ' น. ตามเวลาประเทศไทย',
+    ];
+    if (kind === 'MONTH') {
+      let past = 0, left = 0;
+      for (let d = start; d < end; d = D.addDays(d, 1)) { if (d < today) past++; else if (d > today) left++; }
+      lines.push('ผ่านมาแล้ว ' + past + ' วัน วันนี้เป็นวันที่ ' + (past + 1) + ' ของเดือน เหลืออีก ' + left + ' วันหลังวันนี้');
+    }
+    lines.push('', 'บันทึกแล้วในช่วงนี้ (บาท): รายรับ ' + b(so.income) + ' ต้นทุนปลา ' + b(so.fish) + ' ค่าใช้จ่าย ' + b(so.expense));
+    lines.push('ค่าอ้างอิงที่แอปคำนวณจากค่าเฉลี่ย (บาท): รายรับ ' + b(base.income) + ' ต้นทุนปลารวมค่าใช้จ่าย ' + b(base.out));
+    if (!first) {
+      lines.push('', 'ยังไม่มียอดย้อนหลังก่อนวันนี้');
+    } else {
+      // income by weekday over the recorded weeks, zero days included (the pond may close on some days)
+      const byWd = [0, 0, 0, 0, 0, 0, 0].map(() => ({ sum: 0, n: 0 }));
+      for (let d = first; d < today; d = D.addDays(d, 1)) { const x = days[d]; const w = byWd[D.ymd(d)[3]]; w.sum += x ? x[0] : 0; w.n++; }
+      lines.push('รายรับเฉลี่ยตามวันในสัปดาห์ (บาท): ' + byWd.map((w, i) => DAYS[i] + ' ' + (w.n ? b(Math.round(w.sum / w.n)) : '-')).join(' '));
+      lines.push('', 'ยอดรายวัน (บาท) วันที่,วัน,รายรับ,จำนวนรายการรายรับ,ต้นทุนปลา,ค่าจัดงาน,ค่าบำรุงรักษา');
+      for (let d = first; d < end; d = D.addDays(d, 1)) {
+        const x = days[d];
+        if (d > today && !x) continue;
+        const v = x || [0, 0, 0, 0, 0];
+        lines.push(D.toInput(d) + ',' + wd(d) + ',' + b(v[0]) + ',' + v[4] + ',' + b(v[1]) + ',' + b(v[2]) + ',' + b(v[3])
+          + (d === today ? ',วันนี้ถึงตอนนี้' : d > today ? ',บันทึกล่วงหน้า' : ''));
+      }
+    }
+    // the records one by one, oldest first; commas and line breaks in details would break the columns
+    const from = Forecast.detailFrom(today);
+    const list = rows.filter(r => r.d >= from && r.d < end).sort((x, y) => (x.d - y.d) || ((x.t || 0) - (y.t || 0)));
+    const sent = list.slice(-Forecast.MAX_ROWS);
+    const text = v => String(v || '').replace(/[,\s]+/g, ' ').trim().slice(0, 120) || '-';
+    const detail = r => r.k === 'fish' ? 'ซื้อปลา ' + (r.x[0] / 1000) + ' กก. กิโลละ ' + b(r.x[1]) : text(r.x);
+    lines.push('', 'รายการที่บันทึกตั้งแต่ ' + D.toInput(sent.length < list.length ? sent[0].d : from) + (sent.length < list.length ? ' (' + sent.length + ' รายการล่าสุด)' : '')
+      + ' ไม่รวมรายรับที่ถูกลบ', 'วันที่,เวลาบันทึก,ประเภท,จำนวนเงิน (บาท),รายละเอียด,ผู้บันทึก');
+    if (!sent.length) lines.push('ไม่มีรายการ');
+    for (const r of sent) lines.push(D.toInput(r.d) + ',' + (r.t ? D.time(r.t) : '-') + ',' + KINDS[r.k].label + ',' + b(r.a) + ',' + detail(r) + ',' + text((names && names[r.by]) || 'ผู้ใช้อื่น'));
+    return lines.join('\n');
+  },
+  /** The model's reply as checked figures in satang, or null when it cannot be used. */
+  parse(text, so) {
+    const s = String(text || '');
+    const a = s.indexOf('{'), z = s.lastIndexOf('}');
+    if (a < 0 || z <= a) return null;
+    let j;
+    try { j = JSON.parse(s.slice(a, z + 1)); } catch (e) { return null; }
+    if (!j || typeof j !== 'object' || Array.isArray(j)) return null;
+    const num = v => {
+      const n = typeof v === 'string' ? Number(v.replace(/[,\s]|บาท/g, '')) : v;
+      return typeof n === 'number' && Number.isFinite(n) && Math.abs(n) < 1e10 ? Math.round(n * 100) : null;
+    };
+    let income = num(j.revenue), fish = num(j.fish_cost), expense = num(j.expense);
+    if (income == null || fish == null || expense == null || income < 0 || fish < 0 || expense < 0) return null;
+    // a figure for the whole period is never below what is already recorded in it
+    income = Math.max(income, so.income); fish = Math.max(fish, so.fish); expense = Math.max(expense, so.expense);
+    const profit = income - fish - expense;
+    let low = num(j.profit_low), high = num(j.profit_high);
+    if (low == null || high == null || low > high) low = high = null;
+    else { low = Math.min(low, profit); high = Math.max(high, profit); }
+    const clean = (v, max) => String(v == null ? '' : v).replace(/\*\*|__|`/g, '').replace(/^\s*(#+|[-•*]|\d+[.)])\s*/, '').replace(/\s+/g, ' ').trim().slice(0, max);
+    const list = v => (Array.isArray(v) ? v : []).map(x => clean(x, 220)).filter(Boolean).slice(0, 3);
+    const conf = String(j.confidence || '').trim().toUpperCase();
+    return { income, fish, expense, profit, low, high, confidence: ['LOW', 'MEDIUM', 'HIGH'].includes(conf) ? conf : 'LOW',
+      summary: clean(j.summary, 400), reasons: list(j.reasons), tips: list(j.tips) };
+  },
+  /** A result as plain text, ready to paste into LINE. */
+  shareText(rec) {
+    const lines = [
+      APP.name, 'พยากรณ์ยอด' + (rec.kind === 'MONTH' ? 'เดือน' + D.monthName(rec.start) : 'วันที่ ' + D.fmt(rec.start)), '',
+      'รายรับ ' + Money.baht(rec.income),
+      'ต้นทุนปลา ' + Money.baht(rec.fish),
+      'ค่าใช้จ่าย ' + Money.baht(rec.expense), '',
+      (rec.profit < 0 ? 'คาดขาดทุน ' : 'คาดกำไร ') + Money.baht(Math.abs(rec.profit)),
+    ];
+    if (rec.low != null) lines.push('ช่วงที่เป็นไปได้ ' + Money.fmt(rec.low) + ' ถึง ' + Money.fmt(rec.high) + ' บาท');
+    if (rec.summary) lines.push('', rec.summary);
+    lines.push('', 'พยากรณ์เมื่อ ' + D.fmtTime(rec.at), 'เป็นค่าประมาณเพื่อวางแผน ไม่ใช่ยอดจริง');
+    return lines.join('\n');
+  },
+  all() { return Session.uid ? Local.get(Forecast.key(), []) : []; },
+  /** Keeps a result, newest first, at most KEEP of each kind. */
+  keep(rec) {
+    if (!Session.uid) return;
+    const list = [rec].concat(Forecast.all().filter(x => x.id !== rec.id));
+    const n = { DAY: 0, MONTH: 0 };
+    const out = list.filter(x => ++n[x.kind] <= Forecast.KEEP);
+    // storage full: the day totals can be read again, results cannot
+    if (!Local.set(Forecast.key(), out)) { Local.del(Forecast.daysKey()); Local.set(Forecast.key(), out.slice(0, 10)); }
+  },
+  /** A record saved for a day before today changes the history: read it again next time. */
+  touched(date) { if (!date || date < D.today()) Local.del(Forecast.daysKey()); },
+  /**
+   * One forecast. input: { days, rows, names, today, now, notes, key, mode, trigger }, where days holds the totals
+   * per day for the last HISTORY_DAYS days and for the period up to its end, rows the records from detailFrom(today)
+   * to the period's end, and names the UID to name of the people who recorded them. Resolves with the kept result.
+   */
+  async make(kind, input, holder) {
+    const { days, today, now } = input;
+    const [start, end] = Forecast.range(kind, today);
+    const so = Forecast.sum(days, start, end);
+    const base = Forecast.baseline(kind, days, today, so, Forecast.sum(days, today, D.addDays(today, 1)));
+    let got = null;
+    await Ai.reply({ key: input.key, mode: input.mode, json: true, system: Forecast.system(kind, input.notes),
+      contents: [{ role: 'user', parts: [{ text: Forecast.data(kind, days, input.rows || [], input.names, today, now, so, base) }] }],
+      check: text => !!(got = Forecast.parse(text, so)) }, () => {}, holder || {});
+    if (!got) throw Ai.errorFor('empty');
+    const rec = Object.assign({ id: Store.newId(), kind, start, end, at: now, trigger: input.trigger || '' }, got);
+    Forecast.keep(rec);
+    return rec;
+  },
+};
+
 /* expose for tests (node) */
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Assistant, systemPrompt, sseParser, Reports, Session, PERMS, Thrift, quotaResetAt, Users, userFrom, Cache, Fs };
+  module.exports = { APP, CONFIG, E, AppError, Money, Calc, D, V, G, Store, Records, KINDS, Ai, AiConfig, Forecast, sseParser, Reports, Session, PERMS, Thrift, quotaResetAt, Users, userFrom, Cache, Fs };
 }
 
 'use strict';
@@ -2178,8 +2372,8 @@ if (typeof module !== 'undefined' && module.exports) {
 const ICONS = {
   home: '<path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9v11h4.8v-6h3.4v6h4.8V9"/>',
   list: '<path d="M9 6.5h11M9 12h11M9 17.5h11"/><path d="M4.6 6.5h.01M4.6 12h.01M4.6 17.5h.01" stroke-width="2.8"/>',
+  forecast: '<path d="M3.5 20h17"/><path d="m4.5 15.5 4.5-4.5 3.5 3 7-7"/><path d="M15 7h4.5v4.5"/>',
   report: '<path d="M3.5 20h17"/><path d="M6.5 16.5v-4M10.5 16.5V7.5M14.5 16.5v-6M18.5 16.5V4.5" stroke-width="2.4"/>',
-  assistant: '<path d="M20 12c0 4-3.6 7-8 7-1.2 0-2.3-.2-3.3-.6L4 19.5l1.2-3.5C4.4 14.8 4 13.4 4 12c0-4 3.6-7 8-7s8 3 8 7z"/><path d="M8.6 12h.01M12 12h.01M15.4 12h.01" stroke-width="2.6"/>',
   settings: '<path d="M4 6.5h9M17.5 6.5H20M4 12h3M11.5 12H20M4 17.5h10M18.5 17.5H20"/><circle cx="15.3" cy="6.5" r="2"/><circle cx="9.3" cy="12" r="2"/><circle cx="16.3" cy="17.5" r="2"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',
   back: '<path d="M15 5 8 12l7 7"/>',
@@ -2198,7 +2392,6 @@ const ICONS = {
   homeF: '<g fill="currentColor" stroke="none"><path fill-rule="evenodd" d="M11.3 3.1a1.1 1.1 0 0 1 1.4 0l7.9 6.6c.25.2.4.52.4.85V19.8a1.2 1.2 0 0 1-1.2 1.2h-4.6v-5.6a.9.9 0 0 0-.9-.9h-4.6a.9.9 0 0 0-.9.9V21H4.2A1.2 1.2 0 0 1 3 19.8v-9.25c0-.33.15-.65.4-.85z"/></g>',
   listF: '<g fill="currentColor" stroke="none"><path fill-rule="evenodd" d="M5.4 3.5h13.2a1.9 1.9 0 0 1 1.9 1.9v13.2a1.9 1.9 0 0 1-1.9 1.9H5.4a1.9 1.9 0 0 1-1.9-1.9V5.4a1.9 1.9 0 0 1 1.9-1.9zM7.6 7.3h8.8v1.7H7.6zM7.6 11.15h8.8v1.7H7.6zM7.6 15h5.6v1.7H7.6z"/></g>',
   reportF: '<g fill="currentColor" stroke="none"><rect x="4.3" y="11.6" width="3.6" height="8.4" rx="1.1"/><rect x="10.2" y="6.4" width="3.6" height="13.6" rx="1.1"/><rect x="16.1" y="3.8" width="3.6" height="16.2" rx="1.1"/><rect x="3" y="19.6" width="18" height="1.6" rx=".8"/></g>',
-  assistantF: '<g fill="currentColor" stroke="none"><path fill-rule="evenodd" d="M12 4.2c4.6 0 8.4 3.2 8.4 7.4s-3.8 7.4-8.4 7.4c-1.25 0-2.45-.22-3.5-.64L4 19.9l1.25-3.65C4.2 15 3.6 13.4 3.6 11.6c0-4.2 3.8-7.4 8.4-7.4zM8.2 10.45a1.15 1.15 0 1 0 0 2.3a1.15 1.15 0 1 0 0-2.3zM12 10.45a1.15 1.15 0 1 0 0 2.3a1.15 1.15 0 1 0 0-2.3zM15.8 10.45a1.15 1.15 0 1 0 0 2.3a1.15 1.15 0 1 0 0-2.3z"/></g>',
   settingsF: '<g fill="currentColor" stroke="none"><rect x="3.5" y="5.6" width="17" height="1.9" rx=".95"/><rect x="3.5" y="11.05" width="17" height="1.9" rx=".95"/><rect x="3.5" y="16.5" width="17" height="1.9" rx=".95"/><circle cx="15.3" cy="6.55" r="2.7"/><circle cx="9.3" cy="12" r="2.7"/><circle cx="16.3" cy="17.45" r="2.7"/></g>',
   search: '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
   calendar: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
@@ -2220,18 +2413,14 @@ const ICONS = {
   close: '<path d="M6 6l12 12M18 6 6 18"/>',
   eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
   eyeoff: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/>',
-  send: '<path d="M4.5 4.5 20.5 12l-16 7.5 3-7.5z"/><path d="M7.5 12h6"/>',
-  stop: '<rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor" stroke="none"/>',
   refresh: '<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3"/><path d="M19.5 4.5v4h-4"/>',
   info: '<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8h.01"/>',
   doc: '<path d="M7 3.5h7l4.5 4.5v12.5H7z"/><path d="M14 3.5V8h4.5M10 13h5M10 16.5h5"/>',
   shield: '<path d="M12 3.5 19 6v5.5c0 4.3-2.9 7.6-7 9-4.1-1.4-7-4.7-7-9V6z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
   mail: '<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/>',
   install: '<path d="M12 4v10.5M7.5 10 12 14.5 16.5 10"/><path d="M5 19.5h14"/>',
-  compose: '<path d="M11 4.5H6.5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V13"/><path d="M17.5 3.5l3 3L12 15H9v-3z"/>',
   wifioff: '<path d="M3 3l18 18M8.5 16a5 5 0 0 1 7 0M5 12.6A10 10 0 0 1 9.2 10M19 12.6a10 10 0 0 0-3.4-2.2M2 9a15 15 0 0 1 4.3-2.6M22 9a15 15 0 0 0-9.8-3.5M12 19.5h.01"/>',
   receipt: '<path d="M6 3.5h12v17l-2.4-1.5-2.4 1.5-2.4-1.5-2.4 1.5L6 20.5z"/><path d="M9 8h6M9 11.5h6M9 15h3.5"/>',
-  copy: '<rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/>',
 };
 
 function ic(name, cls) {
@@ -2297,7 +2486,7 @@ function fitFigures(root) {
   };
   requestAnimationFrame(() => {
     if (!root || !root.isConnected) return;
-    for (const v of root.querySelectorAll('.totals .v, .ledger .v')) fit(v, v);
+    for (const v of root.querySelectorAll('.totals .v, .ledger .v, .fcgrid .v')) fit(v, v);
     for (const b of root.querySelectorAll('.band-fig')) { const f = b.querySelector('.fig'); if (f) fit(b, f); }
   });
 }
@@ -2437,13 +2626,13 @@ const Outbox = {
   put(list) { Local.set(Outbox.key(), list); Outbox.badge(); },
   /**
    * A record kept for later must really be kept: when the browser's storage for the app is full,
-   * home's copy and the assistant chat (both can be loaded again) make room; if that is not
+   * home's copy and the forecast's day totals (both can be loaded again) make room; if that is not
    * enough, the save says so instead of "kept on this phone".
    */
   add(kind, args, label) {
     const l = Outbox.all(); if (!l.some(x => x.args[0] === args[0])) l.push({ kind, args, label, at: Date.now(), err: '' });
     if (!Local.set(Outbox.key(), l)) {
-      Local.del('tokpra.home.' + Session.uid); Local.del(Chat.key());
+      Local.del('tokpra.home.' + Session.uid); Local.del(Forecast.daysKey());
       if (!Local.set(Outbox.key(), l)) throw new AppError(E.SAVE_FAILED, 'พื้นที่เก็บข้อมูลของแอปในเครื่องนี้เต็ม จึงเก็บรายการไว้ส่งทีหลังไม่ได้ รอให้มีสัญญาณแล้วบันทึกอีกครั้ง');
     }
     Outbox.badge();
@@ -2479,6 +2668,7 @@ const Outbox = {
       // each record sent was already put into the loaded screens (Records.saved)
       Feedback.success(); toast('ส่งรายการที่รอไว้แล้ว ' + sent + ' รายการ');
       if (currentRoute && !currentRoute.sub && (currentRoute.tab === 'home' || currentRoute.tab === 'records')) route();
+      if (!Outbox.all().length) forecastAfterSend();
     } else if (!quiet && Outbox.all().length) toast('ยังส่งไม่ได้ ลองใหม่เมื่อมีสัญญาณ');
     return sent;
   },
@@ -2571,14 +2761,14 @@ const Lock = {
         }
         if (await Lock.check(pin)) { const p = Lock.get(); if (p) { p.tries = 0; Local.set(Lock.key(), p); } finish(pin); return; }
         const p = Lock.get(); p.tries = (p.tries || 0) + 1; Local.set(Lock.key(), p);
-        if (p.tries >= 5) { Lock.clear(); finish(null); Chat.clear(); Auth.logout(); go('#/login', { replace: true }); alertBox('ออกจากระบบแล้ว', 'ใส่รหัส PIN ผิด 5 ครั้ง เข้าสู่ระบบด้วยอีเมลและรหัสผ่านอีกครั้ง แล้วตั้ง PIN ใหม่ได้'); return; }
+        if (p.tries >= 5) { Lock.clear(); finish(null); Auth.logout(); go('#/login', { replace: true }); alertBox('ออกจากระบบแล้ว', 'ใส่รหัส PIN ผิด 5 ครั้ง เข้าสู่ระบบด้วยอีเมลและรหัสผ่านอีกครั้ง แล้วตั้ง PIN ใหม่ได้'); return; }
         wrong('รหัสไม่ถูกต้อง เหลืออีก ' + (5 - p.tries) + ' ครั้ง');
       };
       const key = (label, fn, cls) => h('button', { type: 'button', class: 'pinkey' + (cls ? ' ' + cls : ''), 'aria-label': label, onclick: fn }, label);
       const keys = h('div', { class: 'pinpad' }, ['1', '2', '3', '4', '5', '6', '7', '8', '9'].map(d => key(d, () => digit(d))),
         purpose === 'unlock' ? key('ลืม PIN', async () => {
           if (await confirmBox('ลืมรหัส PIN', 'ต้องเข้าสู่ระบบด้วยอีเมลและรหัสผ่านอีกครั้ง แล้วตั้ง PIN ใหม่ได้', 'ออกจากระบบ', true)) {
-            Lock.clear(); finish(null); Chat.clear(); Auth.logout(); go('#/login', { replace: true });
+            Lock.clear(); finish(null); Auth.logout(); go('#/login', { replace: true });
           }
         }, 'text') : key('ยกเลิก', () => finish(null), 'text'),
         key('0', () => digit('0')),
@@ -2719,7 +2909,7 @@ function sheet(title, content) {
 /* ---------- errors ---------- */
 function errorTitle(e) {
   return { [E.NETWORK]: 'เชื่อมต่อไม่ได้', [E.TIMEOUT]: 'เชื่อมต่อไม่ได้', [E.DENIED]: 'ไม่มีสิทธิ์', [E.CONFIG_MISSING]: 'ยังไม่ได้ตั้งอัตราภาษี',
-    [E.CONFIG_CONFLICT]: 'อัตราภาษีซ้ำกัน', [E.VALIDATION]: 'ข้อมูลไม่ถูกต้อง', [E.QUOTA]: 'ใช้โควตาครบแล้ว' }[e.code] || 'ทำรายการไม่สำเร็จ';
+    [E.CONFIG_CONFLICT]: 'อัตราภาษีซ้ำกัน', [E.VALIDATION]: 'ข้อมูลไม่ถูกต้อง', [E.QUOTA]: 'ใช้โควตาครบแล้ว', [E.AI]: 'พยากรณ์ไม่สำเร็จ' }[e.code] || 'ทำรายการไม่สำเร็จ';
 }
 async function showError(e, form, retry) {
   e = toAppError(e);
@@ -2888,14 +3078,6 @@ function printPage(title) {
     else window.print();
   } finally { setTimeout(() => { document.title = old; }, 1000); }
 }
-async function copyText(text, msg) {
-  try { await navigator.clipboard.writeText(text); toast(msg || 'คัดลอกแล้ว'); return; } catch (e) { /* older browser: copy through a hidden field */ }
-  const ta = h('textarea', { style: 'position:fixed;top:-200px;opacity:0', 'aria-hidden': 'true' });
-  ta.value = text; document.body.append(ta); ta.select();
-  let ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-  ta.remove();
-  toast(ok ? (msg || 'คัดลอกแล้ว') : 'คัดลอกไม่ได้ กดค้างที่ข้อความเพื่อเลือกแล้วคัดลอก');
-}
 function seg(options, value, onPick, label) {
   const el = h('div', { class: 'seg', role: 'radiogroup', 'aria-label': label || '' });
   const draw = v => {
@@ -2986,13 +3168,12 @@ const ROUTES = [
   { re: /^#\/rec\/(revenue|fish|expense)\/(\w+)$/, tab: 'records', sub: true, parent: '#/records', render: m => RecordPage(m[1], m[2]) },
   { re: /^#\/report$/, tab: 'report', admin: true, render: () => ReportPage() },
   { re: /^#\/report\/(\w+)$/, tab: 'report', sub: true, admin: true, parent: '#/report', render: m => ReportView(m[1]) },
-  { re: /^#\/assistant$/, tab: 'assistant', render: () => AssistantPage() },
   { re: /^#\/settings$/, tab: 'settings', render: () => SettingsPage() },
   { re: /^#\/settings\/password$/, tab: 'settings', sub: true, parent: '#/settings', render: () => PasswordPage() },
   { re: /^#\/settings\/users$/, tab: 'settings', sub: true, admin: true, parent: '#/settings', render: () => UsersPage() },
   { re: /^#\/settings\/user\/(\w+)$/, tab: 'settings', sub: true, admin: true, parent: '#/settings/users', render: m => UserPage(m[1]) },
   { re: /^#\/settings\/tax$/, tab: 'settings', sub: true, admin: true, parent: '#/settings', render: () => TaxPage() },
-  { re: /^#\/settings\/assistant$/, tab: 'settings', sub: true, admin: true, parent: '#/settings', render: () => AssistantSettingsPage() },
+  { re: /^#\/settings\/ai$/, tab: 'settings', sub: true, admin: true, parent: '#/settings', render: () => AiSettingsPage() },
   { re: /^#\/settings\/help$/, tab: 'settings', sub: true, parent: '#/settings', render: () => HelpPage() },
 ];
 function go(hash, opts) {
@@ -3024,7 +3205,6 @@ function tabsFor(me) {
   const t = [{ id: 'home', hash: '#/home', label: 'หน้าหลัก', icon: 'home' }];
   if (me.can('revenue.read') || me.can('fish_cost.read') || me.can('expense.read')) t.push({ id: 'records', hash: '#/records', label: 'รายการ', icon: 'list' });
   if (me.isAdmin()) t.push({ id: 'report', hash: '#/report', label: 'รายงาน', icon: 'report' });
-  t.push({ id: 'assistant', hash: '#/assistant', label: 'ผู้ช่วย', icon: 'assistant' });
   t.push({ id: 'settings', hash: '#/settings', label: 'ตั้งค่า', icon: 'settings' });
   return t;
 }
@@ -3049,7 +3229,7 @@ function buildNav() {
 function setPage(o) {
   const b = document.body;
   const kbd = b.classList.contains('kbd');
-  b.className = [o.auth && 'auth', o.sub && 'sub', o.tab === 'home' && !o.sub && 'home', o.chat && 'chat', o.brand && 'branded', kbd && 'kbd'].filter(Boolean).join(' ');
+  b.className = [o.auth && 'auth', o.sub && 'sub', o.tab === 'home' && !o.sub && 'home', o.brand && 'branded', kbd && 'kbd'].filter(Boolean).join(' ');
   const m = app();
   m.className = o.wide ? 'wide' : '';
   void m.offsetWidth; // restart the short fade that marks a new screen
@@ -3154,7 +3334,7 @@ function enterApp(restored) {
   setTimeout(() => Updates.check(), 8000);
   setTimeout(() => Outbox.flush(true), 1500);
   buildNav();
-  Chat.load();
+  Local.del('tokpra.chat.' + Session.uid);   // the 3.2 assistant chat kept on this device is no longer used
   const next = Nav.after; Nav.after = null;
   go('#/home', { replace: true });
   if (next && next !== '#/home') setTimeout(() => go(next), 0);
@@ -3248,7 +3428,8 @@ async function HomePage() {
   const notice = h('div');
   const readable = me.can('revenue.read') || me.can('fish_cost.read') || me.can('expense.read');
   const chartBox = h('div');
-  fill(app(), bandBox, qa, h('div', { id: 'outbox' }), notice, installNotice(), chartBox,
+  const forecastBox = h('div');
+  fill(app(), bandBox, qa, h('div', { id: 'outbox' }), notice, installNotice(), forecastBox, chartBox,
     readable ? h('h2', { class: 'h2' }, 'รายการล่าสุด', h('a', { href: '#/records', text: 'ดูทั้งหมด' })) : null, readable ? recentBox : null);
 
   // Re-read the profile on each visit (one read) so a disabled account is signed out
@@ -3318,6 +3499,7 @@ async function HomePage() {
     const mine = data ? data.items.filter(it => it.rec.createdBy === Session.uid) : null;
     fill(bandBox, staffBand(me, mine, today, !qa)); fitFigures(bandBox);
   }
+  forecastCard(today).then(card => { if (alive(t) && card) { fill(forecastBox, card); fitFigures(forecastBox); } });
   if (readable) {
     const recent = data.items.filter(it => !it.deleted).sort(Records.order).slice(0, 6);
     fill(recentBox, recent.length ? h('div', { class: 'list' }, recent.map(it => recordRow(it, data.names)))
@@ -3405,11 +3587,11 @@ function cashChart(items, today) {
 async function setupChecklist(data) {
   if (Local.get('tokpra.setupDone', false)) return null;
   let rates = [], cfg = {}, users = [];
-  try { [rates, cfg, users] = await Promise.all([cachedTaxActives(), AssistantConfig.get(), Users.names().then(m => Object.keys(m))]); } catch (e) { return null; }
+  try { [rates, cfg, users] = await Promise.all([cachedTaxActives(), AiConfig.get(), Users.names().then(m => Object.keys(m))]); } catch (e) { return null; }
   const steps = [
     ['percent', 'ตั้งอัตราภาษี', 'ใช้คำนวณภาษีในรายงาน', rates.length === 1, () => go('#/settings/tax')],
     ['users', 'เพิ่มพนักงาน', 'ให้พนักงานบันทึกรายการเองได้', users.length > 1, () => go('#/settings/users')],
-    ['assistant', 'เปิดใช้ผู้ช่วย', 'ใส่คีย์บริการแล้วทดสอบ', !!(cfg.enabled && cfg.key), () => go('#/settings/assistant')],
+    ['forecast', 'เปิดพยากรณ์ด้วย AI', 'ใส่คีย์บริการแล้วทดสอบ', !!(cfg.enabled && cfg.key), () => go('#/settings/ai')],
     ['plus', 'บันทึกรายการแรก', 'รายรับ ต้นทุนปลา หรือค่าใช้จ่าย', !!(data && data.items.length), openAddSheet],
   ];
   const doneCount = steps.filter(x => x[3]).length;
@@ -3461,6 +3643,240 @@ function staffBand(me, mine, today, flat) {
       h('div', null, h('div', { class: 'k', text: 'เดือนนี้' }), h('div', { class: 'v', text: monthCount == null ? '-' : monthCount + ' รายการ' }))),
     mine && todayCount ? h('button', { class: 'bandbtn', type: 'button', onclick: () => shareText('ยอดวันนี้',
       recordsSummary(mine.filter(it => it.rec.date === today), 'ยอดวันที่ ' + D.fmt(today), 'เฉพาะที่ฉันบันทึก')) }, ic('share', 'sm'), 'ส่งยอดวันนี้') : null);
+}
+
+/* =====================================================================
+   Forecast: asked for after a save, read on home
+   ===================================================================== */
+/** One forecast of each kind at a time; records saved meanwhile go into one more run after it. */
+const ForecastRun = { running: {}, again: {}, focus: null, onChange: null, kind: 'DAY' };
+const FORECAST_DAYS_MS = 6 * 3600 * 1000;
+const FORECAST_TRIGGER = { revenue: 'หลังบันทึกรายรับ', fish: 'หลังบันทึกต้นทุนปลา', expense: 'หลังบันทึกค่าใช้จ่าย', home: 'จากหน้าหลัก' };
+const FORECAST_CONF = { LOW: ['ความมั่นใจต่ำ', 'warn'], MEDIUM: ['ความมั่นใจปานกลาง', ''], HIGH: ['ความมั่นใจสูง', 'ok'] };
+const FORECAST_LABEL = { DAY: 'วันนี้', MONTH: 'ทั้งเดือนนี้' };
+
+/**
+ * What a forecast needs: { days, rows }. The nine weeks before today are kept on this device for six hours
+ * (a record saved for an earlier day clears them), and the newest 30 days of them come from home's copy when
+ * it has them, so a forecast after each save does not read the database again. The period itself, from today
+ * to its end, is always read fresh.
+ */
+async function forecastDays(kind, today) {
+  const from = D.addDays(today, -Forecast.HISTORY_DAYS), detail = Forecast.detailFrom(today);
+  const access = Records.accessOf();
+  const kept = Local.get(Forecast.daysKey(), null);
+  let past = kept && kept.from === from && kept.to === today && kept.access === access && Array.isArray(kept.rows)
+    && Date.now() - kept.at < FORECAST_DAYS_MS ? kept : null;
+  if (!past) {
+    const cut = Math.max(from, homeRange()[0]);
+    const [older, recent] = await Thrift.asking(() => Promise.all([
+      cut > from ? Records.load(from, cut) : null,
+      cut < today ? loadFromHome(cut, today).then(x => x || Records.load(cut, today)) : null]));
+    past = { from, to: today, at: Date.now(), access, days: {}, rows: [] };
+    for (const part of [older, recent]) {
+      if (!part) continue;
+      Object.assign(past.days, Forecast.byDay(part.revenues, part.fish, part.expenses));
+      past.rows = past.rows.concat(Forecast.rows(part.revenues, part.fish, part.expenses).filter(r => r.d >= detail));
+    }
+    Local.set(Forecast.daysKey(), past);
+  }
+  const end = Forecast.range(kind, today)[1];
+  const now = (await loadFromHome(today, end)) || await Records.load(today, end);
+  return { days: Object.assign({}, past.days, Forecast.byDay(now.revenues, now.fish, now.expenses)),
+    rows: past.rows.concat(Forecast.rows(now.revenues, now.fish, now.expenses)) };
+}
+/** Runs a forecast, or joins the one of the same kind already running. Resolves with the kept result. */
+function forecastRequest(kind, trigger) {
+  const R = ForecastRun;
+  if (R.running[kind]) { R.again[kind] = trigger || true; return R.running[kind]; }
+  const once = async why => {
+    const cfg = await AiConfig.get();
+    if (!cfg.enabled || !cfg.key) throw new AppError(E.AI, 'การพยากรณ์ด้วย AI ยังไม่เปิดใช้งาน ' + (Session.profile.isAdmin() ? 'เปิดได้ที่ ตั้งค่า > พยากรณ์ด้วย AI' : 'แจ้งผู้ดูแลระบบ'));
+    if (!Forecast.allowed(Session.profile)) throw new AppError(E.DENIED, 'การพยากรณ์ใช้ได้กับผู้ที่เห็นทุกรายการเท่านั้น');
+    const today = D.today();
+    const [{ days, rows }, names] = await Promise.all([forecastDays(kind, today), Users.names()]);
+    return Forecast.make(kind, { days, rows, names, today, now: Date.now(), notes: cfg.notes, key: cfg.key, mode: cfg.mode, trigger: why });
+  };
+  const p = (async () => {
+    try {
+      let rec = await once(trigger);
+      // records saved while it was being worked out go into one more forecast; if that one fails, the first stands
+      while (R.again[kind]) { const why = R.again[kind]; R.again[kind] = null; try { rec = await once(why === true ? trigger : why); } catch (e) { break; } }
+      return rec;
+    } finally { R.running[kind] = null; R.again[kind] = null; if (R.onChange) R.onChange(); }
+  })();
+  R.running[kind] = p;
+  if (R.onChange) R.onChange();
+  return p;
+}
+function forecastPeriod(rec, today) {
+  if (rec.kind === 'MONTH') return rec.start === D.monthStart(today) ? 'เดือนนี้' : 'เดือน' + D.monthName(rec.start);
+  return rec.start === today ? 'วันนี้' : rec.start === D.addDays(today, -1) ? 'เมื่อวาน' : 'วันที่ ' + D.fmt(rec.start);
+}
+function forecastHeadline(rec, today) { return (rec.profit < 0 ? 'คาดขาดทุน' : 'คาดกำไร') + forecastPeriod(rec, today); }
+/** When a result was worked out, as "ณ 09:12 น."; the date is added when it is not the day of the period, seconds when asked. */
+function forecastAt(rec, seconds) {
+  const [y, m, d] = D.ymd(rec.at);
+  const at = 'ณ ' + D.time(rec.at) + (seconds ? ':' + String(new Date(rec.at + TZ).getUTCSeconds()).padStart(2, '0') : '') + ' น.';
+  if (rec.kind === 'MONTH') return 'ณ ' + d + ' ' + MONTHS[m] + ' ' + at.slice(2);
+  return D.dayStartOf(rec.at) === rec.start ? at : 'ณ ' + d + ' ' + MONTHS[m] + ' ' + (y + 543) + ' ' + at.slice(2);
+}
+/** A result as one line of the dropdown: the period, its profit (what tells results apart), then when it was worked out. */
+function forecastOption(rec, seconds) {
+  const period = rec.kind === 'MONTH' ? MONTHS[D.ymd(rec.start)[1]] + ' ' + (D.ymd(rec.start)[0] + 543) : D.fmt(rec.start);
+  return period + ' · ' + (rec.profit < 0 ? 'ขาดทุน ' : 'กำไร ') + Money.fmt(Math.abs(rec.profit)) + ' · ' + forecastAt(rec, seconds);
+}
+/**
+ * "Forecast with AI after saving" on a new record, for people who may ask. It is for one save: it starts
+ * unticked and unticks itself after each save, so a day of recording does not ask for a forecast every time.
+ * Today or this month is remembered on this device.
+ */
+function forecastAsk() {
+  const box = h('div', { class: 'fcask hidden' });
+  let want = null;
+  box.want = () => want;
+  box.reset = () => {};
+  if (!Forecast.allowed(Session.profile)) return box;
+  AiConfig.get().then(cfg => {
+    if (!cfg.enabled || !cfg.key) return;
+    const keep = 'tokpra.forecastAsk.' + Session.uid;
+    let kind = Local.get(keep, {}).kind === 'MONTH' ? 'MONTH' : 'DAY';
+    const HINT = { DAY: 'คาดยอดรวมทั้งวันจากรายการที่บันทึกแล้ว และยอดของวันเดียวกันในสัปดาห์ก่อน ๆ', MONTH: 'คาดยอดรวมทั้งเดือนจากยอดที่บันทึกแล้ว และแนวโน้มย้อนหลัง 9 สัปดาห์' };
+    const check = h('input', { type: 'checkbox' });
+    const hint = h('div', { class: 'hint' });
+    const more = h('div', { class: 'fcmore' });
+    const sync = () => { want = check.checked ? kind : null; more.classList.toggle('hidden', !check.checked); hint.textContent = HINT[kind]; };
+    fill(more, seg([['DAY', 'วันนี้'], ['MONTH', 'ทั้งเดือนนี้']], kind, v => { kind = v; Local.set(keep, { kind }); sync(); }, 'ช่วงที่พยากรณ์'), hint);
+    // ticking this is a choice for after the save, not typing into the record: it does not count as unsaved changes
+    let was = false;
+    check.addEventListener('click', () => { was = Guard.dirty; });
+    check.addEventListener('change', () => { Guard.dirty = was; sync(); });
+    box.reset = () => { check.checked = false; sync(); };
+    fill(box, h('label', { class: 'check' }, check,
+      h('span', { class: 'grow' }, 'พยากรณ์ด้วย AI หลังบันทึก', h('span', { class: 'dim', text: 'ใช้กับการบันทึกครั้งนี้ ดูผลได้ที่หน้าหลัก' }))), more);
+    sync();
+    box.classList.remove('hidden');
+  }).catch(() => { /* without the settings the choice is not offered */ });
+  return box;
+}
+/** After a save: the forecast runs while recording goes on, and its line under the saved banner shows the result. */
+function forecastAfterSave(box, kind, trigger) {
+  const label = FORECAST_LABEL[kind];
+  const row = h('div', { class: 'fcrun', role: 'status' }, h('span', { class: 'spin' }), h('span', { class: 'grow', text: 'กำลังพยากรณ์ยอด' + label + 'ด้วย AI' }));
+  box.append(row);
+  forecastRequest(kind, trigger).then(rec => {
+    if (!row.isConnected) { toast('พยากรณ์ยอด' + label + 'เสร็จแล้ว ดูได้ที่หน้าหลัก'); return; }
+    fill(row, ic('forecast', 'sm'), h('span', { class: 'grow' }, forecastHeadline(rec, D.today()) + ' ', fig(Math.abs(rec.profit)), ' บาท'),
+      h('a', { href: '#/home', text: 'ดูผล', onclick: () => { ForecastRun.focus = rec.id; } }));
+  }, e => {
+    e = toAppError(e);
+    if (!row.isConnected) { toast('พยากรณ์ไม่สำเร็จ ' + e.message); return; }
+    row.classList.add('bad');
+    fill(row, ic('info', 'sm'), h('span', { class: 'grow', text: 'พยากรณ์ไม่สำเร็จ ' + e.message }),
+      h('button', { class: 'mini', type: 'button', onclick: () => { row.remove(); forecastAfterSave(box, kind, trigger); } }, ic('refresh', 'sm'), 'ลองใหม่'));
+  });
+}
+/**
+ * A record kept for later is not saved yet, so its forecast waits too: the outbox asks for it once it has sent
+ * what was waiting (kept on the device, so closing the app does not lose it).
+ */
+const forecastLaterKey = () => 'tokpra.forecastLater.' + (Session.uid || '');
+function forecastLater(box, kind, trigger) {
+  Local.set(forecastLaterKey(), { kind, trigger });
+  box.append(h('div', { class: 'fcrun warn', role: 'status' }, ic('wifioff', 'sm'),
+    h('span', { class: 'grow', text: 'จะพยากรณ์ยอด' + FORECAST_LABEL[kind] + 'ให้เมื่อส่งรายการนี้แล้ว' })));
+}
+function forecastAfterSend() {
+  const later = Session.uid ? Local.get(forecastLaterKey(), null) : null;
+  if (!later || !FORECAST_LABEL[later.kind]) return;
+  Local.del(forecastLaterKey());
+  forecastRequest(later.kind, later.trigger).then(() => toast('พยากรณ์ยอด' + FORECAST_LABEL[later.kind] + 'เสร็จแล้ว ดูได้ที่หน้าหลัก'),
+    e => toast('พยากรณ์ไม่สำเร็จ ' + toAppError(e).message));
+}
+/**
+ * Home: the newest result in one line. Opened, it is laid out like the report screen: pick today or this month
+ * and press to forecast, then a dropdown of every kept result and the chosen one in full. It opens by itself
+ * until there is a result, so the first forecast does not wait for a record to be saved.
+ */
+async function forecastCard(today) {
+  let cfg = null;
+  try { cfg = await AiConfig.get(); } catch (e) { cfg = null; }
+  const on = !!(cfg && cfg.enabled && cfg.key);
+  const head = sub => h('summary', null, h('span', { class: 'kind big' }, ic('forecast')), h('span', { class: 'rmain' }, h('span', { class: 'rt', text: 'พยากรณ์ด้วย AI' }), sub), ic('down', 'sm'));
+  // staff who see only their own records: the card says why it is not for them, and who can change that
+  if (!Forecast.allowed(Session.profile)) {
+    return on ? h('details', { class: 'fc' }, head(h('span', { class: 'rd', text: 'ใช้ได้กับผู้ที่เห็นทุกรายการ' })),
+      h('div', { class: 'fcbody' }, h('p', { class: 'note', text: 'การพยากรณ์คิดจากยอดของทุกคนในบ่อ จึงใช้ได้กับเจ้าของ และพนักงานที่ "เห็นรายการ" แบบ "ทุกรายการ" และดูรายการได้ทุกประเภท ถ้าต้องการใช้ ขอให้เจ้าของปรับให้ที่ ตั้งค่า > ผู้ใช้และสิทธิ์' }))) : null;
+  }
+  if (!on && !Forecast.all().length) return null;
+  const sub = h('span', { class: 'rd' });
+  const runBox = h('div'), resultBox = h('div');
+  const make = h('button', { class: 'btn soft', type: 'button' });
+  const kindSeg = seg([['DAY', 'วันนี้'], ['MONTH', 'ทั้งเดือนนี้']], ForecastRun.kind, v => { ForecastRun.kind = v; draw(); }, 'ช่วงที่พยากรณ์');
+  const card = h('details', { class: 'fc' }, head(sub),
+    h('div', { class: 'fcbody' }, on ? [kindSeg, make] : null, runBox, resultBox));
+  let chosen = null;
+  // "ดูผล" after a save opens the card on that result
+  if (ForecastRun.focus) { chosen = ForecastRun.focus; ForecastRun.focus = null; card.open = true; }
+  else card.open = (on && !Forecast.all().length) || !!Local.get('tokpra.forecastOpen', false);
+  card.addEventListener('toggle', () => Local.set('tokpra.forecastOpen', card.open));
+  const run = () => {
+    const kind = ForecastRun.kind;
+    forecastRequest(kind, 'home').then(rec => { chosen = rec.id; draw(); }, e => showError(e, null, () => run()));
+  };
+  make.onclick = run;
+  let drawn = false;
+  const draw = () => {
+    if (drawn && !card.isConnected) { if (ForecastRun.onChange === draw) ForecastRun.onChange = null; return; }
+    drawn = true;
+    const list = Forecast.all();
+    const busy = ['DAY', 'MONTH'].filter(k => ForecastRun.running[k]);
+    const rec = list.find(x => x.id === chosen) || list[0] || null;
+    if (rec) chosen = rec.id;
+    if (busy.length) sub.textContent = 'กำลังพยากรณ์ยอด' + FORECAST_LABEL[busy[0]];
+    else if (list.length) fill(sub, forecastHeadline(list[0], today) + ' ', fig(Math.abs(list[0].profit)), ' บาท', h('span', { class: 'when', text: 'พยากรณ์เมื่อ ' + forecastAt(list[0]).slice(2) }));
+    else sub.textContent = on ? 'ยังไม่มีผลพยากรณ์' : 'ปิดใช้งานอยู่';
+    make.disabled = !!ForecastRun.running[ForecastRun.kind];
+    fill(make, ic('forecast', 'sm'), 'พยากรณ์ยอด' + FORECAST_LABEL[ForecastRun.kind]);
+    fill(runBox, busy.map(k => h('div', { class: 'fcrun', role: 'status' }, h('span', { class: 'spin' }), h('span', { class: 'grow', text: 'กำลังพยากรณ์ยอด' + FORECAST_LABEL[k] + 'ด้วย AI' }))));
+    if (!rec) {
+      fill(resultBox, h('p', { class: 'note', text: on ? 'ยังไม่มีผลพยากรณ์ เลือกช่วงแล้วกดพยากรณ์ หรือติ๊ก "พยากรณ์ด้วย AI หลังบันทึก" ตอนเพิ่มรายการ' : 'การพยากรณ์ด้วย AI ปิดอยู่' }));
+      return;
+    }
+    const select = h('select', { class: 'input', 'aria-label': 'ผลพยากรณ์ที่บันทึกไว้ในเครื่องนี้' });
+    const count = {};
+    for (const x of list) count[forecastOption(x)] = (count[forecastOption(x)] || 0) + 1;
+    for (const [kind, label] of [['DAY', 'รายวัน'], ['MONTH', 'รายเดือน']]) {
+      const items = list.filter(x => x.kind === kind);
+      if (items.length) select.append(h('optgroup', { label }, items.map(x => h('option', { value: x.id, text: forecastOption(x, count[forecastOption(x)] > 1) }))));
+    }
+    select.value = rec.id;
+    select.addEventListener('change', () => { chosen = select.value; draw(); });
+    fill(resultBox, h('div', { class: 'field fcpick' }, h('span', { class: 'lbl', text: 'ผลพยากรณ์ที่บันทึกไว้ในเครื่องนี้' }), h('div', { class: 'selectbox' }, select, ic('down', 'sm'))),
+      forecastView(rec, today),
+      h('button', { class: 'mini fcshare', type: 'button', onclick: () => shareText('พยากรณ์ยอด', Forecast.shareText(rec)) }, ic('share', 'sm'), 'แชร์ผลพยากรณ์'));
+    if (card.isConnected) fitFigures(card);
+  };
+  ForecastRun.onChange = draw;
+  draw();
+  return card;
+}
+/** One result in full: the expected figures, why, and what to do. */
+function forecastView(rec, today) {
+  const [confText, confCls] = FORECAST_CONF[rec.confidence] || FORECAST_CONF.LOW;
+  const col = (k, v) => h('div', null, h('div', { class: 'k', text: k }), h('div', { class: 'v fig' }, figParts(v)));
+  const notes = (title, items) => items && items.length ? [h('div', { class: 'fcsub', text: title }), h('ul', { class: 'fclist' }, items.map(x => h('li', { text: x })))] : null;
+  return h('div', { class: 'fcview' },
+    h('div', { class: 'fchead' },
+      h('div', { class: 'grow' }, h('div', { class: 'k', text: forecastHeadline(rec, today) }),
+        h('div', { class: 'fcfig' + (rec.profit < 0 ? ' loss' : '') }, fig(Math.abs(rec.profit)), h('span', { class: 'u', text: 'บาท' }))),
+      h('span', { class: 'tag ' + confCls, text: confText })),
+    rec.low != null ? h('div', { class: 'small muted', text: 'ช่วงที่เป็นไปได้ ' + Money.fmt(rec.low) + ' ถึง ' + Money.fmt(rec.high) + ' บาท' }) : null,
+    h('div', { class: 'fcgrid' }, col('รายรับ', rec.income), col('ต้นทุนปลา', rec.fish), col('ค่าใช้จ่าย', rec.expense)),
+    rec.summary ? h('p', { class: 'fctext', text: rec.summary }) : null,
+    notes('เหตุผล', rec.reasons), notes('คำแนะนำ', rec.tips),
+    h('p', { class: 'fcfoot pre', text: 'พยากรณ์เมื่อ ' + D.fmtTime(rec.at) + (FORECAST_TRIGGER[rec.trigger] ? ' ' + FORECAST_TRIGGER[rec.trigger] : '')
+      + '\nเป็นค่าประมาณเพื่อวางแผน ไม่ใช่ยอดจริง' }));
 }
 
 /* =====================================================================
@@ -3721,10 +4137,11 @@ function revenueForm({ rec, names }) {
   const savedBox = h('div');
   const words = wordsFor(amount.input);
   const chipsDate = canEdit ? dateChips(date) : null;
+  const ask = isNew ? forecastAsk() : null;
   const panel = h('div', { class: 'panel' },
     field(form, 'amount', 'จำนวนเงิน', amount), words, field(form, 'date', 'วันที่', date.el), chipsDate,
     field(form, 'description', 'รายละเอียด (ไม่บังคับ)', desc), canEdit ? suggest(Recent.with('revenue', ['ค่าตกปลา', 'ค่าอาหารและเครื่องดื่ม', 'ค่าเช่าอุปกรณ์', 'ค่าสมัครแข่งขัน']), w => { desc.value = w; desc.dispatchEvent(new Event('input')); }) : null,
-    canEdit ? save : null);
+    ask, canEdit ? save : null);
   form.date.input = date.input;
   const parts = [panel, savedBox];
   if (!isNew) {
@@ -3742,7 +4159,7 @@ function revenueForm({ rec, names }) {
     clearErrors(form);
     let amt;
     try { amt = Money.parseBaht(amount.input.value, 'amount', 'จำนวนเงิน'); } catch (e) { showError(e, form); return; }
-    const d = date.value, text = desc.value;
+    const d = date.value, text = desc.value, want = ask && ask.want();
     const lineOf = (a, dt, tx) => Money.baht(a) + ' ' + dateLabel(dt) + (tx.trim() ? ' ' + tx.trim() : '');
     const line = lineOf(amt, d, text);
     const r = isNew ? await saveNew(form, save, 'revenue', [requestId, d, amt, text], 'รายรับ ' + line)
@@ -3750,13 +4167,14 @@ function revenueForm({ rec, names }) {
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
     Recent.add('revenue', text);
-    if (r.queued) afterQueued(savedBox, line);
+    if (r.queued) { afterQueued(savedBox, line); if (want) forecastLater(savedBox, want, 'revenue'); }
     else {
       const kept = r.duplicate && r.doc ? revenueFrom(r.doc) : null;
       fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.amount, kept.date, kept.description) : line, r.doc ? '#/rec/revenue/' + G.id(r.doc) : null, line));
       done('บันทึกรายรับแล้ว');
+      if (want) forecastAfterSave(savedBox, want, 'revenue');
     }
-    requestId = Store.newId(); amount.input.value = ''; desc.value = ''; words.update(); amount.input.focus();
+    requestId = Store.newId(); amount.input.value = ''; desc.value = ''; words.update(); ask.reset(); amount.input.focus();
   };
   async function del() {
     if (!(await confirmBox('ลบรายการนี้', 'รายการจะถูกเปลี่ยนเป็น "ลบแล้ว" และไม่ถูกนับในยอด แต่ยังเก็บไว้ตรวจสอบย้อนหลัง', 'ลบรายการ', true))) return;
@@ -3787,10 +4205,11 @@ function fishForm({ rec, names }) {
     catch (e) { showTotal(null); }
   };
   weight.input.addEventListener('input', recalc); price.input.addEventListener('input', recalc);
+  const ask = isNew ? forecastAsk() : null;
   const panel = h('div', { class: 'panel' },
     h('div', { class: 'two' }, field(form, 'weight', 'น้ำหนักปลา', weight), field(form, 'price', 'ราคาต่อกิโลกรัม', price)),
     h('div', { class: 'calc' }, h('span', { class: 'muted small', text: 'ต้นทุนปลา (คำนวณให้)' }), total), totalWords,
-    field(form, 'date', 'วันที่ซื้อ', date.el), canEdit ? dateChips(date) : null, canEdit ? save : null);
+    field(form, 'date', 'วันที่ซื้อ', date.el), canEdit ? dateChips(date) : null, ask, canEdit ? save : null);
   form.date.input = date.input;
   const parts = [panel, savedBox];
   if (!isNew) {
@@ -3806,20 +4225,21 @@ function fishForm({ rec, names }) {
     let g, p;
     try { g = Money.parseWeight(weight.input.value, 'weight'); p = Money.parseBaht(price.input.value, 'price', 'ราคาต่อกิโลกรัม'); }
     catch (e) { showError(e, form); return; }
-    const d = date.value;
+    const d = date.value, want = ask && ask.want();
     const lineOf = (gg, pp, aa, dt) => Money.weight(gg) + ' กก. × ' + Money.fmt(pp) + ' = ' + Money.baht(aa) + ' ' + dateLabel(dt);
     const line = lineOf(g, p, Calc.fishAmount(g, p), d);
     const r = isNew ? await saveNew(form, save, 'fish', [requestId, d, g, p], 'ซื้อปลา ' + line)
       : await runSave(form, save, 'กำลังบันทึก', () => FishCosts.update(rec, d, g, p).then(() => true));
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
-    if (r.queued) afterQueued(savedBox, line);
+    if (r.queued) { afterQueued(savedBox, line); if (want) forecastLater(savedBox, want, 'fish'); }
     else {
       const kept = r.duplicate && r.doc ? fishFrom(r.doc) : null;
       fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.grams, kept.pricePerKg, kept.amount, kept.date) : line, r.doc ? '#/rec/fish/' + G.id(r.doc) : null, line));
       done('บันทึกต้นทุนปลาแล้ว');
+      if (want) forecastAfterSave(savedBox, want, 'fish');
     }
-    requestId = Store.newId(); weight.input.value = ''; price.input.value = ''; recalc(); weight.input.focus();
+    requestId = Store.newId(); weight.input.value = ''; price.input.value = ''; recalc(); ask.reset(); weight.input.focus();
   };
 }
 
@@ -3845,10 +4265,11 @@ function expenseForm({ rec, names, kind }) {
   const typeSeg = seg([['EVENT', 'ค่าจัดงาน'], ['MAINTENANCE', 'ค่าบำรุงรักษา']], type, v => { type = v; hint.textContent = HINT[v]; drawChips(); }, 'ประเภท');
   const save = h('button', { class: 'btn', type: 'button', text: isNew ? 'บันทึกค่าใช้จ่าย' : 'บันทึกการแก้ไข' });
   const savedBox = h('div');
+  const ask = isNew ? forecastAsk() : null;
   const panel = h('div', { class: 'panel' },
     h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ประเภท' }), typeSeg, hint),
     field(form, 'description', 'รายละเอียด', desc), chipBox,
-    field(form, 'amount', 'จำนวนเงิน', amount), words, field(form, 'date', 'วันที่', date.el), canEdit ? dateChips(date) : null, canEdit ? save : null);
+    field(form, 'amount', 'จำนวนเงิน', amount), words, field(form, 'date', 'วันที่', date.el), canEdit ? dateChips(date) : null, ask, canEdit ? save : null);
   form.date.input = date.input;
   drawChips();
   const parts = [panel, savedBox];
@@ -3866,7 +4287,7 @@ function expenseForm({ rec, names, kind }) {
       if (!desc.value.trim()) throw invalid('description', 'กรอกรายละเอียดค่าใช้จ่าย');
       amt = Money.parseBaht(amount.input.value, 'amount', 'จำนวนเงิน');
     } catch (e) { showError(e, form); return; }
-    const d = date.value, text = desc.value, ty = type;
+    const d = date.value, text = desc.value, ty = type, want = ask && ask.want();
     const lineOf = (t, tx, a, dt) => (t === 'MAINTENANCE' ? 'ค่าบำรุงรักษา ' : 'ค่าจัดงาน ') + tx.trim() + ' ' + Money.baht(a) + ' ' + dateLabel(dt);
     const line = lineOf(ty, text, amt, d);
     const r = isNew ? await saveNew(form, save, 'expense', [requestId, d, ty, text, amt], line)
@@ -3874,13 +4295,14 @@ function expenseForm({ rec, names, kind }) {
     if (r === undefined) return;
     if (!isNew) { afterSaveEdit('บันทึกการแก้ไขแล้ว'); return; }
     Recent.add(ty, text); drawChips();
-    if (r.queued) afterQueued(savedBox, line);
+    if (r.queued) { afterQueued(savedBox, line); if (want) forecastLater(savedBox, want, 'expense'); }
     else {
       const kept = r.duplicate && r.doc ? expenseFrom(r.doc) : null;
       fill(savedBox, savedBanner(r.duplicate, kept ? lineOf(kept.type, kept.description, kept.amount, kept.date) : line, r.doc ? '#/rec/expense/' + G.id(r.doc) : null, line));
       done('บันทึกค่าใช้จ่ายแล้ว');
+      if (want) forecastAfterSave(savedBox, want, 'expense');
     }
-    requestId = Store.newId(); desc.value = ''; amount.input.value = ''; words.update(); desc.focus();
+    requestId = Store.newId(); desc.value = ''; amount.input.value = ''; words.update(); ask.reset(); desc.focus();
   };
 }
 
@@ -4049,168 +4471,6 @@ async function compareWithBefore(r, box, t, asked) {
 }
 
 /* =====================================================================
-   Assistant
-   ===================================================================== */
-const Chat = {
-  msgs: [],
-  key() { return 'tokpra.chat.' + Session.uid; },
-  load() { Chat.msgs = Session.uid ? Local.get(Chat.key(), []) : []; },
-  save() { if (Session.uid) Local.set(Chat.key(), Chat.msgs.filter(m => !m.error).slice(-40)); },
-  clear() { Chat.msgs = []; if (Session.uid) Local.del(Chat.key()); },
-};
-/** Safe light formatting for replies: bold, bullets, numbered lines. */
-/** A reply as plain text for pasting elsewhere: no markdown marks. */
-function plainReply(md) {
-  return md.replace(/\*\*(.+?)\*\*/g, '$1').replace(/^#+\s*/gm, '').replace(/^\s*[-*]\s+/gm, '• ').trim();
-}
-function formatReply(md) {
-  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  return md.replace(/\r/g, '').split('\n').map(line => {
-    let x = line;
-    const head = /^\s*#{1,6}\s+(.*)$/.exec(x);
-    if (head) x = '**' + head[1] + '**';
-    else x = x.replace(/^(\s*)[*-]\s+/, '$1• ');
-    return esc(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[\s(])\*(?!\s)([^*]+?)\*(?=[\s).,!?]|$)/g, '$1<i>$2</i>');
-  }).join('\n');
-}
-async function monthFiguresMessage() {
-  const today = D.today();
-  const s = D.monthStart(today), e = D.addDays(today, 1);
-  // home's last 30 days already hold this month when it was opened in the last five minutes
-  const res = (await loadFromHome(s, e)) || await Records.load(s, e);
-  const tot = Calc.calculate(res.revenues, res.fish, res.expenses, 0);
-  return ['ช่วยวิเคราะห์ผลประกอบการเดือน' + D.monthName(today) + ' (ข้อมูลถึง ' + D.fmt(today) + ')',
-    'รายรับ ' + Money.baht(tot.totalRevenue), 'ต้นทุนปลา ' + Money.baht(tot.totalFishCost),
-    'ค่าจัดงาน ' + Money.baht(tot.totalEvent), 'ค่าบำรุงรักษา ' + Money.baht(tot.totalMaintenance),
-    (tot.preliminaryProfit < 0 ? 'ขาดทุนเบื้องต้น ' : 'กำไรเบื้องต้น ') + Money.baht(Math.abs(tot.preliminaryProfit)),
-    'ขอข้อสังเกตสั้น ๆ และคำแนะนำที่ทำได้จริง'].join('\n');
-}
-async function AssistantPage() {
-  const t = navToken; const me = Session.profile;
-  let sending = false, holder = null;
-  const newChat = iconButton('compose', 'เริ่มแชทใหม่', () => { if (sending) return; Chat.clear(); drawAll(); });
-  setPage({ tab: 'assistant', title: 'ผู้ช่วย', chat: true, actions: [newChat] });
-  fill(app(), skeleton(2));
-  let cfg;
-  try { cfg = await AssistantConfig.get(); } catch (e) { if (alive(t)) pageError(e, () => route()); return; }
-  if (!alive(t)) return;
-  if (!cfg.enabled || !cfg.key) {
-    setPage({ tab: 'assistant', title: 'ผู้ช่วย' });
-    fill(app(), emptyState('ผู้ช่วยยังไม่เปิดใช้งาน',
-      me.isAdmin() ? 'ใส่คีย์บริการและเปิดใช้งานได้ที่ ตั้งค่า > ผู้ช่วย' : 'แจ้งผู้ดูแลระบบให้เปิดใช้งานผู้ช่วย',
-      me.isAdmin() ? h('a', { class: 'btn soft inline', href: '#/settings/assistant', text: 'ไปที่การตั้งค่าผู้ช่วย' }) : null, 'assistant'));
-    return;
-  }
-  const msgs = h('div', { class: 'msgs', 'aria-live': 'polite' });
-  const box = h('textarea', { class: 'input', rows: '1', placeholder: 'พิมพ์คำถาม', 'aria-label': 'พิมพ์คำถาม', enterkeyhint: 'send' });
-  const send = h('button', { class: 'send', type: 'button', 'aria-label': 'ส่ง' }, ic('send'));
-  const bar = h('div', { class: 'chatbar' }, h('div', { class: 'inner' }, box, send));
-  fill(app(), msgs, bar);
-  const nearBottom = () => window.innerHeight + window.scrollY >= document.body.scrollHeight - 160;
-  const scrollEnd = force => { if (force || nearBottom()) requestAnimationFrame(() => window.scrollTo(0, document.body.scrollHeight)); };
-  const cutNote = { length: 'คำตอบยาว ถูกตัดไว้ตรงนี้', timeout: 'การเชื่อมต่อช้าระหว่างตอบ คำตอบอาจไม่ครบ', network: 'การเชื่อมต่อขาดระหว่างตอบ คำตอบอาจไม่ครบ', stopped: 'หยุดแล้ว' };
-  const bubble = m => {
-    const b = h('div', { class: 'bubble ' + (m.error ? 'bad' : m.role === 'user' ? 'me' : 'bot') });
-    if (m.role === 'user' || m.error) b.textContent = m.text; else b.innerHTML = formatReply(m.text);
-    if (m.cut) b.append(h('div', { class: 'tiny dim', style: 'margin-top:6px', text: cutNote[m.cut] || '' }));
-    if (m.role !== 'user' && !m.error && m.text) b.append(h('div', { class: 'bact' },
-      h('button', { type: 'button', class: 'mini', onclick: () => copyText(plainReply(m.text), 'คัดลอกคำตอบแล้ว') }, ic('copy', 'sm'), 'คัดลอก')));
-    if (m.error) b.append(h('div', null, h('button', { class: 'btn soft inline retry', type: 'button', onclick: () => retry(m) }, ic('refresh', 'sm'), 'ลองใหม่')));
-    return b;
-  };
-  const intro = () => {
-    const asks = [];
-    if (me.isAdmin() && (me.can('revenue.read'))) asks.push(['วิเคราะห์ตัวเลขเดือนนี้', async () => {
-      try { ask(await withBusy('กำลังรวมตัวเลข', monthFiguresMessage)); } catch (e) { showError(e); }
-    }]);
-    asks.push(['ไอเดียจัดงานแข่งตกปลาให้คนมาเยอะขึ้น'], ['วิธีดูแลน้ำในบ่อช่วงอากาศร้อน'], ['ซื้อปลา 35.5 กก. กิโลละ 85 บาท ต้นทุนเท่าไร'],
-      [me.isAdmin() ? 'เพิ่มพนักงานในแอปทำอย่างไร' : 'บันทึกค่าใช้จ่ายในแอปทำอย่างไร']);
-    return h('div', { class: 'chatintro' },
-      h('div', { class: 'introhead' }, h('span', { class: 'kind plain big' }, ic('assistant')),
-        h('div', null, h('div', { class: 'b', text: 'ถามผู้ช่วยได้ทุกเรื่องของบ่อ' }),
-          h('div', { class: 'muted small', text: 'ดูแลบ่อและปลา จัดงาน คิดต้นทุน หรือวิธีใช้แอป ผู้ช่วยมองไม่เห็นรายการในแอป และไม่ควรพิมพ์ข้อมูลส่วนตัว' }))),
-      asks.map(([label, fn]) => h('button', { class: 'ask', type: 'button', text: label, onclick: fn || (() => ask(label)) })));
-  };
-  const FOLLOW = ['สรุปให้สั้นลง', 'อธิบายเพิ่ม', 'ยกตัวอย่างที่ใช้กับบ่อของเรา'];
-  const followups = () => {
-    const old = msgs.querySelector('.followups'); if (old) old.remove();
-    const last = Chat.msgs[Chat.msgs.length - 1];
-    if (!last || last.role === 'user' || last.error) return;
-    msgs.append(h('div', { class: 'chips followups' }, FOLLOW.map(q => h('button', { type: 'button', class: 'chip', text: q, onclick: () => ask(q) }))));
-  };
-  const drawAll = () => {
-    fill(msgs, ...(Chat.msgs.length ? Chat.msgs.map(bubble) : [intro()]));
-    followups();
-    scrollEnd(true);
-  };
-  const setSending = on => {
-    sending = on;
-    fill(send, ic(on ? 'stop' : 'send'));
-    send.setAttribute('aria-label', on ? 'หยุด' : 'ส่ง');
-    send.classList.toggle('stopping', on);
-  };
-  function retry(m) {
-    const i = Chat.msgs.indexOf(m);
-    if (i < 0 || sending) return;
-    const q = Chat.msgs[i - 1];
-    Chat.msgs.splice(i - 1, 2);
-    drawAll();
-    if (q && q.role === 'user') ask(q.text);
-  }
-  async function ask(raw) {
-    const text = (raw || '').trim();
-    if (!text || sending) return;
-    if (!Chat.msgs.length) fill(msgs);
-    const oldFollow = msgs.querySelector('.followups'); if (oldFollow) oldFollow.remove();
-    box.value = ''; box.style.height = '';
-    const mine = { role: 'user', text, at: Date.now() };
-    const mineEl = bubble(mine);
-    Chat.msgs.push(mine); msgs.append(mineEl);
-    const live = h('div', { class: 'bubble bot' }, h('span', { class: 'dots', 'aria-label': 'กำลังตอบ' }, h('i'), h('i'), h('i')));
-    msgs.append(live); scrollEnd(true);
-    setSending(true);
-    holder = {};
-    try {
-      const c = await AssistantConfig.get();
-      if (!c.enabled || !c.key) throw new AppError(E.ASSISTANT, 'ผู้ช่วยถูกปิดการใช้งาน');
-      const system = systemPrompt({ name: me.fullName || 'ผู้ใช้', admin: me.isAdmin(), today: ' ' + D.dayLabel(D.today()) + ' ' + D.fmt(D.today()), notes: c.notes });
-      const r = await Assistant.reply({ key: c.key, mode: c.mode, system, contents: Assistant.contents(Chat.msgs) }, partial => {
-        if (!alive(t)) return;
-        if (partial) live.innerHTML = formatReply(partial);
-        else fill(live, h('span', { class: 'dots' }, h('i'), h('i'), h('i')));
-        scrollEnd(false);
-      }, holder);
-      if (r.stopped && !r.text) {
-        Chat.msgs.splice(Chat.msgs.indexOf(mine), 1); mineEl.remove(); live.remove(); box.value = text;
-        if (!Chat.msgs.length) drawAll();
-      }
-      else {
-        const m = { role: 'model', text: r.text, cut: r.cut || '', at: Date.now() };
-        Chat.msgs.push(m);
-        if (alive(t)) { live.replaceWith(bubble(m)); followups(); }
-      }
-    } catch (e) {
-      const err = { role: 'model', error: true, text: toAppError(e).message, at: Date.now() };
-      Chat.msgs.push(err);
-      if (alive(t)) live.replaceWith(bubble(err));
-    } finally {
-      holder = null;
-      Chat.save();
-      if (alive(t)) { setSending(false); scrollEnd(false); }
-    }
-  }
-  send.onclick = () => {
-    if (sending) { if (holder) { holder.stopped = true; if (holder.cancel) holder.cancel(); } return; }
-    ask(box.value);
-  };
-  box.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && window.matchMedia('(pointer:fine)').matches) { e.preventDefault(); send.click(); }
-  });
-  box.addEventListener('input', () => { box.style.height = 'auto'; box.style.height = Math.min(box.scrollHeight, 132) + 'px'; });
-  drawAll();
-}
-
-/* =====================================================================
    Settings
    ===================================================================== */
 let installPrompt = null;
@@ -4250,25 +4510,25 @@ async function SettingsPage() {
     h('div', { class: 'list' }, navRow('lock', 'เปลี่ยนรหัสผ่าน', null, () => go('#/settings/password')),
       !Native && !isStandalone() ? navRow('install', 'ติดตั้งแอปบนเครื่องนี้', 'เปิดได้จากหน้าจอหลักเหมือนแอปทั่วไป', installApp) : null,
       navRow('help', 'วิธีใช้งาน', 'คำอธิบายสั้น ๆ ของแต่ละเมนู', () => go('#/settings/help')),
-      navRow('trash', 'ล้างข้อมูลชั่วคราวในเครื่องนี้', 'แชทกับผู้ช่วยและข้อมูลที่จำไว้ ไม่กระทบข้อมูลในระบบ', async () => {
-        if (!(await confirmBox('ล้างข้อมูลชั่วคราว', 'แชทกับผู้ช่วยและข้อมูลที่แอปจำไว้ในเครื่องนี้จะถูกล้าง รายการที่บันทึกแล้วและรายการที่รอส่งยังอยู่ครบ', 'ล้างข้อมูล', true))) return;
-        Chat.clear(); Cache.clear(); done('ล้างข้อมูลชั่วคราวแล้ว');
+      navRow('trash', 'ล้างข้อมูลชั่วคราวในเครื่องนี้', 'ข้อมูลที่แอปจำไว้เพื่อเปิดหน้าได้เร็ว ไม่กระทบข้อมูลในระบบ', async () => {
+        if (!(await confirmBox('ล้างข้อมูลชั่วคราว', 'ข้อมูลที่แอปจำไว้ในเครื่องนี้จะถูกล้าง แล้วโหลดใหม่เมื่อเปิดแต่ละหน้า รายการที่บันทึกแล้ว รายการที่รอส่ง และผลพยากรณ์ยังอยู่ครบ', 'ล้างข้อมูล', true))) return;
+        Local.del(Forecast.daysKey()); Cache.clear(); done('ล้างข้อมูลชั่วคราวแล้ว');
       }),
       navRow('info', 'เกี่ยวกับแอป', 'เวอร์ชัน ' + APP.version + (NativeInfo ? ' สำหรับ Android' : ' เว็บ'), aboutSheet)),
     h('button', { class: 'btn danger', type: 'button', onclick: async () => {
       const waiting = Outbox.all().length;
-      if (await confirmBox('ออกจากระบบ', 'ต้องการออกจากระบบในเครื่องนี้หรือไม่ แชทกับผู้ช่วยในเครื่องนี้จะถูกล้างด้วย' +
+      if (await confirmBox('ออกจากระบบ', 'ต้องการออกจากระบบในเครื่องนี้หรือไม่' +
         (waiting ? ' มีรายการรอส่ง ' + waiting + ' รายการ จะถูกส่งเมื่อเข้าระบบด้วยบัญชีนี้อีกครั้ง' : ''), 'ออกจากระบบ', true)) {
-        Chat.clear(); Auth.logout(); go('#/login', { replace: true });
+        Auth.logout(); go('#/login', { replace: true });
       }
     } }, ic('logout', 'sm'), 'ออกจากระบบ'));
   if (!me.isAdmin()) return;
   fill(adminRows, h('div', { class: 'list' },
     navRow('users', 'ผู้ใช้และสิทธิ์', 'เพิ่มพนักงาน กำหนดสิทธิ์ ปิดการใช้งาน', () => go('#/settings/users')),
     navRow('percent', 'อัตราภาษี', 'กำลังโหลด', () => go('#/settings/tax')),
-    navRow('assistant', 'ผู้ช่วย', 'กำลังโหลด', () => go('#/settings/assistant'))));
+    navRow('forecast', 'พยากรณ์ด้วย AI', 'กำลังโหลด', () => go('#/settings/ai'))));
   try {
-    const [rates, cfg] = await Promise.all([cachedTaxActives(), AssistantConfig.get()]);
+    const [rates, cfg] = await Promise.all([cachedTaxActives(), AiConfig.get()]);
     if (!alive(t)) return;
     const subs = adminRows.querySelectorAll('.rd');
     subs[1].textContent = rates.length === 1 ? 'ใช้อยู่ ' + Money.rate(rates[0].rateCenti) + '%' : rates.length ? 'พบอัตราซ้ำกัน ต้องแก้ไข' : 'ยังไม่ได้ตั้ง';
@@ -4280,12 +4540,9 @@ async function SettingsPage() {
 }
 /** Shown once after an update to people who already used the app. */
 const WHATS_NEW = [
-  ['ticket', 'หน้าตาใหม่ทั้งแอป', 'ไอคอนแต่ละประเภทวาดขึ้นใหม่ ตัวเลขอ่านง่าย มีเสียงและการสั่นเมื่อแตะ'],
-  ['wifioff', 'บันทึกได้แม้ไม่มีสัญญาณ', 'รายการใหม่เก็บไว้ในเครื่อง แล้วส่งให้เองเมื่อกลับมาออนไลน์'],
-  ['print', 'พิมพ์รายงานหรือบันทึกเป็น PDF', 'พร้อมช่องลงชื่อ และเทียบกับช่วงก่อนหน้า'],
-  ['download', 'ส่งออกเป็น Excel และแชร์ยอดทาง LINE', 'ที่หน้า รายการ ปุ่มมุมขวาบน'],
-  ['lock', 'ล็อกแอปด้วยรหัส PIN', 'เปิดได้ที่ ตั้งค่า > ความปลอดภัย'],
-  ['help', 'วิธีใช้งานในแอป', 'ดูได้ที่ ตั้งค่า > วิธีใช้งาน'],
+  ['forecast', 'พยากรณ์ยอดด้วย AI', 'ติ๊ก "พยากรณ์ด้วย AI หลังบันทึก" ตอนเพิ่มรายการ แล้วเลือกพยากรณ์วันนี้หรือทั้งเดือน'],
+  ['home', 'พยากรณ์และดูผลที่หน้าหลัก', 'แตะการ์ดพยากรณ์ เลือกวันนี้หรือทั้งเดือนแล้วกดพยากรณ์ ดูผลที่บันทึกไว้ และแชร์ทาง LINE ได้'],
+  ['settings', 'เมนูผู้ช่วยเปลี่ยนเป็นการพยากรณ์', 'ผู้ดูแลตั้งคีย์บริการและความละเอียดได้ที่ ตั้งค่า > พยากรณ์ด้วย AI คีย์เดิมใช้ต่อได้เลย'],
 ];
 function whatsNew() {
   const close = sheet('มีอะไรใหม่ในเวอร์ชัน ' + APP.version, h('div', { class: 'sheetbody' },
@@ -4295,7 +4552,7 @@ function whatsNew() {
 }
 /** Short guides, one per job people do in the app. */
 const HELP = [
-  ['เริ่มต้นใช้งาน', 'เจ้าของกิจการเริ่มจากรายการ "เริ่มต้นใช้งาน" ที่หน้าหลัก ตั้งอัตราภาษี เพิ่มพนักงาน และเปิดผู้ช่วย ทำครบแล้วรายการนี้จะหายไปเอง'],
+  ['เริ่มต้นใช้งาน', 'เจ้าของกิจการเริ่มจากรายการ "เริ่มต้นใช้งาน" ที่หน้าหลัก ตั้งอัตราภาษี เพิ่มพนักงาน และเปิดพยากรณ์ด้วย AI ทำครบแล้วรายการนี้จะหายไปเอง'],
   ['บันทึกรายรับ', 'แตะ "รายรับ" ที่หน้าหลัก กรอกจำนวนเงิน เลือกวันที่ (มีปุ่มวันนี้ เมื่อวาน) และรายละเอียด แล้วกดบันทึก ใต้ช่องจำนวนเงินจะแสดงยอดเป็นตัวอักษรไว้ให้ตรวจ หลังบันทึกหน้าจอจะว่างพร้อมให้บันทึกรายการถัดไป'],
   ['บันทึกต้นทุนปลา', 'กรอกน้ำหนักปลาเป็นกิโลกรัมและราคาต่อกิโลกรัม แอปคำนวณต้นทุนให้ทันที'],
   ['บันทึกค่าใช้จ่าย', 'เลือกประเภท ค่าจัดงาน (เช่น เช่าเต็นท์ ของรางวัล) หรือ ค่าบำรุงรักษา (เช่น ซ่อมเครื่องตีน้ำ) แล้วกรอกรายละเอียดและจำนวนเงิน'],
@@ -4304,7 +4561,7 @@ const HELP = [
   ['รายงานและภาษี', 'หน้า "รายงาน" เลือกช่วงเวลาแล้วกดสร้างรายงาน ระบบบันทึกผลไว้และไม่เปลี่ยนภายหลัง ในรายงานมีการเทียบกับช่วงก่อนหน้า แชร์เป็นข้อความ หรือพิมพ์และบันทึกเป็น PDF ได้ ภาษีเป็นการประมาณเพื่อการบริหาร'],
   ['แชร์ยอดและส่งออก', 'หน้า "รายการ" ปุ่มแชร์ส่งสรุปยอดของรายการที่เห็นอยู่ไปทาง LINE ได้ ปุ่มดาวน์โหลดได้ไฟล์ CSV ที่เปิดใน Excel ได้ พนักงานกด "ส่งยอดวันนี้" ที่หน้าหลักเพื่อส่งยอดเงินที่รับให้เจ้าของ'],
   ['ผู้ใช้และสิทธิ์', 'เจ้าของเพิ่มพนักงานได้ที่ ตั้งค่า > ผู้ใช้และสิทธิ์ เลือกชุดสิทธิ์สำเร็จรูปหรือกำหนดเอง และเลือกว่าพนักงานเห็นเฉพาะรายการของตนเองหรือทุกรายการ ปิดการใช้งานบัญชีได้โดยไม่ต้องลบ'],
-  ['ผู้ช่วย', 'ถามเรื่องการดูแลบ่อ การจัดงาน หรือการคิดต้นทุนได้ ผู้ช่วยไม่เห็นรายการในแอป เว้นแต่เจ้าของกด "วิเคราะห์ตัวเลขเดือนนี้" ไม่ควรพิมพ์ข้อมูลส่วนตัว คัดลอกคำตอบได้จากปุ่มใต้คำตอบ'],
+  ['พยากรณ์ด้วย AI', 'ตอนเพิ่มรายการ ติ๊ก "พยากรณ์ด้วย AI หลังบันทึก" แล้วเลือกวันนี้หรือทั้งเดือนนี้ เมื่อบันทึกเสร็จ AI จะคาดยอดรายรับ ต้นทุนปลา ค่าใช้จ่าย และกำไรรวมทั้งช่วง ระหว่างนั้นบันทึกรายการต่อได้เลย ช่องนี้ใช้กับการบันทึกครั้งเดียว บันทึกแล้วจะเอาเครื่องหมายออกเอง หรือแตะการ์ด "พยากรณ์ด้วย AI" ในหน้าหลัก เลือกวันนี้หรือทั้งเดือนนี้ แล้วกดพยากรณ์ได้ทันที ผลที่บันทึกไว้เลือกดูได้จากรายการในการ์ด แต่ละบรรทัดบอกช่วง เวลาที่พยากรณ์ และกำไรที่คาด เลือกแล้วจะเห็นยอดที่คาด ช่วงกำไรที่เป็นไปได้ เหตุผล และคำแนะนำ แชร์ผลทาง LINE ได้จากปุ่มแชร์ใต้ผลพยากรณ์ ถ้าบันทึกตอนไม่มีสัญญาณ แอปจะพยากรณ์ให้หลังส่งรายการแล้ว ผลเป็นค่าประมาณเพื่อวางแผน และเก็บไว้ในเครื่องที่สั่งพยากรณ์เท่านั้น ใช้ได้กับเจ้าของและพนักงานที่เห็นทุกรายการ แอปส่งยอดรายวันย้อนหลัง และรายการ 4 สัปดาห์ล่าสุดพร้อมรายละเอียดและชื่อผู้บันทึกไปประมวลผล'],
   ['เสียง การสั่น และการแสดงผล', 'เปิดหรือปิดเสียงเมื่อแตะและการสั่นได้ที่ ตั้งค่า เลือกธีมสว่างหรือมืดและขนาดตัวอักษรได้ ดึงหน้าจอลงเพื่อโหลดข้อมูลใหม่'],
   ['ติดตั้งบน iPhone และคอมพิวเตอร์', 'iPhone เปิดลิงก์ใน Safari แตะปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม" คอมพิวเตอร์ใช้ Chrome หรือ Edge แล้วกดไอคอนติดตั้งที่ช่องที่อยู่'],
 ];
@@ -4320,14 +4577,14 @@ function HelpPage() {
   };
   q.addEventListener('input', draw);
   fill(app(), h('div', { class: 'searchbox helpsearch' }, ic('search', 'sm'), q), list,
-    h('p', { class: 'note', text: 'ถ้ายังติดขัด ถามผู้ช่วยในแอปได้ เช่น "เพิ่มพนักงานในแอปทำอย่างไร"' }));
+    h('p', { class: 'note', text: 'ถ้ายังติดขัด ติดต่อเจ้าของกิจการหรือผู้ดูแลระบบของบ่อ' }));
   draw();
 }
 function aboutSheet() {
   sheet('เกี่ยวกับแอป', h('div', { class: 'sheetbody' },
     h('div', { class: 'aboutmark' }, art(ART.logo), h('div', null, h('div', { class: 'b', text: APP.name }), h('div', { class: 'muted small', text: 'เวอร์ชัน ' + APP.version }))),
     h('p', { class: 'muted small', text: 'แอปบริหารต้นทุนและผลกำไรของบ่อตกปลา บันทึกรายรับ ต้นทุนปลา ค่าจัดงาน และค่าบำรุงรักษา แล้วสรุปกำไรเบื้องต้นและภาษีประมาณการ ข้อมูลเก็บในฐานข้อมูลออนไลน์ของกิจการ และสิทธิ์ของแต่ละคนถูกตรวจทุกครั้งที่อ่านหรือบันทึก' }),
-    h('p', { class: 'muted small', text: 'ผู้ช่วยใช้บริการโมเดลภาษาจากผู้ให้บริการภายนอก ข้อความที่พิมพ์คุยจะถูกส่งไปประมวลผล ผู้ช่วยมองไม่เห็นรายการในแอป' })));
+    h('p', { class: 'muted small', text: 'การพยากรณ์ใช้บริการโมเดลภาษาจากผู้ให้บริการภายนอก แอปส่งยอดรายวันย้อนหลัง และรายการล่าสุดพร้อมรายละเอียดและชื่อผู้บันทึกไปประมวลผล ผลพยากรณ์เก็บไว้ในเครื่องที่สั่งพยากรณ์' })));
 }
 function installApp() {
   if (installPrompt) { installPrompt.prompt(); installPrompt.userChoice.finally(() => { installPrompt = null; }); return; }
@@ -4484,20 +4741,20 @@ async function TaxPage() {
   };
 }
 
-async function AssistantSettingsPage() {
+async function AiSettingsPage() {
   const t = navToken;
-  setPage({ tab: 'settings', sub: true, guard: true, title: 'ผู้ช่วย' });
+  setPage({ tab: 'settings', sub: true, guard: true, title: 'พยากรณ์ด้วย AI' });
   fill(app(), skeleton(3));
-  const cfg = await AssistantConfig.get(true);
+  const cfg = await AiConfig.get(true);
   if (!alive(t)) return;
   const form = {};
-  const enabled = toggleRow('เปิดใช้ผู้ช่วย', 'ทุกคนในกิจการจะเห็นเมนูผู้ช่วย', cfg.enabled || !cfg.exists);
+  const enabled = toggleRow('เปิดใช้การพยากรณ์ด้วย AI', 'เจ้าของและพนักงานที่เห็นทุกรายการจะเลือกพยากรณ์ได้ตอนบันทึก และเห็นผลที่หน้าหลัก', cfg.enabled || !cfg.exists);
   const key = passwordInput('วางคีย์บริการ', 'off');
   key.input.value = cfg.key;
   let mode = cfg.mode;
-  const MODE_HINT = { FAST: 'เริ่มตอบภายในไม่กี่วินาที เหมาะกับการใช้งานทั่วไป', DETAILED: 'คิดละเอียดกว่า ใช้เวลานานขึ้น' };
+  const MODE_HINT = { FAST: 'ได้ผลภายในไม่กี่วินาที เหมาะกับการพยากรณ์หลังบันทึกทุกครั้ง', DETAILED: 'วิเคราะห์ละเอียดกว่า ใช้เวลานานขึ้น' };
   const modeHint = h('div', { class: 'hint', text: MODE_HINT[mode] });
-  const notes = textArea('เช่น เปิดทุกวัน 8:00 ถึง 18:00 ค่าตกปลาชั่วโมงละ 100 บาท มีปลานิล ปลาสวาย ปลาบึก', 4);
+  const notes = textArea('เช่น เปิดทุกวัน 8:00 ถึง 18:00 วันเสาร์อาทิตย์คนมามากกว่าปกติ มีงานแข่งตกปลาเสาร์แรกของเดือน ซื้อปลาลงบ่อทุกวันจันทร์', 4);
   notes.value = cfg.notes;
   const status = h('div', { class: 'small' });
   const test = h('button', { class: 'btn ghost', type: 'button' }, ic('check', 'sm'), 'ทดสอบการเชื่อมต่อ');
@@ -4506,17 +4763,17 @@ async function AssistantSettingsPage() {
     h('div', { class: 'panel' }, enabled),
     h('div', { class: 'panel' },
       field(form, 'key', 'คีย์บริการ', key, 'คีย์จะเก็บในฐานข้อมูลของกิจการ ไม่อยู่ในไฟล์ของแอป'),
-      h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ความเร็วในการตอบ' }),
-        seg([['FAST', 'เร็ว'], ['DETAILED', 'ละเอียด']], mode, v => { mode = v; modeHint.textContent = MODE_HINT[v]; }, 'ความเร็วในการตอบ'), modeHint),
-      field(form, 'notes', 'ข้อมูลกิจการที่ผู้ช่วยควรรู้', notes, 'ผู้ช่วยใช้ข้อมูลนี้ประกอบคำตอบ เช่น เวลาเปิด ราคา ชนิดปลา')),
+      h('div', { class: 'field' }, h('span', { class: 'lbl', text: 'ความละเอียดในการพยากรณ์' }),
+        seg([['FAST', 'เร็ว'], ['DETAILED', 'ละเอียด']], mode, v => { mode = v; modeHint.textContent = MODE_HINT[v]; }, 'ความละเอียดในการพยากรณ์'), modeHint),
+      field(form, 'notes', 'ข้อมูลกิจการที่ช่วยให้พยากรณ์แม่นขึ้น', notes, 'เช่น วันและเวลาเปิด ช่วงที่คนมามาก กำหนดงานแข่ง รอบการซื้อปลา')),
     status, test, save,
-    h('p', { class: 'note', text: 'ผู้ช่วยมองไม่เห็นรายการในแอป ข้อความที่พิมพ์คุยจะถูกส่งไปประมวลผลที่ผู้ให้บริการภายนอก จึงไม่ควรพิมพ์ข้อมูลส่วนตัว' }));
+    h('p', { class: 'note', text: 'การพยากรณ์ส่งยอดรายวันย้อนหลัง 9 สัปดาห์ รายการ 4 สัปดาห์ล่าสุดพร้อมรายละเอียดและชื่อผู้บันทึก และข้อมูลกิจการด้านบน ไปประมวลผลที่ผู้ให้บริการภายนอก ผลเป็นค่าประมาณเพื่อวางแผนเท่านั้น' }));
   test.onclick = async () => {
     clearErrors(form);
     if (key.input.value.trim().length < 20) { showError(invalid('key', 'วางคีย์บริการให้ครบก่อนทดสอบ'), form); return; }
     test.disabled = true; status.className = 'small muted'; status.textContent = 'กำลังทดสอบ';
     try {
-      const sec = await Assistant.test(key.input.value.trim(), mode);
+      const sec = await Ai.test(key.input.value.trim(), mode);
       status.className = 'saved'; fill(status, ic('check', 'sm'), h('span', { text: 'เชื่อมต่อได้ เริ่มตอบใน ' + sec.toFixed(1) + ' วินาที' }));
     } catch (e) {
       status.className = 'notice bad'; fill(status, ic('info', 'sm'), h('span', { class: 'grow', text: toAppError(e).message }));
@@ -4525,8 +4782,8 @@ async function AssistantSettingsPage() {
   save.onclick = async () => {
     clearErrors(form); save.disabled = true;
     try {
-      await withBusy('กำลังบันทึก', () => AssistantConfig.save({ key: key.input.value, enabled: enabled.box.checked, mode, notes: notes.value }));
-      done('บันทึกการตั้งค่าผู้ช่วยแล้ว'); goBack(true);
+      await withBusy('กำลังบันทึก', () => AiConfig.save({ key: key.input.value, enabled: enabled.box.checked, mode, notes: notes.value }));
+      done('บันทึกการตั้งค่าการพยากรณ์แล้ว'); goBack(true);
     } catch (e) {
       if (e.code === E.DENIED) e = new AppError(E.DENIED, 'ฐานข้อมูลยังใช้กฎความปลอดภัยรุ่นเก่า เปิด Firebase > Firestore > Rules แล้ววางกฎชุดใหม่ของแอปเวอร์ชันนี้ แล้วกด Publish จากนั้นบันทึกอีกครั้ง');
       showError(e, form);
@@ -4572,7 +4829,8 @@ function hideBoot() {
     try {
       const r = await Auth.restore();
       if (r === 'FIRST_ADMIN') { hideBoot(); history.replaceState(null, '', '#/login'); LoginPage(); firstAdmin(); return; }
-      buildNav(); Chat.load();
+      buildNav();
+      Local.del('tokpra.chat.' + Session.uid);   // the 3.2 assistant chat kept on this device is no longer used
       const seen = Local.get('tokpra.seenVersion', '');
       // the notes list features, so a fix-only update (3.2.1 to 3.2.2) does not show them again
       const series = v => String(v || '').split('.').slice(0, 2).join('.');
